@@ -30,7 +30,8 @@ import { RedisCacheModule } from './modules/redis/redis-cache.module';
           database: configService.get('DB_DATABASE'), // 数据库名
           timezone: configService.get('DB_TIMEZONE', '+08:00'), // 服务器上配置的时区 默认东八区
           synchronize: configService.get('DB_CREATEAUTO'), // 根据实体自动创建数据库表 生产环境建议关闭
-          autoLoadEntities: false
+          autoLoadEntities: false,
+          dateStrings: true // 转成js的时间格式
         }
       }
     }),

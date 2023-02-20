@@ -16,7 +16,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     // super()
     // 如果用户名是email usernameField的值就是email
     super({
-      usernameField: 'username',
+      usernameField: 'phone',
       passwordField: 'password',
     } as IStrategyOptions);
   }
@@ -24,21 +24,21 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   // 本地身份认证
   async validate(username: string, password: string): Promise<{
     id: string,
-    username: string
+    phone: string
   }> {
-    const userInfo = await this.userRepository.findOneBy({ username: username });
+    const userInfo = await this.userRepository.findOneBy({ phone: username });
     if (!userInfo) {
       throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
     }
     // 解密密码
     const decryptPassword = aes256Decrypt(password, userInfo.password);
     if (decryptPassword !== password) {
-      throw new HttpException('用户名或密码错误', HttpStatus.BAD_REQUEST);
+      throw new HttpException('手机号或密码错误', HttpStatus.BAD_REQUEST);
     }
     // 返回给请求的controller
     return {
       id: userInfo.id,
-      username: userInfo.username
+      phone: userInfo.phone
     };
   }
 }

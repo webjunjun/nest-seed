@@ -3,9 +3,9 @@ import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 
 export class UserDto {
 
-  @ApiProperty({description: '用户名'})
-  @IsNotEmpty({message: '用户名不能为空'})
-  readonly username: string;
+  @ApiProperty({description: '手机号'})
+  @IsNotEmpty({message: '手机号不能为空'})
+  readonly phone: string;
 
   // 注意顺序 最先校验是否空，再是长度不够，再是过长
   @ApiProperty({description: '密码'})

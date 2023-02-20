@@ -21,7 +21,7 @@ export class UserController {
   @Post('register')
   userRegister(@Body() user: UserDto): Promise<{
     id: string,
-    username: string
+    phone: string
   }> {
     return this.userService.registerUser(user);
   }
@@ -29,12 +29,14 @@ export class UserController {
   @ApiOperation({summary: 'web用户登录'})
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  userLogin(@Body() user: UserDto, @Req() request: Http2ServerRequest & {
+  async userLogin(@Body() user: UserDto, @Req() request: Http2ServerRequest & {
     user: {
       id: string,
-      username: string
+      phone: string
     }
   } ): Promise<string> {
+    // 更新最后登录时间
+    await this.userService.updateUserLoginDate(request.user.phone);
     return this.authService.createToken(request.user);
   }
 
@@ -50,7 +52,7 @@ export class UserController {
     // 用户存在 直接登录
     const tokenNeed = {
       id: user.id,
-      username: user.username
+      phone: user.phone
     }
     return this.authService.createToken(tokenNeed);
   }
@@ -59,8 +61,8 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Post('info')
   getUserInfo(@Body() user: {
-    username: string
+    phone: string
   }): Promise<UserEntity> {
-    return this.userService.findOneByUsername(user.username);
+    return this.userService.findOneByPhone(user.phone);
   }
 }

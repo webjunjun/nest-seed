@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   // 请求需要登录才能访问的接口，校验token成功走这里
   async validate(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, payload: any) {
-    const tokenKey = `${payload.username}&${payload.id}`;
+    const tokenKey = `${payload.phone}&${payload.id}`;
     const cacheToken = await this.redisCacheService.cacheGet(tokenKey);
     if (!cacheToken) {
       throw new HttpException('登录已失效', HttpStatus.BAD_REQUEST);
@@ -33,8 +33,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (urlToken !== cacheToken) {
       throw new HttpException('用户已在其他设备登录', HttpStatus.BAD_REQUEST);
     }
-    // payload里是id、username、iat
-    const existUser = await this.userService.findOneByUsername(payload.username);
+    // payload里是id、phone、iat
+    const existUser = await this.userService.findOneByPhone(payload.phone);
     if (!existUser) {
       throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
     }
@@ -48,6 +48,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       )
     }
     // 数据塞在@Req() request里 路由通过request.user获取
-    return { id: payload.id, username: payload.username };
+    return { id: payload.id, phone: payload.phone };
   }
 }

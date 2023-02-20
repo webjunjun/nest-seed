@@ -15,10 +15,10 @@ export class UserService {
   // 注册用户
   async registerUser(registerInfo: UserDto): Promise<{
     id: string,
-    username: string
+    phone: string
   }> {
     // 数据校验
-    const userInfo = await this.userRepository.findOneBy({ username: registerInfo.username });
+    const userInfo = await this.userRepository.findOneBy({ phone: registerInfo.phone });
     if (userInfo) {
       throw new HttpException('用户已存在', HttpStatus.BAD_REQUEST);
     }
@@ -29,16 +29,22 @@ export class UserService {
     const dbUser = await this.userRepository.save(newUser);
     return {
       id: dbUser.id,
-      username: dbUser.username
+      phone: dbUser.phone
     }
   }
 
-  // 根据用户名查询单个用户信息
-  async findOneByUsername(username: string): Promise<UserEntity> {
-    if (!username) {
-      throw new HttpException('用户名不能为空', HttpStatus.BAD_REQUEST);
+  // 根据手机号查询单个用户信息
+  async findOneByPhone(phone: string): Promise<UserEntity> {
+    if (!phone) {
+      throw new HttpException('手机号不能为空', HttpStatus.BAD_REQUEST);
     }
-    return this.userRepository.findOneBy({username: username});
+    return this.userRepository.findOneBy({phone: phone});
+  }
+
+  async updateUserLoginDate(phone: string): Promise<void>{
+    const userInfo = await this.userRepository.findOneBy({phone: phone});
+    userInfo.lastLogin = new Date();
+    await this.userRepository.save(userInfo);
   }
 
   // 根据微信openid查询单个用户

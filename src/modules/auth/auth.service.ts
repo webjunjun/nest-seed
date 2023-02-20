@@ -17,13 +17,13 @@ export class AuthService {
   // 生成access_token
   async createToken(user: {
     id: string,
-    username: string
+    phone: string
   }): Promise<string> {
-    const payload = { id: user.id, username: user.username };
+    const payload = { id: user.id, phone: user.phone };
     const token = await this.jwtService.signAsync(payload, {secret: NestSeedConstants.secret});
     // token保存到redis里
     this.redisCacheService.cacheSet(
-      `${user.username}&${user.id}`,
+      `${user.phone}&${user.id}`,
       token,
       1800
     )
