@@ -3,11 +3,13 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
   // 创建应用
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // ip请求接口限流
   app.use(
@@ -46,6 +48,13 @@ async function bootstrap() {
 
   // 全局利用dto对数据进行简单校验
   app.useGlobalPipes(new ValidationPipe());
+
+  // 设置静态文件目录
+  // http://localhost:3000/static 访问public下的文件 
+  app.useStaticAssets(join(__dirname, '../public'), {
+    // 虚拟前缀
+    prefix: '/static'
+  });
 
   // 监听端口
   await app.listen(3000);

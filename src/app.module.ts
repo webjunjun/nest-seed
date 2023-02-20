@@ -8,6 +8,7 @@ import { HelloModule } from './modules/hello/hello.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RedisCacheModule } from './modules/redis/redis-cache.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -37,6 +38,7 @@ import { RedisCacheModule } from './modules/redis/redis-cache.module';
     }),
     RedisCacheModule,
     CoreModule,
+    UploadModule,
     HelloModule,
     AuthModule,
     UserModule
