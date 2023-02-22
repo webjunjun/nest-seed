@@ -1,5 +1,6 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CodesService } from './codes.service';
 
 @ApiTags('内部注册码')
@@ -10,6 +11,7 @@ export class CodesController {
   ) {}
 
   @ApiOperation({summary: '批量生成注册码'})
+  @UseGuards(JwtAuthGuard)
   @Post('generate')
   async generateCode(@Body() codes: Array<string>): Promise<string> {
     const codesArray = codes;
