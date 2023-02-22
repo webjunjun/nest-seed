@@ -1,1 +1,15 @@
-<view>模板</view>
+<view class="mine-page">
+  <view class="mine-bg-box">
+    <image class="mine-bg" mode="widthFix" src="{{ mineBg }}"></image>
+  </view>
+  <view class="mine-main">
+    <view class="user-box">
+      <button wx:if="{{!avatarUrl}}" class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image src="{{defaultAvatar}}"></image>
+      </button>
+      <image wx:else class="avatar" src="{{avatarUrl}}"></image>
+      <view>小包子9036</view>
+      <view class="cellphone">186-8881-0955</view>
+    </view>
+  </view>
+</view>

@@ -15,7 +15,7 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: 60 * 1000,// 1分钟
-      max: 10, // 每个IP的windowMs(1分钟)内，最大请求值10次
+      max: 60, // 每个IP的windowMs(1分钟)内，最大请求值60次
     })
   );
 

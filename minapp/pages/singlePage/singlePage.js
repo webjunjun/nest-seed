@@ -1,6 +1,12 @@
 const myApp = getApp()
+import { baseImageUrl } from '../../utils/config'
+
 Page({
-  data: {},
+  data: {
+    mineBg: `${baseImageUrl}/mine/mine_bg.png`,
+    defaultAvatar: '',
+    avatarUrl: ''
+  },
   onLoad() {
     if (myApp.globalData.hasLogin) {
       // 登录完成

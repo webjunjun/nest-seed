@@ -1,3 +1,69 @@
-.font18 {
+/* 消除非tab页面的底边距 */
+.mine-diner-page {
+  padding-bottom: 0;
+}
+
+/* 就餐记录 */
+.mine-diner-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx;
+}
+.mine-diner-inner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+.mdi-title {
+  font-size: 32rpx;
+  color: #303030;
+  padding-bottom: 30rpx;
+}
+.mdi-list .mdi-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  font-size: 0;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background-color: #f8f0c4;
+}
+.mdi-list .mdi-item:last-child {
+  margin-bottom: 0;
+}
+.mdi-list .mdi-today {
+  background-color: #b8fad9;
+}
+.mdi-item .mdi-left {
+  margin-right: 50rpx;
+}
+.mdi-left image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+  background-color: #c9c9c9;
+  overflow: hidden;
+}
+.mdi-right .mdi-date {
+  font-size: 24rpx;
+  color: #333;
+}
+.mdi-right .mdi-badge {
+  display: inline-block;
   font-size: 18rpx;
+  color: #fff;
+  padding: 6rpx 16rpx;
+  margin-right: 20rpx;
+  border-radius: 8rpx;
+}
+.mdi-right .mdi-zao {
+  background: linear-gradient( to right, #fd6991, #f91250);
+}
+.mdi-right .mdi-zhong {
+  background: linear-gradient( to right, #ffca13, #ff6a03);
+}
+.mdi-right .mdi-wan {
+  background: linear-gradient( to right, #52e599, #08c163);
 }
