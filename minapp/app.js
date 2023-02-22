@@ -27,6 +27,10 @@ App({
     this.initPage()
   },
   initPage(cellphone) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     wx.getSystemInfo({
       success: (res) => {
         let custom = wx.getMenuButtonBoundingClientRect()
@@ -56,19 +60,22 @@ App({
               }
               wechatLogin(loginData)
                 .then(response => {
+                  wx.hideLoading()
                   wx.setStorageSync('userInfo', JSON.stringify(response.data))
-                  console.log(this.globalData)
                   this.globalData.userInfo = response.data
                   this.globalData.hasLogin = true
                 })
                 .catch(() => {
+                  wx.hideLoading()
                   this.globalData.hasLogin = false
                 })
             } else {
+              wx.hideLoading()
               wx.showToast({
                 title: res.errMsg,
                 icon: 'none',
-                duration: 3000
+                duration: 2000,
+                mask: true
               })
             }
           }

@@ -41,7 +41,7 @@ Page({
           wx.showToast({
             title: '注册失败, 请稍后再试',
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
             mask: true
           })
         }

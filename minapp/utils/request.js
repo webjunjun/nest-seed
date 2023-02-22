@@ -29,7 +29,7 @@ export function request(option) {
           wx.showToast({
             title: res.data.msg,
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
             mask: true,
             success() {
               if (res.statusCode === 401) {
@@ -38,7 +38,7 @@ export function request(option) {
                   wx.reLaunch({
                     url: '/pages/login/login',
                   })
-                }, 3000)
+                }, 2000)
               }
             }
           })
@@ -46,10 +46,12 @@ export function request(option) {
       },
       fail(err) {
         reject(err)
+        wx.hideLoading()
         wx.showToast({
           title: `网络错误${err.errMsg}`,
           icon: 'none',
-          duration: 3000
+          duration: 2000,
+          mask: true
         })
       }
     })
