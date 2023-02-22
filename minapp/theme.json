@@ -1,0 +1,14 @@
+{
+    "light": {
+        "bgColor": "#3275fd",
+        "blueColor": "#b693fe",
+        "greenColor": "#24c489",
+        "orangeColor": "#e7b150"
+    },
+    "dark": {
+        "bgColor": "#3275fd",
+        "blueColor": "#b693fe",
+        "greenColor": "#24c489",
+        "orangeColor": "#e7b150"
+    }
+}

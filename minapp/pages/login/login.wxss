@@ -1,0 +1,74 @@
+.login-page {
+  width: 100%;
+  height: 100vh;
+  background-color: #17a0f7;
+}
+.logn-main, .login-content {
+  position: relative;
+}
+
+/* 头像 */
+.login-bg {
+  width: 100%;
+  height: 800rpx;
+  position: absolute;
+  z-index: 0;
+}
+.login-avatar {
+  width: 100%;
+  height: 300rpx;
+  margin: 0 auto;
+  font-size: 36rpx;
+  color: #fff;
+  text-align: center;
+  padding-top: 216rpx;
+}
+.login-avatar-inner {
+  display: inline-block;
+  width: 300rpx;
+  height: 300rpx;
+}
+.login-avatar image {
+  display: block;
+  width: 300rpx;
+  height: 254rpx;
+  margin: 0 auto;
+}
+
+/* 表单 */
+.login-form {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 48rpx;
+  margin-top: 210rpx;
+}
+.input-cell {
+  width: 100%;
+  height: 98rpx;
+  border: 1rpx solid rgba(255, 255, 255, .5);
+  border-radius: 16rpx;
+  margin-bottom: 40rpx;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, .1);
+  padding: 0 20rpx;
+}
+.input-cell .input-item {
+  width: 100%;
+  height: 98rpx;
+  font-size: 36rpx;
+  color: #fff;
+  text-align: center;
+}
+.input-cell .holder-center {
+  color: #fff;
+}
+.btn-cell button {
+  width: 100%!important;
+  height: 98rpx;
+  padding: 30rpx 24px!important;
+  font-size: 36rpx!important;
+  font-weight: normal!important;
+  color: #17a0f7!important;
+  border-radius: 16rpx!important;
+}

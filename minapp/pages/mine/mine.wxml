@@ -1,0 +1,81 @@
+<view class="mine-page">
+  <view class="mine-bg-box">
+    <image class="mine-bg" mode="widthFix" src="{{ mineBg }}"></image>
+  </view>
+  <view class="mine-main">
+    <view class="user-box">
+      <button wx:if="{{!avatarUrl}}" class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image src="{{defaultAvatar}}"></image>
+      </button>
+      <image wx:else class="avatar" src="{{avatarUrl}}"></image>
+      <view>小包子9036</view>
+      <view class="cellphone">186-8881-0955</view>
+    </view>
+    <view class="weui-flex mine-flex">
+      <view class="weui-flex__item" data-url="/pages/mineDiner/mineDiner" bindtap="bindSwitchUrl">
+        <image class="mine-first" mode="aspectFit" src="{{mineDiner}}"></image>
+        <view>我的就餐</view>
+      </view>
+      <view class="weui-flex__item" data-url="/pages/mineCommute/mineCommute" bindtap="bindSwitchUrl">
+        <image class="mine-second" mode="aspectFit" src="{{mineTravel}}"></image>
+        <view>我的出行</view>
+      </view>
+    </view>
+    <view class="list-box">
+      <view class="list-item" data-url="/pages/personInfo/personInfo" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon1}}"></image>
+          </view>
+          <view class="list-txt">修改个人资料</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+      <view class="list-item" data-url="/pages/publishDiner/publishDiner" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon2}}"></image>
+          </view>
+          <view class="list-txt">发布来客就餐</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+      <view class="list-item" data-url="/pages/publishCommute/publishCommute" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon2}}"></image>
+          </view>
+          <view class="list-txt">发布拼车出行</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=recipe" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon3}}"></image>
+          </view>
+          <view class="list-txt">本周用餐菜谱</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=help" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon3}}"></image>
+          </view>
+          <view class="list-txt">使用帮助教程</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=aboutus" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon3}}"></image>
+          </view>
+          <view class="list-txt">关于我们</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
+    </view>
+  </view>
+</view>

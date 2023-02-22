@@ -1,0 +1,8 @@
+{
+  "description": "项目配置文件",
+  "projectname": "政务预约小程序",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  }
+}
