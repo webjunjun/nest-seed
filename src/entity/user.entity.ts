@@ -21,6 +21,9 @@ export class UserEntity {
   @Column({comment: '用户名', length: 16, nullable: true})
   username: string;
 
+  @Column({name: 'real_name', comment: '真实姓名', length: 16, nullable: true})
+  realName: string;
+
   @Column({comment: '微信openid', length: 32, nullable: true})
   openid: string;
 

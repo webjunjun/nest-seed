@@ -9,6 +9,7 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RedisCacheModule } from './modules/redis/redis-cache.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { CodesModule } from './modules/codes/codes.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -41,7 +42,8 @@ import { UploadModule } from './modules/upload/upload.module';
     UploadModule,
     HelloModule,
     AuthModule,
-    UserModule
+    UserModule,
+    CodesModule
   ]
 })
 export class AppModule {}

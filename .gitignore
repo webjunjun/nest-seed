@@ -37,3 +37,4 @@ lerna-debug.log*
 # 剔除静态目录文件
 /public/*
 !/public/.gitkeep
+!/public/wechat/

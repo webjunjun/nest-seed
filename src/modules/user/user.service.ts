@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { UserEntity } from 'src/entity/user.entity';
 import { UserDto } from './dto/user.dto';
 import { aes256Encrypt } from 'src/utils/md5encrypt';
+import { WechatRegisterDto } from './dto/wechat-register.dto';
 
 @Injectable()
 export class UserService {
@@ -31,6 +32,22 @@ export class UserService {
       id: dbUser.id,
       phone: dbUser.phone
     }
+  }
+
+  // 注册微信用户
+  async registerWechatUser(wechatInfo: WechatRegisterDto): Promise<UserEntity> {
+    // 数据校验
+    const userInfo = await this.userRepository.findOneBy({ phone: wechatInfo.phone });
+    if (userInfo) {
+      throw new HttpException('用户已存在', HttpStatus.BAD_REQUEST);
+    }
+    // 创建用户
+    const newUser = await this.userRepository.create(wechatInfo);
+    // 加密密码
+    newUser.password = aes256Encrypt(wechatInfo.password);
+    const dbUser = await this.userRepository.save(newUser);
+    dbUser.password = '';
+    return dbUser;
   }
 
   // 根据手机号查询单个用户信息

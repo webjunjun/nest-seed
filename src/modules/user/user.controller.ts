@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UseGuards, Req } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, Req, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from 'src/entity/user.entity';
@@ -8,13 +8,18 @@ import { LocalAuthGuard } from 'src/modules/auth/guards/local-auth.guard';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { Http2ServerRequest } from 'http2';
 import { WechatLoginDto } from './dto/wechat-login.dto';
+import { WechatRegisterDto } from './dto/wechat-register.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @ApiTags('用户')
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>
   ) {}
 
   @ApiOperation({summary: '用户注册'})
@@ -42,19 +47,40 @@ export class UserController {
 
   @ApiOperation({ summary: '微信小程序登录' })
   @Post('wechat')
-  async loginWechatMini(@Body() wechatLogin: WechatLoginDto) {
+  async loginWechatMini(@Body() wechatLogin: WechatLoginDto): Promise<UserEntity & {
+    token: string
+  }> {
     const wechatData = await this.authService.loginWechatMini(wechatLogin.code);
-    const user = await this.userService.findOneByOpenid(wechatData.openid);
+    let user = null;
+    if (wechatLogin.phone) {
+      user = await this.userService.findOneByPhone(wechatLogin.phone);
+      user.openid = wechatData.openid;
+      await this.userRepository.save(user);
+    } else {
+      user = await this.userService.findOneByOpenid(wechatData.openid);
+    }
     if (!user) {
       // 用户不存在跳转小程序注册页面或者获取微信用户信息后再让注册
-      return wechatData;
+      throw new HttpException('用户未注册', HttpStatus.UNAUTHORIZED);
     }
     // 用户存在 直接登录
+    user.password = '';
     const tokenNeed = {
       id: user.id,
       phone: user.phone
     }
-    return this.authService.createToken(tokenNeed);
+    const token = await this.authService.createToken(tokenNeed)
+    return {
+      ...user,
+      token
+    };
+  }
+
+  @ApiOperation({summary: '微信小程序注册'})
+  @Post('registerWechat')
+  async wechatRegister(@Body() user: WechatRegisterDto): Promise<string> {
+    await this.userService.registerWechatUser(user);
+    return '注册成功';
   }
 
   @ApiOperation({summary: '获取用户信息'})
