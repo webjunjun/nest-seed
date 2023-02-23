@@ -1,12 +1,8 @@
-import { Controller, Body, Post, UseGuards, Req, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Body, Post, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UserDto } from './dto/user.dto';
 import { UserEntity } from 'src/entity/user.entity';
 import { UserService } from './user.service';
 import { AuthService } from 'src/modules/auth/auth.service';
-import { LocalAuthGuard } from 'src/modules/auth/guards/local-auth.guard';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { Http2ServerRequest } from 'http2';
 import { WechatLoginDto } from './dto/wechat-login.dto';
 import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,29 +17,6 @@ export class UserController {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>
   ) {}
-
-  @ApiOperation({summary: '用户注册'})
-  @Post('register')
-  userRegister(@Body() user: UserDto): Promise<{
-    id: string,
-    phone: string
-  }> {
-    return this.userService.registerUser(user);
-  }
-
-  @ApiOperation({summary: 'web用户登录'})
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  async userLogin(@Body() user: UserDto, @Req() request: Http2ServerRequest & {
-    user: {
-      id: string,
-      phone: string
-    }
-  } ): Promise<string> {
-    // 更新最后登录时间
-    await this.userService.updateUserLoginDate(request.user.phone);
-    return this.authService.createToken(request.user);
-  }
 
   @ApiOperation({ summary: '微信小程序登录' })
   @Post('wechat')
@@ -64,12 +37,15 @@ export class UserController {
       throw new HttpException('用户未注册', HttpStatus.UNAUTHORIZED);
     }
     // 用户存在 直接登录
-    user.password = '';
     const tokenNeed = {
       id: user.id,
       phone: user.phone
     }
-    const token = await this.authService.createToken(tokenNeed)
+    const token = await this.authService.createToken(tokenNeed);
+    // 更新用户最近登录时间
+    user.lastLogin = new Date();
+    await this.userRepository.save(user);
+    user.password = '';
     return {
       ...user,
       token
@@ -81,14 +57,5 @@ export class UserController {
   async wechatRegister(@Body() user: WechatRegisterDto): Promise<string> {
     await this.userService.registerWechatUser(user);
     return '注册成功';
-  }
-
-  @ApiOperation({summary: '获取用户信息'})
-  @UseGuards(JwtAuthGuard)
-  @Post('info')
-  getUserInfo(@Body() user: {
-    phone: string
-  }): Promise<UserEntity> {
-    return this.userService.findOneByPhone(user.phone);
   }
 }
