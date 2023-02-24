@@ -16,5 +16,27 @@
       <view>小包子9036</view>
       <view class="cellphone">186-8881-0955</view>
     </view>
+    <view class="person-info-wrap">
+      <view class="person-info-inner">
+        <view class="pii-title">我的个人资料修改</view>
+        <form class="personInfo-form" catchsubmit="bindSubmit">
+          <view class="input-cell">
+            <input class="input-item" name="realName" placeholder="真实姓名" />
+          </view>
+          <view class="input-cell">
+            <input class="input-item" name="phone" placeholder="手机号码" />
+          </view>
+          <view class="input-cell">
+            <input class="input-item" name="licensePlate" placeholder="车牌号" />
+          </view>
+          <view class="textarea-cell">
+            <textarea class="textarea-item" placeholder-class="textarea-holder" name="brief" placeholder="个人简介" />
+          </view>
+          <view class="btn-cell">
+            <button type="default" hover-class="none" formType="submit">确认修改</button>
+          </view>
+        </form>
+      </view>
+    </view>
   </view>
 </view>

@@ -20,16 +20,14 @@ Page({
     console.log('ok')
   },
   // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../diner/index'
-    })
-  },
   onChooseAvatar(e) {
     // e.detail 是临时路径，需要调用上传接口
     const { avatarUrl } = e.detail 
     this.setData({
       avatarUrl,
     })
+  },
+  bindSubmit(e) {
+    const formData = e.detail.value
   }
 })
