@@ -8,5 +8,11 @@
       <view>小包子9036</view>
       <view class="cellphone">186-8881-0955</view>
     </view>
+    <view class="single-page-wrap">
+      <view class="single-page-inner">
+        <view class="spi-title">单页图文标题</view>
+        <view class="spi-content"></view>
+      </view>
+    </view>
   </view>
 </view>

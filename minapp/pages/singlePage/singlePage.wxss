@@ -1,3 +1,18 @@
-.font18 {
-  font-size: 18rpx;
+/* 单页图文 */
+.single-page-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx;
+}
+.single-page-inner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+.spi-title {
+  font-size: 32rpx;
+  color: #303030;
+  padding-bottom: 30rpx;
 }
