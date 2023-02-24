@@ -6,10 +6,11 @@
     <image class="login-bg" mode="widthFix" src="{{ loginBg }}"></image>
     <view class="login-content">
       <view class="login-avatar">
-        <view class="login-avatar-inner" bindtap="bindUplaodPhoto">
-          <image mode="aspectFit" src="../../static/avatar.png"></image>
+        <button class="login-avatar-inner" open-type="chooseAvatar" bind:chooseavatar="bindUplaodPhoto">
+          <image wx:if="{{!avatarUrl}}" class="default-photo" mode="aspectFit" src="{{defaultAvatar}}"></image>
+          <image wx:else class="avatar-photo" mode="aspectFit" src="{{avatarUrl}}"></image>
           <text>上传头像</text>
-        </view>
+        </button>
       </view>
       <form class="login-form" catchsubmit="bindSubmit">
         <view class="input-cell">

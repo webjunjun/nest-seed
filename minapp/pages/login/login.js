@@ -5,20 +5,16 @@ import { wechatRegister } from '../../api/api'
 Page({
   data: {
     statusBarHeight: 0,
-    loginBg: `${baseImageUrl}/login_bg.png`
+    loginBg: `${baseImageUrl}/login_bg.png`,
+    defaultAvatar: '../../static/avatar.png',
+    avatarUrl: ''
   },
   // 事件处理函数
-  bindUplaodPhoto() {
-    wx.showModal({
-      title: '提示',
-      content: '这是一个模态弹窗',
-      success (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
+  bindUplaodPhoto(e) {
+    // e.detail 是临时路径，需要调用上传接口
+    const { avatarUrl } = e.detail 
+    this.setData({
+      avatarUrl,
     })
   },
   bindSubmit(e) {

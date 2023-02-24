@@ -1,3 +1,135 @@
-.font18 {
+/* 就餐记录 */
+.mine-commute-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx;
+}
+.mine-commute-inner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+.mci-title {
+  font-size: 32rpx;
+  color: #303030;
+  padding-bottom: 30rpx;
+}
+.mci-list .mci-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  font-size: 0;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background-color: #f8f0c4;
+}
+.mci-item .mci-right {
+  flex: 1;
+}
+.mci-list .mci-item:last-child {
+  margin-bottom: 0;
+}
+.mci-list .mci-edit {
+  position: relative;
+  background-color: #b8fad9;
+}
+.mci-item .mci-left {
+  margin-right: 30rpx;
+  text-align: center;
+}
+.mci-left image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+  background-color: #c9c9c9;
+  overflow: hidden;
+}
+.mci-left .mci-name {
   font-size: 18rpx;
+  color: #333;
+  margin-top: 10rpx;
+  max-width: 110rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.mci-right .mci-date {
+  font-size: 30rpx;
+  color: #333;
+}
+.mci-date text {
+  display: inline-block;
+  font-size: 18rpx;
+  color: #fff;
+  background: linear-gradient(to right, #1d22cb, #272491);
+  padding: 0 8rpx;
+  border-radius: 8rpx;
+  vertical-align: 6rpx;
+  margin-left: 10rpx;
+}
+.mci-right .mci-addr {
+  font-size: 28rpx;
+  margin-top: -8rpx;
+}
+.mci-right .mci-desciption {
+  font-size: 24rpx;
+  color: #333;
+}
+.mci-desciption .mci-cell-addr {
+  display: inline-block;
+  text-align: justify;
+  width: calc(100% - 86rpx);
+  vertical-align: top;
+}
+.mci-item .mci-btn {
+  display: none;
+}
+.mci-edit .mci-btn {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 16rpx;
+  border-top: 50rpx solid #ff6a03;
+  border-right: 60rpx solid #ff6a03;
+  border-left: 60rpx solid transparent;
+  border-bottom: 50rpx solid transparent;
+}
+.mci-btn text {
+  display: inline-block;
+  width: 60rpx;
+  font-size: 30rpx;
+  color: #fff;
+  position: absolute;
+  top: -36rpx;
+  right: -48rpx;
+  transform: rotate(40deg);
+}
+.mci-addr .arrow-box {
+  display: inline-block;
+  width: 50rpx;
+  height: 44rpx;
+  position: relative;
+  top: 10rpx;
+  left: 0;
+}
+.arrow-box .arrow-line {
+  position: absolute;
+  top: 22rpx;
+  left: 0;
+  width: 50rpx;
+  height: 1rpx;
+  background-color: #232323;
+}
+.arrow-right {
+  position: absolute;
+  right: 0;
+  top: 16rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border-right: 1rpx solid #232323;
+  border-bottom: 1rpx solid #232323;
+  transform: rotate(-45deg);
 }

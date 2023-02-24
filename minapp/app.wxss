@@ -1,5 +1,13 @@
+/* 消除非tab页面的底边距 */
+.not-tab-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  box-sizing: border-box;
+}
+
 /* 我的、我的就餐与出行、个人资料、单页面顶部样式 */
-.mine-page {
+.tab-page {
   width: 100%;
   min-height: 100vh;
   background-color: #f7f7f7;
@@ -42,6 +50,8 @@
   height: 110rpx;
   border-radius: 100%;
   overflow: hidden;
+  background-color: #c9c9c9;
+  padding: 0;
 }
 .user-box .avatar-wrapper image{
   width: 110rpx;

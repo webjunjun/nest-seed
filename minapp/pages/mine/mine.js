@@ -4,8 +4,7 @@ import { baseImageUrl } from '../../utils/config'
 Page({
   data: {
     mineBg: `${baseImageUrl}/mine/mine_bg.png`,
-    defaultAvatar: '',
-    avatarUrl: '',
+    avatarUrl: '../../static/default_avatar.png',
     mineDiner: `${baseImageUrl}/mine/diner_mine.png`,
     mineTravel: `${baseImageUrl}/mine/car_mine.png`,
     mineIcon1: `${baseImageUrl}/mine/modify_mine.png`,
@@ -37,11 +36,5 @@ Page({
   bindSwitchUrl(e) {
     const { url } = e.currentTarget.dataset
     wx.navigateTo({ url })
-  },
-  onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
-    this.setData({
-      avatarUrl,
-    })
   }
 })

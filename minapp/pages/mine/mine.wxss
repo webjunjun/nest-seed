@@ -69,8 +69,8 @@
   margin-top: 12rpx;
 }
 .list-item .list-right {
-  width: 30rpx;
-  height: 30rpx;
+  width: 20rpx;
+  height: 20rpx;
   border-right: 1px solid #999;
   border-bottom: 1px solid #999;
   transform: rotate(-45deg);

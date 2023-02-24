@@ -1,15 +1,63 @@
-<view class="mine-page">
+<view class="not-tab-page">
   <view class="mine-bg-box">
     <image class="mine-bg" mode="widthFix" src="{{ mineBg }}"></image>
   </view>
   <view class="mine-main">
     <view class="user-box">
-      <button wx:if="{{!avatarUrl}}" class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image src="{{defaultAvatar}}"></image>
-      </button>
-      <image wx:else class="avatar" src="{{avatarUrl}}"></image>
+      <image class="avatar" src="{{avatarUrl}}"></image>
       <view>小包子9036</view>
       <view class="cellphone">186-8881-0955</view>
+    </view>
+    <view class="mine-commute-wrap">
+      <view class="mine-commute-inner">
+        <view class="mci-title">我的出行记录</view>
+        <view class="mci-list">
+          <view class="mci-item mci-edit">
+            <view class="mci-btn">
+              <text>编辑</text>
+            </view>
+            <view class="mci-left">
+              <image src="{{avatarUrl}}"></image>
+              <view class="mci-name">小包子9036</view>
+            </view>
+            <view class="mci-right">
+              <view class="mci-date">
+                <view class="mci-time">2月27日 14:55<text>豫A·809WA</text></view>
+                <view class="mci-addr">金融港 <view class="arrow-box">
+                  <view class="arrow-line"></view>
+                  <view class="arrow-right"></view>
+                </view> 光谷自由城</view>
+              </view>
+              <view class="mci-desciption">
+                <view>途径地: <view class="mci-cell-addr">村庄03、村庄04、村庄05</view></view>
+                <view>座位数: 还有3个空位</view>
+              </view>
+            </view>
+          </view>
+          <view class="mci-item">
+            <view class="mci-btn">
+              <text>编辑</text>
+            </view>
+            <view class="mci-left">
+              <image src="{{avatarUrl}}"></image>
+              <view class="mci-name">小包子9036</view>
+            </view>
+            <view class="mci-right">
+              <view class="mci-date">
+                <view class="mci-time">2月27日 14:55<text>豫A·809WA</text></view>
+                <view class="mci-addr">金融港 <view class="arrow-box">
+                  <view class="arrow-line"></view>
+                  <view class="arrow-right"></view>
+                </view> 光谷自由城</view>
+              </view>
+              <view class="mci-desciption">
+                <view>途径地: <view class="mci-cell-addr">村庄03、村庄04、村庄05</view></view>
+                <view>座位数: 还有3个空位</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

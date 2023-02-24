@@ -27,12 +27,25 @@
   display: inline-block;
   width: 300rpx;
   height: 300rpx;
+  padding: 0;
+  background-color: transparent;
 }
-.login-avatar image {
+.login-avatar .default-photo {
   display: block;
   width: 300rpx;
   height: 254rpx;
   margin: 0 auto;
+}
+.login-avatar .avatar-photo {
+  display: block;
+  width: 254rpx;
+  height: 254rpx;
+  margin: 0 auto;
+  border-radius: 100%;
+}
+.login-avatar-inner text {
+  font-size: 36rpx;
+  color: #fff;
 }
 
 /* 表单 */

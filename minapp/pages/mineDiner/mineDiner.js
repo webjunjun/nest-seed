@@ -4,8 +4,7 @@ import { baseImageUrl } from '../../utils/config'
 Page({
   data: {
     mineBg: `${baseImageUrl}/mine/mine_bg.png`,
-    defaultAvatar: '',
-    avatarUrl: ''
+    avatarUrl: '../../static/default_avatar.png'
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {

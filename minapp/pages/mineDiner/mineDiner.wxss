@@ -1,8 +1,3 @@
-/* 消除非tab页面的底边距 */
-.mine-diner-page {
-  padding-bottom: 0;
-}
-
 /* 就餐记录 */
 .mine-diner-wrap {
   width: 100%;

@@ -1,3 +1,28 @@
-.font18 {
-  font-size: 18rpx;
+.avatar-relative {
+  position: relative;
+}
+.avatar-relative .avatar-btn {
+  position: absolute;
+  width: 110rpx;
+  height: 110rpx;
+}
+.avatar-btn .avatar-plus {
+  position: absolute;
+  left: 16rpx;
+  top: 16rpx;
+  width: 76rpx;
+  height: 76rpx;
+  border: 1rpx dashed #fff;
+  border-radius: 8rpx;
+}
+.avatar-plus text {
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: 100;
+  line-height: 76rpx;
+}
+.avatar-btn .avatar-mask {
+  width: 110rpx;
+  height: 110rpx;
+  background-color: rgba(0, 0, 0, .3);
 }
