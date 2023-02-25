@@ -1,1 +1,139 @@
-<view>出行</view>
+<view class="tab-page {{isShow ? 'tl-show' : ''}}">
+  <view class="common-bg-box">
+    <image class="common-bg" mode="widthFix" src="{{ commuteBg }}"></image>
+  </view>
+  <view class="common-main">
+    <view class="common-user">
+      <view class="cu-left">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+        <view class="cu-info">
+          <view>小包子9036</view>
+          <view class="cellphone">186-8881-0955</view>
+        </view>
+      </view>
+      <view class="cu-right"></view>
+    </view>
+    <view class="common-content">
+      <view class="common-stats-box">
+        <view class="common-stats-list">
+          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
+            <view class="stats-cell">
+              <view class="stats-num">{{item.num}}</view>
+              <view>次</view>
+            </view>
+            <view class="stats-type">{{item.type}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="commute-wrap">
+        <view class="commute-inner">
+          <view class="commute-title-box">
+            <view class="commute-title">拼车出行信息</view>
+            <view class="commute-tag">
+              <view class="commute-fail">未出行</view>
+              <view class="commute-success">已出行</view>
+            </view>
+          </view>
+          <view class="commute-list">
+            <view class="commute-item commute-edit">
+              <view class="commute-btn">
+                <text>编辑</text>
+              </view>
+              <view class="commute-left">
+                <image src="{{avatarUrl}}"></image>
+                <view class="commute-name">小包子9036</view>
+              </view>
+              <view class="commute-right">
+                <view class="commute-date">
+                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
+                  <view class="commute-addr">金融港 <view class="arrow-box">
+                    <view class="arrow-line"></view>
+                    <view class="arrow-right"></view>
+                  </view> 光谷自由城</view>
+                </view>
+                <view class="commute-desciption">
+                  <view>途径地: <view class="commute-cell-addr">
+                    <view class="commute-addr-atom">王屋村</view>
+                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
+                  </view></view>
+                  <view>座位数: 还有3个空位</view>
+                </view>
+              </view>
+            </view>
+            <view class="commute-item commute-edit">
+              <view class="commute-btn">
+                <text>编辑</text>
+              </view>
+              <view class="commute-left">
+                <image src="{{avatarUrl}}"></image>
+                <view class="commute-name">小包子9036</view>
+              </view>
+              <view class="commute-right">
+                <view class="commute-date">
+                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
+                  <view class="commute-addr">金融港 <view class="arrow-box">
+                    <view class="arrow-line"></view>
+                    <view class="arrow-right"></view>
+                  </view> 光谷自由城</view>
+                </view>
+                <view class="commute-desciption">
+                  <view>途径地: <view class="commute-cell-addr">
+                    <view class="commute-addr-atom">王屋村</view>
+                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
+                  </view></view>
+                  <view>座位数: 还有3个空位</view>
+                </view>
+              </view>
+            </view>
+            <view class="commute-item">
+              <view class="commute-btn">
+                <text>编辑</text>
+              </view>
+              <view class="commute-left">
+                <image src="{{avatarUrl}}"></image>
+                <view class="commute-name">小包子9036</view>
+              </view>
+              <view class="commute-right">
+                <view class="commute-date">
+                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
+                  <view class="commute-addr">金融港 <view class="arrow-box">
+                    <view class="arrow-line"></view>
+                    <view class="arrow-right"></view>
+                  </view> 光谷自由城</view>
+                </view>
+                <view class="commute-desciption">
+                  <view>途径地: <view class="commute-cell-addr">
+                    <view class="commute-addr-atom">王屋村</view>
+                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
+                  </view></view>
+                  <view>座位数: 还有3个空位</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="publish-box">
+  <image class="publish-btn" src="{{publishUrl}}"></image>
+</view>
+<popup show="{{isShow}}" bind:close="bindClosePopup">
+  <view class="notice">
+    <view class="notice-bg">
+      <image class="notice-image" mode="widthFix" src="{{dialogUrl}}"></image>
+    </view>
+    <view class="notice-head">
+      <image class="notice-icon" mode="widthFix" src="{{noticeUrl}}"></image>
+    </view>
+    <view class="notice-content">
+      <view class="notice-title">预约拼车出行成功</view>
+      <view class="notice-msg">请与车主电话沟通联系</view>
+      <view class="notice-msg">祝您出行平安</view>
+    </view>
+    <view class="notice-btn-area">
+      <button type="default" hover-class="none" bindtap="bindCallphone">电话联系车主</button>
+    </view>
+  </view>
+</popup>

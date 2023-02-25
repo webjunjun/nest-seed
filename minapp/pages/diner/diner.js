@@ -1,6 +1,21 @@
 const myApp = getApp()
+import { baseImageUrl } from '../../utils/config'
+
 Page({
-  data: {},
+  data: {
+    dinerBg: `${baseImageUrl}/diner/diner_bg.png`,
+    avatarUrl: '../../static/default_avatar.png',
+    statsArr: [{
+      num: 18,
+      type: '早餐'
+    }, {
+      num: 5,
+      type: '中餐'
+    }, {
+      num: 350,
+      type: '晚餐'
+    }]
+  },
   onLoad() {
     if (myApp.globalData.hasLogin) {
       // 登录完成
@@ -17,12 +32,6 @@ Page({
         selected: 0
       })
     }
-  },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '/pages/diner/diner'
-    })
   },
   // 初始化页面方法
   initPage() {

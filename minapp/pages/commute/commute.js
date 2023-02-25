@@ -1,6 +1,25 @@
 const myApp = getApp()
+import { baseImageUrl } from '../../utils/config'
+
 Page({
-  data: {},
+  data: {
+    commuteBg: `${baseImageUrl}/commute/commute_bg.png`,
+    avatarUrl: '../../static/default_avatar.png',
+    publishUrl: `${baseImageUrl}/publish.png`,
+    dialogUrl: `${baseImageUrl}/commute/notice_bg.png`,
+    noticeUrl: `${baseImageUrl}/commute/notice.png`,
+    statsArr: [{
+      num: 18,
+      type: '已发布'
+    }, {
+      num: 5,
+      type: '已拼车'
+    }, {
+      num: 350,
+      type: '总出行'
+    }],
+    isShow: false
+  },
   onLoad() {
     if (myApp.globalData.hasLogin) {
       // 登录完成
@@ -18,14 +37,18 @@ Page({
       })
     }
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '/pages/diner/diner'
-    })
-  },
   // 初始化页面方法
   initPage() {
     console.log('ok')
+  },
+  bindCallphone() {
+    wx.makePhoneCall({
+      phoneNumber: '13112345678'
+    })
+  },
+  bindClosePopup() {
+    this.setData({
+      isShow: false
+    })
   }
 })

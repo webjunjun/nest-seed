@@ -1,3 +1,3 @@
-.font18 {
-  font-size: 18rpx;
+.common-bg-box .common-bg {
+  top: -40rpx;
 }

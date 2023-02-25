@@ -28,7 +28,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view class="list-item" data-url="/pages/publishDiner/publishDiner" bindtap="bindSwitchUrl">
+      <view class="list-item" data-url="/pages/publishDiner/publishDiner?type=add" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <image mode="aspectFit" src="{{mineIcon2}}"></image>
@@ -37,7 +37,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view class="list-item" data-url="/pages/publishCommute/publishCommute" bindtap="bindSwitchUrl">
+      <view class="list-item" data-url="/pages/publishCommute/publishCommute?type=add" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <image mode="aspectFit" src="{{mineIcon2}}"></image>

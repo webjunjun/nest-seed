@@ -19,13 +19,13 @@
   flex-direction: column;
 }
 
-.tab-bar-item image {
+.tab-bar-item .tab-image {
   width: 48rpx;
   height: 48rpx;
   margin-top: 6rpx;
   margin-bottom: 4rpx;
 }
 
-.tab-bar-item view {
+.tab-bar-item .tab-txt {
   font-size: 24rpx;
 }

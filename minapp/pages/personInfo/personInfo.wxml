@@ -30,7 +30,13 @@
             <input class="input-item" name="licensePlate" placeholder="车牌号" />
           </view>
           <view class="textarea-cell">
-            <textarea class="textarea-item" placeholder-class="textarea-holder" name="brief" placeholder="个人简介" />
+            <textarea class="textarea-item"
+              placeholder-class="textarea-holder"
+              name="brief"
+              placeholder="个人简介"
+              cursor-spacing="20rpx"
+              show-confirm-bar="{{false}}"
+            />
           </view>
           <view class="btn-cell">
             <button type="default" hover-class="none" formType="submit">确认修改</button>

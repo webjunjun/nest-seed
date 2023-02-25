@@ -1,1 +1,31 @@
-<view>就餐</view>
+<view class="tab-page">
+  <view class="common-bg-box">
+    <image class="common-bg" mode="widthFix" src="{{ dinerBg }}"></image>
+  </view>
+  <view class="common-main">
+    <view class="common-user">
+      <view class="cu-left">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+        <view class="cu-info">
+          <view>小包子9036</view>
+          <view class="cellphone">186-8881-0955</view>
+        </view>
+      </view>
+      <view class="cu-right"></view>
+    </view>
+    <view class="common-content">
+      <view class="common-stats-box">
+        <view class="common-stats-list">
+          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
+            <view class="stats-cell">
+              <view class="stats-num">{{item.num}}</view>
+              <view>次</view>
+            </view>
+            <view class="stats-type">{{item.type}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
