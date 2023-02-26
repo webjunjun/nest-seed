@@ -16,7 +16,7 @@ Page({
       type: '总出行'
     }],
     isShow: false,
-    value: '2019-11-11 11:11:00'
+    commuteDate: ''
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -33,7 +33,10 @@ Page({
   },
   handleChange(e) {
     this.setData({
-      value: e.detail.dateString
+      commuteDate: e.detail.dateString
     })
+  },
+  bindSubmit(e) {
+    console.log(e)
   }
 })

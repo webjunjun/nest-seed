@@ -161,3 +161,76 @@
   width: 60rpx;
   height: 60rpx;
 }
+
+/* 发布编辑出行表单 发布编辑来客预约 */
+.common-form .common-cell {
+  width: 100%;
+  height: 90rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+.common-cell .common-item {
+  width: 100%;
+  height: 90rpx;
+  font-size: 34rpx;
+  color: #333;
+  flex: 1;
+}
+.common-form .common-holder {
+  font-size: 34rpx;
+  color: #ccc;
+}
+.common-btn button {
+  width: 100%!important;
+  height: 80rpx;
+  font-size: 34rpx!important;
+  font-weight: normal!important;
+  color: #fff!important;
+  border-radius: 8rpx!important;
+  background-color: #fc8c44!important;
+}
+.common-form .common-flex {
+  display: flex;
+  padding-right: 0;
+}
+.common-form .common-picker {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  position: relative;
+}
+.common-picker .picker-left {
+  flex: 1;
+}
+.common-picker .picker-right {
+  width: 20rpx;
+  height: 20rpx;
+  border-right: 1px solid #ababab;
+  border-bottom: 1px solid #ababab;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 0;
+  top: 26rpx;
+}
+.picker-left .picker-tip {
+  font-size: 34rpx;
+  color: #ccc;
+  line-height: 90rpx;
+}
+.picker-left .picker-value {
+  font-size: 34rpx;
+  color: #333;
+  line-height: 90rpx;
+}
+.common-after .seat-word {
+  width: 80rpx;
+  height: 90rpx;
+  font-size: 34rpx;
+  color: #333;
+  text-align: center;
+  line-height: 90rpx;
+  background-color: #fff;
+}

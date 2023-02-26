@@ -1,4 +1,4 @@
-<view class="tab-page {{isShow ? 'tl-show' : ''}}">
+<view class="not-tab-page {{isShow ? 'tl-show' : ''}}">
   <view class="common-bg-box">
     <image class="common-bg" mode="widthFix" src="{{ commuteBg }}"></image>
   </view>
@@ -34,7 +34,37 @@
               <view class="commute-success">已出行</view>
             </view>
           </view>
-          <date-time-picker value="{{value}}" bind:change="handleChange">时间：{{value}}</date-time-picker>
+          <form class="common-form" catchsubmit="bindSubmit">
+            <view class="common-cell">
+              <date-time-picker value="{{commuteDate}}" bind:change="handleChange">
+                <view class="common-picker">
+                  <view class="picker-left">
+                    <view wx:if="{{commuteDate}}" class="picker-value">{{commuteDate}}</view>
+                    <view wx:else class="picker-tip">出行时间*</view>
+                  </view>
+                  <view class="picker-right"></view>
+                </view>
+              </date-time-picker>
+            </view>
+            <view class="common-cell">
+              <input class="common-item" name="startAddr" placeholder-class="common-holder" placeholder="出发地*" />
+            </view>
+            <view class="common-cell">
+              <input class="common-item" name="endAddr" placeholder-class="common-holder" placeholder="目的地*" />
+            </view>
+            <view class="common-cell">
+              <input class="common-item" name="passAddr" placeholder-class="common-holder" placeholder="途径地(多个地点请用逗号分隔, 最多5个)*" />
+            </view>
+            <view class="common-cell common-flex">
+              <input class="common-item" name="seat" placeholder-class="common-holder" placeholder="空座位数(请填写数字)*" />
+              <view class="common-after">
+                <view class="seat-word">座</view>
+              </view>
+            </view>
+            <view class="common-btn">
+              <button type="default" hover-class="none" formType="submit">确认提交</button>
+            </view>
+          </form>
         </view>
       </view>
     </view>
