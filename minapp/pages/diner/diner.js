@@ -5,6 +5,7 @@ Page({
   data: {
     dinerBg: `${baseImageUrl}/diner/diner_bg.png`,
     avatarUrl: '../../static/default_avatar.png',
+    publishUrl: `${baseImageUrl}/publish.png`,
     statsArr: [{
       num: 18,
       type: '早餐'
@@ -36,5 +37,10 @@ Page({
   // 初始化页面方法
   initPage() {
     console.log('ok')
-  }
+  },
+  publishCommute() {
+    wx.navigateTo({
+      url: '/pages/publishDiner/publishDiner',
+    })
+  },
 })

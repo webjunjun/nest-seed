@@ -28,4 +28,6 @@
     </view>
   </view>
 </view>
-
+<view class="publish-box" bindtap="publishCommute">
+  <image class="publish-btn" src="{{publishUrl}}"></image>
+</view>

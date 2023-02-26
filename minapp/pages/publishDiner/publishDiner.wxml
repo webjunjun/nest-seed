@@ -1,1 +1,78 @@
-<view>模板</view>
+<view class="not-tab-page">
+  <view class="common-bg-box">
+    <image class="common-bg" mode="widthFix" src="{{ dinerBg }}"></image>
+  </view>
+  <view class="common-main">
+    <view class="common-user">
+      <view class="cu-left">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+        <view class="cu-info">
+          <view>小包子9036</view>
+          <view class="cellphone">186-8881-0955</view>
+        </view>
+      </view>
+      <view class="cu-right"></view>
+    </view>
+    <view class="common-content">
+      <view class="common-stats-box">
+        <view class="common-stats-list">
+          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
+            <view class="stats-cell">
+              <view class="stats-num">{{item.num}}</view>
+              <view>次</view>
+            </view>
+            <view class="stats-type">{{item.type}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="diner-wrap">
+        <view class="diner-inner">
+          <view class="diner-title-box">
+            <view class="diner-title">发布来客就餐预约</view>
+            <view class="diner-rest">预约剩余时间: 08时30分25秒</view>
+          </view>
+          <form class="common-form" catchsubmit="bindSubmit">
+            <view class="common-cell">
+              <input class="common-item" name="bookerName" placeholder-class="common-holder" placeholder="预约人*" />
+            </view>
+            <view class="common-cell common-flex">
+              <input class="common-item" name="dinerNum" placeholder-class="common-holder" placeholder="就餐人数*" />
+              <view class="common-after">
+                <view class="seat-word">人</view>
+              </view>
+            </view>
+            <view class="common-cell">
+              <date-time-picker value="{{dinerDate}}" bind:change="handleChange">
+                <view class="common-picker">
+                  <view class="picker-left">
+                    <view wx:if="{{dinerDate}}" class="picker-value">{{dinerDate}}</view>
+                    <view wx:else class="picker-tip">就餐时间*</view>
+                  </view>
+                  <view class="picker-right"></view>
+                </view>
+              </date-time-picker>
+            </view>
+            <view class="common-cell">
+              <input class="common-item" name="visitorCompany" placeholder-class="common-holder" placeholder="来客单位*" />
+            </view>
+            <view class="common-cell">
+              <input class="common-item" name="visitorLevel" placeholder-class="common-holder" placeholder="来客级别*" />
+            </view>
+            <view class="common-textarea-cell">
+              <textarea class="common-textarea-item"
+                placeholder-class="common-textarea-holder"
+                name="remark"
+                placeholder="请备注客人用餐口味及其他事项说明*"
+                cursor-spacing="20rpx"
+                show-confirm-bar="{{false}}"
+              />
+            </view>
+            <view class="common-btn">
+              <button type="default" hover-class="none" formType="submit">确认提交</button>
+            </view>
+          </form>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

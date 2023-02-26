@@ -1,4 +1,4 @@
-<view class="not-tab-page {{isShow ? 'tl-show' : ''}}">
+<view class="not-tab-page">
   <view class="common-bg-box">
     <image class="common-bg" mode="widthFix" src="{{ commuteBg }}"></image>
   </view>
