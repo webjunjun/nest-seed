@@ -1,3 +1,44 @@
-.font18 {
-  font-size: 18rpx;
+/* 发布编辑拼车出行信息 */
+.commute-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx 0;
 }
+.commute-inner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+.commute-title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.commute-title {
+  font-size: 32rpx;
+  color: #303030;
+  padding-bottom: 30rpx;
+}
+.commute-title-box .commute-tag {
+  display: flex;
+  font-size: 18rpx;
+  color: #fff;
+}
+.commute-tag .commute-fail {
+  height: 30rpx;
+  padding: 0 16rpx;
+  line-height: 30rpx;
+  border-radius: 8rpx;
+  background-color: #08c163;
+}
+.commute-tag .commute-success {
+  height: 30rpx;
+  padding: 0 16rpx;
+  line-height: 30rpx;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+  background-color: #ff6a03;
+}
+

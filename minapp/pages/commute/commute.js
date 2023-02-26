@@ -41,6 +41,11 @@ Page({
   initPage() {
     console.log('ok')
   },
+  publishCommute() {
+    wx.navigateTo({
+      url: '/pages/publishCommute/publishCommute',
+    })
+  },
   bindCallphone() {
     wx.makePhoneCall({
       phoneNumber: '13112345678'

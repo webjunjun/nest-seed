@@ -1,1 +1,42 @@
-<view>模板</view>
+<view class="tab-page {{isShow ? 'tl-show' : ''}}">
+  <view class="common-bg-box">
+    <image class="common-bg" mode="widthFix" src="{{ commuteBg }}"></image>
+  </view>
+  <view class="common-main">
+    <view class="common-user">
+      <view class="cu-left">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+        <view class="cu-info">
+          <view>小包子9036</view>
+          <view class="cellphone">186-8881-0955</view>
+        </view>
+      </view>
+      <view class="cu-right"></view>
+    </view>
+    <view class="common-content">
+      <view class="common-stats-box">
+        <view class="common-stats-list">
+          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
+            <view class="stats-cell">
+              <view class="stats-num">{{item.num}}</view>
+              <view>次</view>
+            </view>
+            <view class="stats-type">{{item.type}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="commute-wrap">
+        <view class="commute-inner">
+          <view class="commute-title-box">
+            <view class="commute-title">发布拼车出行信息</view>
+            <view class="commute-tag">
+              <view class="commute-fail">未出行</view>
+              <view class="commute-success">已出行</view>
+            </view>
+          </view>
+          <date-time-picker value="{{value}}" bind:change="handleChange">时间：{{value}}</date-time-picker>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

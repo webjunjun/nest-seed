@@ -116,7 +116,7 @@
     </view>
   </view>
 </view>
-<view class="publish-box">
+<view class="publish-box" bindtap="publishCommute">
   <image class="publish-btn" src="{{publishUrl}}"></image>
 </view>
 <popup show="{{isShow}}" bind:close="bindClosePopup">
