@@ -1,0 +1,130 @@
+.common-bg-box .common-bg {
+  top: -40rpx;
+}
+
+.diner-stats-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30rpx 0;
+}
+.diner-stats-inner {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+.dsi-title {
+  font-size: 32rpx;
+  color: #303030;
+  padding-bottom: 30rpx;
+}
+.dsi-list .dsi-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  font-size: 0;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background-color: #f8f0c4;
+}
+.dsi-list .dsi-item:last-child {
+  margin-bottom: 0;
+}
+.dsi-item .dsi-left {
+  margin-right: 50rpx;
+}
+.dsi-left image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+  background-color: #c9c9c9;
+  overflow: hidden;
+}
+.dsi-right .dsi-date {
+  font-size: 18rpx;
+  color: #333;
+}
+.dsi-right .dsi-booking {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #333;
+  margin-right: 30rpx;
+}
+.dsi-right .dsi-badge {
+  display: inline-block;
+  font-size: 18rpx;
+  color: #fff;
+  padding: 6rpx 16rpx;
+  margin-right: 20rpx;
+  border-radius: 8rpx;
+}
+.dsi-right .dsi-zao {
+  background: linear-gradient( to right, #fd6991, #f91250);
+}
+.dsi-right .dsi-zhong {
+  background: linear-gradient( to right, #ffca13, #ff6a03);
+}
+.dsi-right .dsi-wan {
+  background: linear-gradient( to right, #52e599, #08c163);
+}
+
+.visit-list .visit-item {
+  margin-bottom: 30rpx;
+  font-size: 0;
+  box-sizing: border-box;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background-color: #f8f0c4;
+}
+.visit-list .visit-item:last-child {
+  margin-bottom: 0;
+}
+.visit-list .visit-edit {
+  position: relative;
+  background-color: #b8fad9;
+}
+.visit-item .visit-cell {
+  display: flex;
+  font-size: 20rpx;
+  color: #000;
+}
+.visit-cell .visit-info {
+  width: 50%;
+  flex: 1;
+  display: flex;
+}
+.visit-info .visit-title {
+  width: 90rpx;
+  padding-right: 8rpx;
+}
+.visit-info .visit-txt {
+  flex: 1;
+}
+.visit-cell .visit-red {
+  color: #e33810;
+}
+.visit-item .visit-btn {
+  display: none;
+}
+.visit-edit .visit-btn {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 16rpx;
+  border-top: 50rpx solid #ff6a03;
+  border-right: 60rpx solid #ff6a03;
+  border-left: 60rpx solid transparent;
+  border-bottom: 50rpx solid transparent;
+}
+.visit-btn text {
+  display: inline-block;
+  width: 60rpx;
+  font-size: 30rpx;
+  color: #fff;
+  position: absolute;
+  top: -36rpx;
+  right: -48rpx;
+  transform: rotate(40deg);
+}

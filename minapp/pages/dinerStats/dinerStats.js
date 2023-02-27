@@ -5,7 +5,6 @@ Page({
   data: {
     dinerBg: `${baseImageUrl}/diner/diner_bg.png`,
     avatarUrl: '../../static/default_avatar.png',
-    publishUrl: `${baseImageUrl}/publish.png`,
     statsArr: [{
       num: 18,
       type: '今日早餐',
@@ -22,23 +21,31 @@ Page({
       num: 350,
       type: '来客就餐',
       urlQuery: 'visit'
-    }]
+    }],
+    curTitle: '',
+    curType: ''
   },
-  onLoad() {
+  onLoad(option) {
+    let curTitle = ''
+    if (option.type === 'today') {
+      curTitle = '今日就餐预约'
+    }
+    if (option.type === 'visit') {
+      curTitle = '今日来客就餐'
+    }
+    wx.setNavigationBarTitle({
+      title: curTitle
+    })
+    this.setData({
+      curTitle,
+      curType: option.type
+    })
     if (myApp.globalData.hasLogin) {
       // 登录完成
       this.initPage();
     } else {
       // 等待登录完成后操作
       myApp.watchLoginStatus(() => this.initPage())
-    }
-  },
-  onShow() {
-    // 自定义菜单选中tab
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 0
-      })
     }
   },
   // 初始化页面方法
@@ -50,19 +57,9 @@ Page({
       url: '/pages/personInfo/personInfo',
     })
   },
-  publishDiner() {
-    wx.navigateTo({
-      url: '/pages/publishDiner/publishDiner?type=add',
-    })
-  },
-  bindEdit() {
-    wx.navigateTo({
-      url: '/pages/publishCommute/publishCommute?type=edit',
-    })
-  },
   navDinerStat(e) {
     const curItem = e.currentTarget.dataset.item
-    if (curItem.urlQuery === 'none') {
+    if (this.data.curType === curItem.urlQuery) {
       return false
     }
     wx.navigateTo({

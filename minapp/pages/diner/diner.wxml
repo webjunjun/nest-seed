@@ -16,7 +16,7 @@
     <view class="common-content">
       <view class="common-stats-box">
         <view class="common-stats-list">
-          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
+          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
             <view class="stats-cell">
               <view class="stats-num">{{item.num}}</view>
               <view>次</view>

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/diner/diner",
+    "pages/dinerStats/dinerStats",
     "pages/commute/commute",
     "pages/mine/mine",
     "pages/mineDiner/mineDiner",
