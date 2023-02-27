@@ -11,7 +11,7 @@
           <view class="cellphone">186-8881-0955</view>
         </view>
       </view>
-      <view class="cu-right"></view>
+      <view class="cu-right" bindtap="goMinePage"></view>
     </view>
     <view class="common-content">
       <view class="common-stats-box">
@@ -28,6 +28,6 @@
     </view>
   </view>
 </view>
-<view class="publish-box" bindtap="publishCommute">
+<view class="publish-box" bindtap="publishDiner">
   <image class="publish-btn" src="{{publishUrl}}"></image>
 </view>

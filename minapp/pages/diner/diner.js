@@ -38,9 +38,19 @@ Page({
   initPage() {
     console.log('ok')
   },
-  publishCommute() {
+  goMinePage() {
     wx.navigateTo({
-      url: '/pages/publishDiner/publishDiner',
+      url: '/pages/personInfo/personInfo',
     })
   },
+  publishDiner() {
+    wx.navigateTo({
+      url: '/pages/publishDiner/publishDiner?type=add',
+    })
+  },
+  bindEdit() {
+    wx.navigateTo({
+      url: '/pages/publishCommute/publishCommute?type=edit',
+    })
+  }
 })

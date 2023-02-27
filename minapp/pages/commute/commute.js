@@ -41,14 +41,31 @@ Page({
   initPage() {
     console.log('ok')
   },
+  goMinePage() {
+    wx.navigateTo({
+      url: '/pages/personInfo/personInfo',
+    })
+  },
   publishCommute() {
     wx.navigateTo({
-      url: '/pages/publishCommute/publishCommute',
+      url: '/pages/publishCommute/publishCommute?type=add',
+    })
+  },
+  bindEdit() {
+    wx.navigateTo({
+      url: '/pages/publishCommute/publishCommute?type=edit',
+    })
+  },
+  bindBooking() {
+    this.setData({
+      isShow: true
     })
   },
   bindCallphone() {
     wx.makePhoneCall({
-      phoneNumber: '13112345678'
+      phoneNumber: '13112345678',
+      success: () => {},
+      fail: () => {}
     })
   },
   bindClosePopup() {

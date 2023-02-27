@@ -28,7 +28,7 @@
       <view class="commute-wrap">
         <view class="commute-inner">
           <view class="commute-title-box">
-            <view class="commute-title">发布拼车出行信息</view>
+            <view class="commute-title">{{curTitle}}信息</view>
             <view class="commute-tag">
               <view class="commute-fail">未出行</view>
               <view class="commute-success">已出行</view>

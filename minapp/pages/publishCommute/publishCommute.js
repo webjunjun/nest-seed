@@ -16,9 +16,22 @@ Page({
       type: '总出行'
     }],
     isShow: false,
-    commuteDate: ''
+    commuteDate: '',
+    curTitle: ''
   },
-  onLoad() {
+  onLoad(option) {
+    let curTitle = ''
+    if (option.type === 'add') {
+      curTitle = '发布拼车出行'
+    } else {
+      curTitle = '编辑拼车出行'
+    }
+    this.setData({
+      curTitle
+    })
+    wx.setNavigationBarTitle({
+      title: curTitle
+    })
     if (myApp.globalData.hasLogin) {
       // 登录完成
       this.initPage();

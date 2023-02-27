@@ -10,7 +10,7 @@
     </view>
     <view class="single-page-wrap">
       <view class="single-page-inner">
-        <view class="spi-title">单页图文标题</view>
+        <view class="spi-title">{{curTitle}}</view>
         <view class="spi-content"></view>
       </view>
     </view>

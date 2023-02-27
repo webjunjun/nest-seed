@@ -15,9 +15,22 @@ Page({
       num: 350,
       type: '晚餐'
     }],
-    dinerDate: ''
+    dinerDate: '',
+    curTitle: ''
   },
-  onLoad() {
+  onLoad(option) {
+    let curTitle = ''
+    if (option.type === 'add') {
+      curTitle = '发布来客就餐预约'
+    } else {
+      curTitle = '编辑来客就餐预约'
+    }
+    this.setData({
+      curTitle
+    })
+    wx.setNavigationBarTitle({
+      title: curTitle
+    })
     if (myApp.globalData.hasLogin) {
       // 登录完成
       this.initPage();
