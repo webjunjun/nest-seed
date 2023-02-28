@@ -20,7 +20,7 @@ const isLeapYear = function(year) {
 };
 const now = new Date();
 const years = [];
-const beginYear = 1990;
+const beginYear = 2000;
 for (var i = beginYear; i <= now.getFullYear(); i++) {
   years.push(i + "年");
 }

@@ -1,5 +1,6 @@
 const myApp = getApp()
 import { baseImageUrl } from '../../utils/config'
+import { formatTime } from '../../utils/util'
 
 Page({
   data: {
@@ -32,6 +33,10 @@ Page({
     })
     wx.setNavigationBarTitle({
       title: curTitle
+    })
+    const currentDatetime = formatTime(new Date())
+    this.setData({
+      commuteDate: currentDatetime
     })
     if (myApp.globalData.hasLogin) {
       // 登录完成

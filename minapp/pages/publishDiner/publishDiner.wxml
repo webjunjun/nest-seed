@@ -36,7 +36,7 @@
               <input class="common-item" name="bookerName" placeholder-class="common-holder" placeholder="预约人*" />
             </view>
             <view class="common-cell common-flex">
-              <input class="common-item" name="dinerNum" placeholder-class="common-holder" placeholder="就餐人数*" />
+              <input class="common-item" type="number" name="dinerNum" placeholder-class="common-holder" placeholder="就餐人数*" />
               <view class="common-after">
                 <view class="seat-word">人</view>
               </view>

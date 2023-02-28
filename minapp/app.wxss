@@ -233,6 +233,11 @@
   color: #333;
   line-height: 90rpx;
 }
+.common-after {
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 16rpx;
+}
 .common-after .seat-word {
   width: 80rpx;
   height: 86rpx;
@@ -257,7 +262,7 @@
   font-size: 100rpx;
   font-weight: 100;
   color: #a6a6a6;
-  line-height: 38rpx;
+  line-height: 40rpx;
   text-align: center;
   width: 54rpx;
   height: 54rpx;

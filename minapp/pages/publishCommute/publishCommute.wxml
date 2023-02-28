@@ -54,15 +54,15 @@
             </view>
             <view wx:for="{{hasItem}}" wx:key="index" class="common-cell common-flex">
               <input class="common-item" name="passAddr{{index}}" placeholder-class="common-holder" placeholder="途径地(最多5个)*" />
-              <view class="common-after">
-                <view wx:if="{{index === 0}}" class="add-wrap" data-type="add" bindtap="bindPassAddr">
+              <view class="common-after pdl30">
+                <view wx:if="{{index === 0}}" class="add-wrap" data-type="add" catchtap="bindPassAddr">
                   <mp-icon icon="add" color="#a6a6a6" size="{{25}}"></mp-icon>
                 </view>
-                <view wx:else class="minus-wrap" data-type="minus" bindtap="bindPassAddr">-</view>
+                <view wx:else class="minus-wrap" data-type="minus" catchtap="bindPassAddr">-</view>
               </view>
             </view>
             <view class="common-cell common-flex">
-              <input class="common-item" name="seat" placeholder-class="common-holder" placeholder="空座位数(请填写数字)*" />
+              <input class="common-item" type="number" name="seat" placeholder-class="common-holder" placeholder="空座位数(请填写数字)*" />
               <view class="common-after">
                 <view class="seat-word">座</view>
               </view>
