@@ -151,7 +151,7 @@
 /* 发布按钮 */
 .publish-box {
   position: fixed;
-  right: 0;
+  right: 16rpx;
   bottom: 200rpx;
   z-index: 1;
   width: 60rpx;
@@ -227,12 +227,13 @@
 }
 .common-after .seat-word {
   width: 80rpx;
-  height: 90rpx;
+  height: 86rpx;
   font-size: 34rpx;
   color: #333;
   text-align: center;
   line-height: 90rpx;
   background-color: #fff;
+  border-radius: 16rpx;
 }
 .common-textarea-cell {
   width: 100%;

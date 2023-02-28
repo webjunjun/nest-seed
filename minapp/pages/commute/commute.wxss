@@ -125,19 +125,19 @@
   right: 0;
   border-top-right-radius: 16rpx;
   border-top: 50rpx solid #ff6a03;
-  border-right: 60rpx solid #ff6a03;
-  border-left: 60rpx solid transparent;
+  border-right: 50rpx solid #ff6a03;
+  border-left: 50rpx solid transparent;
   border-bottom: 50rpx solid transparent;
 }
 .commute-btn text {
   display: inline-block;
-  width: 60rpx;
-  font-size: 30rpx;
+  width: 50rpx;
+  font-size: 24rpx;
   color: #fff;
   position: absolute;
-  top: -36rpx;
-  right: -48rpx;
-  transform: rotate(40deg);
+  top: -30rpx;
+  right: -40rpx;
+  transform: rotate(45deg);
 }
 .commute-addr .arrow-box {
   display: inline-block;

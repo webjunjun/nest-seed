@@ -42,7 +42,7 @@
   overflow: hidden;
 }
 .dsi-right .dsi-date {
-  font-size: 18rpx;
+  font-size: 24rpx;
   color: #333;
 }
 .dsi-right .dsi-booking {
@@ -73,7 +73,7 @@
   margin-bottom: 30rpx;
   font-size: 0;
   box-sizing: border-box;
-  padding: 24rpx;
+  padding: 24rpx 16rpx;
   border-radius: 16rpx;
   background-color: #f8f0c4;
 }
@@ -86,7 +86,7 @@
 }
 .visit-item .visit-cell {
   display: flex;
-  font-size: 20rpx;
+  font-size: 24rpx;
   color: #000;
 }
 .visit-cell .visit-info {
@@ -95,8 +95,7 @@
   display: flex;
 }
 .visit-info .visit-title {
-  width: 90rpx;
-  padding-right: 8rpx;
+  width: 110rpx;
 }
 .visit-info .visit-txt {
   flex: 1;
@@ -114,17 +113,17 @@
   right: 0;
   border-top-right-radius: 16rpx;
   border-top: 50rpx solid #ff6a03;
-  border-right: 60rpx solid #ff6a03;
-  border-left: 60rpx solid transparent;
+  border-right: 50rpx solid #ff6a03;
+  border-left: 50rpx solid transparent;
   border-bottom: 50rpx solid transparent;
 }
 .visit-btn text {
   display: inline-block;
-  width: 60rpx;
-  font-size: 30rpx;
+  width: 50rpx;
+  font-size: 24rpx;
   color: #fff;
   position: absolute;
-  top: -36rpx;
-  right: -48rpx;
-  transform: rotate(40deg);
+  top: -30rpx;
+  right: -40rpx;
+  transform: rotate(45deg);
 }

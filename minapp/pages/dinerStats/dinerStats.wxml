@@ -69,7 +69,7 @@
                 </view>
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023年3月18日 12:18</view>
+                  <view class="visit-txt">2023-03-18 12:18</view>
                 </view>
               </view>
               <view class="visit-cell">
@@ -110,7 +110,7 @@
                 </view>
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023年3月18日 12:18</view>
+                  <view class="visit-txt">2023-03-18 12:18</view>
                 </view>
               </view>
               <view class="visit-cell">
