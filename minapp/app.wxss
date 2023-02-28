@@ -6,6 +6,14 @@
   box-sizing: border-box;
 }
 
+/* 弹出时 page溢出禁止滚动 */
+.tl-show {
+  overflow: hidden;
+  position:fixed;
+  height: 100%;
+  width: 100%;
+}
+
 /* 我的、我的就餐与出行、个人资料、单页面顶部样式 */
 .tab-page {
   width: 100%;

@@ -95,3 +95,75 @@
 .recipe-arrow .maright {
   margin-left: 10rpx;
 }
+
+/* 本周菜谱 */
+.recipe-page {
+  width: calc(100% - 48rpx);
+  height: calc(100vh - 200rpx);
+  background-color: #fff;
+  border-radius: 16rpx;
+  position: absolute;
+  left: 24rpx;
+  top: 100rpx;
+  overflow: hidden;
+}
+.recipe-page .recipe-bg {
+  width: 100%;
+  height: 150rpx;
+  overflow: hidden;
+}
+.recipe-bg .recipe-image {
+  width: 100%;
+  height: 150rpx;
+}
+.recipe-page .recipe-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150rpx;
+  font-size: 50rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 150rpx;
+}
+.recipe-body .scroll-recipe {
+  width: 100%;
+  height: calc(100vh - 500rpx);
+  box-sizing: border-box;
+  padding: 70rpx 40rpx 20rpx;
+}
+.scroll-recipe .sr-item {
+  margin-bottom: 20rpx;
+}
+.scroll-recipe .sr-item:last-child {
+  margin-bottom: 0;
+}
+.scroll-recipe .sr-title {
+  font-size: 32rpx;
+  color: #2466ec;
+}
+.scroll-recipe .sr-desc {
+  font-size: 28rpx;
+  color: #999;
+}
+.recipe-page .recipe-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 150rpx;
+  background-color: #fff;
+  overflow: hidden;
+}
+.recipe-footer button {
+  width: 390rpx!important;
+  height: 90rpx;
+  font-size: 32rpx!important;
+  font-weight: normal!important;
+  color: #fff!important;
+  line-height: 60rpx;
+  border-radius: 90rpx!important;
+  background-color: #2693e7!important;
+  box-shadow: 0 0 30px 4px rgba(0, 0, 0, .1);
+}

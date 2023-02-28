@@ -234,10 +234,3 @@
   border-radius: 76rpx!important;
   background: linear-gradient(to right, #be7ef1, #5b60f9);
 }
-/* 弹出时 page溢出禁止滚动 */
-.tl-show {
-  overflow: hidden;
-  position:fixed;
-  height: 100%;
-  width: 100%;
-}

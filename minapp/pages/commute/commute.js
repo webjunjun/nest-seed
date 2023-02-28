@@ -60,6 +60,12 @@ Page({
     this.setData({
       isShow: true
     })
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 1,
+        isShowTabBar: false
+      })
+    }
   },
   bindCallphone() {
     wx.makePhoneCall({
@@ -72,5 +78,11 @@ Page({
     this.setData({
       isShow: false
     })
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 1,
+        isShowTabBar: true
+      })
+    }
   }
 })

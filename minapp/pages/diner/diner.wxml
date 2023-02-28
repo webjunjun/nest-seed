@@ -1,4 +1,4 @@
-<view class="tab-page">
+<view class="tab-page {{isShow ? 'tl-show' : ''}}">
   <view class="common-bg-box">
     <image class="common-bg" mode="widthFix" src="{{ dinerBg }}"></image>
   </view>
@@ -29,7 +29,7 @@
         <view class="diner-tab-inner">
           <view class="diner-tab-box">
             <view class="dti-title">我的今日三餐</view>
-            <view class="recipe-arrow">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{10}}"></mp-icon></view>
+            <view class="recipe-arrow" bindtap="openPopup">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{10}}"></mp-icon></view>
           </view>
           <view class="booking-wrap">
             <view class="booking-box today-one">
@@ -188,3 +188,26 @@
 <view class="publish-box" bindtap="publishDiner">
   <image class="publish-btn" src="{{publishUrl}}"></image>
 </view>
+<popup show="{{isShow}}">
+  <view class="recipe-page">
+    <view class="recipe-bg">
+      <image class="recipe-image" mode="widthFix" src="{{dialogUrl}}"></image>
+    </view>
+    <view class="recipe-header">本周菜谱</view>
+    <view class="recipe-body">
+      <scroll-view class="scroll-recipe" scroll-y="true">
+        <view class="sr-item">
+          <view class="sr-title">菜谱图文内容</view>
+          <view class="sr-desc">菜谱图文内容</view>
+        </view>
+        <view class="sr-item">
+          <view class="sr-title">菜谱图文内容</view>
+          <view class="sr-desc">菜谱图文内容</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="recipe-footer">
+      <button type="default" hover-class="none" bindtap="bindClosePopup">我知道了</button>
+    </view>
+  </view>
+</popup>

@@ -6,6 +6,7 @@ Page({
     dinerBg: `${baseImageUrl}/diner/diner_bg.png`,
     avatarUrl: '../../static/default_avatar.png',
     publishUrl: `${baseImageUrl}/publish.png`,
+    dialogUrl: `${baseImageUrl}/diner/recipe_top.png`,
     statsArr: [{
       num: 18,
       type: '今日早餐',
@@ -22,7 +23,8 @@ Page({
       num: 350,
       type: '来客就餐',
       urlQuery: 'visit'
-    }]
+    }],
+    isShow: false
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -68,5 +70,27 @@ Page({
     wx.navigateTo({
       url: '/pages/dinerStats/dinerStats?type=' + curItem.urlQuery
     })
+  },
+  openPopup() {
+    this.setData({
+      isShow: true
+    })
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0,
+        isShowTabBar: false
+      })
+    }
+  },
+  bindClosePopup() {
+    this.setData({
+      isShow: false
+    })
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0,
+        isShowTabBar: true
+      })
+    }
   }
 })
