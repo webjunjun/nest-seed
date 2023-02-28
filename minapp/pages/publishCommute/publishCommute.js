@@ -56,11 +56,15 @@ Page({
       if (this.data.hasItem >= 5) {
         wx.showToast({
           title: '途径地最多5个',
+          icon: 'none',
+          duration: 2000,
+          mask: true
         })
+        return false
       }
     }
     this.setData({
-      hasItem: curType ? this.data.hasItem + 1 : this.data.hasItem - 1
+      hasItem: curType === 'add' ? this.data.hasItem + 1 : this.data.hasItem - 1
     })
   },
   bindSubmit(e) {

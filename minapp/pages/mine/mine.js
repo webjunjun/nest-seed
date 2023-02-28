@@ -9,7 +9,8 @@ Page({
     mineTravel: `${baseImageUrl}/mine/car_mine.png`,
     mineIcon1: `${baseImageUrl}/mine/modify_mine.png`,
     mineIcon2: `${baseImageUrl}/mine/push_mine.png`,
-    mineIcon3: `${baseImageUrl}/mine/help_mine.png`
+    mineIcon3: `${baseImageUrl}/mine/help_mine.png`,
+    role: 0
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {

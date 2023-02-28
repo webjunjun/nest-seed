@@ -73,6 +73,15 @@
         </view>
         <view class="list-right"></view>
       </view>
+      <view wx:if="{{role === 1}}" class="list-item" data-url="/pages/settingList/settingList" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <mp-icon extClass="my-setting" icon="setting" color="#fff" size="{{24}}"></mp-icon>
+          </view>
+          <view class="list-txt">后台管理</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
     </view>
   </view>
 </view>

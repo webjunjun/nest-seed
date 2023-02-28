@@ -52,13 +52,13 @@
             <view class="common-cell">
               <input class="common-item" name="endAddr" placeholder-class="common-holder" placeholder="目的地*" />
             </view>
-            <view class="common-cell common-flex">
+            <view wx:for="{{hasItem}}" wx:key="index" class="common-cell common-flex">
               <input class="common-item" name="passAddr{{index}}" placeholder-class="common-holder" placeholder="途径地(最多5个)*" />
               <view class="common-after">
-                <view wx:if="{{hasItem}}" class="add-wrap" data-type="add" bindtap="bindPassAddr">
+                <view wx:if="{{index === 0}}" class="add-wrap" data-type="add" bindtap="bindPassAddr">
                   <mp-icon icon="add" color="#a6a6a6" size="{{25}}"></mp-icon>
                 </view>
-                <!-- <view class="minus-wrap" data-type="minus" bindtap="bindPassAddr">-</view> -->
+                <view wx:else class="minus-wrap" data-type="minus" bindtap="bindPassAddr">-</view>
               </view>
             </view>
             <view class="common-cell common-flex">

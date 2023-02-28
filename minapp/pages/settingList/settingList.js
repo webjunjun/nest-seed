@@ -10,12 +10,6 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../diner/index'
-    })
-  },
   // 初始化页面方法
   initPage() {
     console.log('ok')

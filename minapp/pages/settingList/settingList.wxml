@@ -1,1 +1,38 @@
-<view>模板</view>
+<mp-cells ext-class="my-cells" title="后台管理列表">
+  <mp-cell>
+    <view>设置预约三餐时间段</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+  <mp-cell>
+    <view>设置来客就餐预约时间段</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+  <mp-cell>
+    <view>发布本周用餐菜谱</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+  <mp-cell>
+    <view>发布使用帮助教程</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+  <mp-cell>
+    <view>发布关于我们</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+  <mp-cell>
+    <view>设置用户角色</view>
+    <view slot="footer">
+      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
+    </view>
+  </mp-cell>
+</mp-cells>
