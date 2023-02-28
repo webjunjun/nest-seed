@@ -256,3 +256,63 @@
   font-size: 34rpx;
   color: #ccc;
 }
+
+/* 来客预约列表 */
+.visit-list .visit-item {
+  margin-bottom: 30rpx;
+  font-size: 0;
+  box-sizing: border-box;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  background-color: #f8f0c4;
+}
+.visit-list .visit-item:last-child {
+  margin-bottom: 0;
+}
+.visit-list .visit-edit {
+  position: relative;
+  background-color: #b8fad9;
+}
+.visit-item .visit-cell {
+  display: flex;
+  font-size: 24rpx;
+  color: #000;
+}
+.visit-cell .visit-info {
+  width: 50%;
+  flex: 1;
+  display: flex;
+}
+.visit-info .visit-title {
+  width: 110rpx;
+}
+.visit-info .visit-txt {
+  flex: 1;
+}
+.visit-cell .visit-red {
+  color: #e33810;
+}
+.visit-item .visit-btn {
+  display: none;
+}
+.visit-edit .visit-btn {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 16rpx;
+  border-top: 50rpx solid #ff6a03;
+  border-right: 50rpx solid #ff6a03;
+  border-left: 50rpx solid transparent;
+  border-bottom: 50rpx solid transparent;
+}
+.visit-btn text {
+  display: inline-block;
+  width: 50rpx;
+  font-size: 24rpx;
+  color: #fff;
+  position: absolute;
+  top: -30rpx;
+  right: -40rpx;
+  transform: rotate(45deg);
+}

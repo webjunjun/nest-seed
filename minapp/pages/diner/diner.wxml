@@ -25,6 +25,163 @@
           </view>
         </view>
       </view>
+      <view class="diner-tab-wrap">
+        <view class="diner-tab-inner">
+          <view class="diner-tab-box">
+            <view class="dti-title">我的今日三餐</view>
+            <view class="recipe-arrow">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{10}}"></mp-icon></view>
+          </view>
+          <view class="booking-wrap">
+            <view class="booking-box today-one">
+              <view class="booking-info">
+                <view class="booking-type">早餐</view>
+                <view class="booking-done">已就餐</view>
+              </view>
+              <view class="booking-date">01/01 06:10-07:30</view>
+            </view>
+            <view class="booking-box today-two">
+              <view class="booking-info">
+                <view class="booking-type">中餐</view>
+                <view class="booking-done">已预约</view>
+              </view>
+              <view class="booking-date">01/01 12:10-13:30</view>
+            </view>
+            <view class="booking-box today-three">
+              <view class="booking-info">
+                <view class="booking-type">晚餐</view>
+                <view class="booking-done">未预约</view>
+              </view>
+              <view class="booking-date">01/01 18:10-19:30</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="diner-tab-wrap">
+        <view class="diner-tab-inner">
+          <view class="diner-tab-box">
+            <view class="dti-title">预约明日三餐</view>
+            <!-- <view class="dti-rest">预约剩余时间: 08时30分25秒</view> -->
+            <view class="dti-rest">已截止预约/请于明日8:00前预约</view>
+          </view>
+          <view class="booking-wrap">
+            <view class="booking-box tomorrow-one">
+              <view class="booking-info">
+                <view class="booking-type">早餐</view>
+                <view class="booking-done">未预约</view>
+              </view>
+              <view class="booking-date">01/02 06:10-07:30</view>
+            </view>
+            <view class="booking-box tomorrow-one">
+              <view class="booking-info">
+                <view class="booking-type">中餐</view>
+                <view class="booking-done">未预约</view>
+              </view>
+              <view class="booking-date">01/02 12:10-13:30</view>
+            </view>
+            <view class="booking-box tomorrow-two">
+              <view class="booking-info">
+                <view class="booking-type">晚餐</view>
+                <view class="booking-done">已预约</view>
+              </view>
+              <view class="booking-date">01/02 18:10-19:30</view>
+            </view>
+          </view>
+          <view class="booking-tips">点击早餐、中餐、晚餐即可预约明日三餐，预约时间截止前可修改预约数据。</view>
+        </view>
+      </view>
+      <view class="diner-tab-wrap">
+        <view class="diner-tab-inner">
+          <view class="diner-tab-box">
+            <view class="dti-title">来客就餐预约</view>
+            <view class="dti-rest">预约剩余时间: 08时30分25秒</view>
+            <!-- <view class="dti-rest">已截止预约/请于明日10:00前预约</view> -->
+          </view>
+          <view class="visit-list">
+            <view class="visit-item visit-edit">
+              <view class="visit-btn">
+                <text>编辑</text>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">预约编号: </view>
+                  <view class="visit-txt">0018</view>
+                </view>
+                <view class="visit-info">
+                  <view class="visit-title">预约人: </view>
+                  <view class="visit-txt">张三五</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info visit-red">
+                  <view class="visit-title">就餐人数: </view>
+                  <view class="visit-txt">20人</view>
+                </view>
+                <view class="visit-info visit-red">
+                  <view class="visit-title">就餐时间: </view>
+                  <view class="visit-txt">2023-03-18 12:18</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">来客单位: </view>
+                  <view class="visit-txt">某某高新集团</view>
+                </view>
+                <view class="visit-info">
+                  <view class="visit-title">来客级别: </view>
+                  <view class="visit-txt">正科级</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">就餐备注: </view>
+                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
+                </view>
+              </view>
+            </view>
+            <view class="visit-item">
+              <view class="visit-btn">
+                <text>编辑</text>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">预约编号: </view>
+                  <view class="visit-txt">0018</view>
+                </view>
+                <view class="visit-info">
+                  <view class="visit-title">预约人: </view>
+                  <view class="visit-txt">张三五</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info visit-red">
+                  <view class="visit-title">就餐人数: </view>
+                  <view class="visit-txt">20人</view>
+                </view>
+                <view class="visit-info visit-red">
+                  <view class="visit-title">就餐时间: </view>
+                  <view class="visit-txt">2023-03-18 12:18</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">来客单位: </view>
+                  <view class="visit-txt">某某高新集团</view>
+                </view>
+                <view class="visit-info">
+                  <view class="visit-title">来客级别: </view>
+                  <view class="visit-txt">正科级</view>
+                </view>
+              </view>
+              <view class="visit-cell">
+                <view class="visit-info">
+                  <view class="visit-title">就餐备注: </view>
+                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

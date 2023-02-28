@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "就餐"
+  "navigationBarTitleText": "就餐",
+  "usingComponents": {
+    "mp-icon": "weui-miniprogram/icon/icon"
+  }
 }
