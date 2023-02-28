@@ -17,7 +17,8 @@ Page({
     }],
     isShow: false,
     commuteDate: '',
-    curTitle: ''
+    curTitle: '',
+    hasItem: 1
   },
   onLoad(option) {
     let curTitle = ''
@@ -47,6 +48,19 @@ Page({
   handleChange(e) {
     this.setData({
       commuteDate: e.detail.dateString
+    })
+  },
+  bindPassAddr(e) {
+    const curType = e.currentTarget.dataset.type
+    if (curType === 'add') {
+      if (this.data.hasItem >= 5) {
+        wx.showToast({
+          title: '途径地最多5个',
+        })
+      }
+    }
+    this.setData({
+      hasItem: curType ? this.data.hasItem + 1 : this.data.hasItem - 1
     })
   },
   bindSubmit(e) {

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "发布拼车出行",
   "usingComponents": {
-    "date-time-picker": "../../components/date-time-picker/index"
+    "date-time-picker": "../../components/date-time-picker/index",
+    "mp-icon": "weui-miniprogram/icon/icon"
   }
 }
