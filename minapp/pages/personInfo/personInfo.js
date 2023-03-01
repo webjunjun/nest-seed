@@ -30,6 +30,7 @@ Page({
       avatarUrl: publicUrl + pageUser.avatar,
       formAvatar: pageUser.avatar,
       user: {
+        id: pageUser.id,
         realName: pageUser.realName,
         phone: pageUser.phone,
         licensePlate: pageUser.licensePlate,
@@ -62,6 +63,7 @@ Page({
     })
   },
   bindSubmit(e) {
+    const curUser = this.data.user
     const formData = e.detail.value
     let msg = ''
     if (!msg && !isChinese(formData.realName)) {
@@ -75,6 +77,13 @@ Page({
       if (!msg && !isVehicleNumber(formData.licensePlate)) {
         msg = '车牌号格式错误'
       }
+    } else {
+      // 如果提交过车牌号 就不准清空了
+      if (curUser.licensePlate) {
+        if (!msg && !isVehicleNumber(formData.licensePlate)) {
+          msg = '车牌号格式错误'
+        }
+      }
     }
     if (msg) {
       wx.showToast({
@@ -86,31 +95,49 @@ Page({
       return false
     }
     formData.avatar = this.data.formAvatar
-    // wx.showLoading({
-    //   title: '加载中',
-    //   mask: true
-    // })
-    // wechatUserUpdate(formData)
-    //   .then(res => {
-    //     wx.hideLoading()
-    //     if (res.code === 1) {
-    //       wx.showToast({
-    //         title: res.msg,
-    //         icon: 'success',
-    //         duration: 2000,
-    //         mask: true
-    //       })
-    //     } else {
-    //       wx.showToast({
-    //         title: res.msg,
-    //         icon: 'none',
-    //         duration: 2000,
-    //         mask: true
-    //       })
-    //     }
-    //   })
-    //   .catch(() => {
-    //     wx.hideLoading()
-    //   })
+    formData.id = curUser.id
+    formData.updateId = curUser.id
+    formData.updateName = curUser.realName
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wechatUserUpdate(formData)
+      .then(res => {
+        wx.hideLoading()
+        if (res.code === 1) {
+          wx.showToast({
+            title: res.data,
+            icon: 'success',
+            duration: 2000,
+            mask: true,
+            success: () => {
+              const pageUser = myApp.globalData.userInfo
+              Object.assign(pageUser, {
+                realName: formData.realName,
+                phone: formData.phone,
+                licensePlate: formData.licensePlate,
+                brief: formData.brief,
+                avatar: formData.avatar
+              })
+              // 更新个人信息
+              wx.setStorageSync('userInfo', JSON.stringify(pageUser))
+              myApp.globalData.userInfo = pageUser
+              // 更新当前页面
+              this.initPage()
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none',
+            duration: 2000,
+            mask: true
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
   }
 })

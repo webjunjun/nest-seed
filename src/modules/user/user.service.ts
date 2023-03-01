@@ -5,6 +5,7 @@ import { UserEntity } from 'src/entity/user.entity';
 import { aes256Encrypt } from 'src/utils/md5encrypt';
 import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { RegisterCodeEntity } from 'src/entity/register-code.entity';
+import { UserUpdateDto } from './dto/user-update.dto';
 
 @Injectable()
 export class UserService {
@@ -54,5 +55,13 @@ export class UserService {
       throw new HttpException('微信openid不能为空', HttpStatus.BAD_REQUEST);
     }
     return this.userRepository.findOneBy({openid: openid});
+  }
+
+  // 保存用户修改
+  async updateUserData(userInfo: UserUpdateDto): Promise<UserEntity> {
+    const curUser = await this.userRepository.findOneBy({id: userInfo.id});
+    Object.assign(curUser, userInfo);
+    curUser.modifyDate = new Date();
+    return this.userRepository.save(curUser);
   }
 }

@@ -7,6 +7,7 @@ import { WechatLoginDto } from './dto/wechat-login.dto';
 import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserUpdateDto } from './dto/user-update.dto';
 
 @ApiTags('用户')
 @Controller('user')
@@ -57,5 +58,12 @@ export class UserController {
   async wechatRegister(@Body() user: WechatRegisterDto): Promise<string> {
     await this.userService.registerWechatUser(user);
     return '注册成功';
+  }
+
+  @ApiOperation({summary: '个人信息修改'})
+  @Post('update')
+  async updateUserInfo(@Body() user: UserUpdateDto): Promise<string> {
+    await this.userService.updateUserData(user);
+    return '修改个人信息成功';
   }
 }

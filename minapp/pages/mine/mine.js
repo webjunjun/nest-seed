@@ -30,9 +30,17 @@ Page({
         selected: 2
       })
     }
+    if (myApp.globalData.hasLogin) {
+      this.initData();
+    }
   },
   // 初始化页面方法
   initPage() {
+    // 只需执行一次的
+    this.initData()
+  },
+  initData() {
+    // 每次显示都执行的
     const pageUser = myApp.globalData.userInfo
     this.setData({
       realName: pageUser.realName,

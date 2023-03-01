@@ -16,3 +16,11 @@ export const wechatRegister = (data) => {
     data
   })
 }
+
+export const wechatUserUpdate = (data) => {
+  return request({
+    url: '/user/update',
+    method: 'POST',
+    data
+  })
+}
