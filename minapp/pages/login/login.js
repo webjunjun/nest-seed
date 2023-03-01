@@ -1,28 +1,70 @@
 const myApp = getApp()
-import { baseImageUrl } from '../../utils/config'
+import { baseUrl, baseImageUrl, publicUrl } from '../../utils/config'
 import { wechatRegister } from '../../api/api'
+import { checkModbile, isChinese } from '../../utils/util'
 
 Page({
   data: {
     statusBarHeight: 0,
     loginBg: `${baseImageUrl}/login_bg.png`,
     defaultAvatar: '../../static/avatar.png',
-    avatarUrl: ''
+    avatarUrl: '',
+    formAvatar: ''
   },
   // 事件处理函数
   bindUplaodPhoto(e) {
-    // e.detail 是临时路径，需要调用上传接口
-    const { avatarUrl } = e.detail 
-    this.setData({
-      avatarUrl,
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    const { avatarUrl } = e.detail
+    wx.uploadFile({
+      url: `${baseUrl}/file/upload`,
+      filePath: avatarUrl,
+      name: 'file',
+      success: (res) => {
+        const json = JSON.parse(res.data)
+        this.setData({
+          avatarUrl: publicUrl + json.data,
+          formAvatar: json.data
+        })
+        wx.hideLoading()
+      },
+      fail: () => {
+        wx.hideLoading()
+      }
     })
   },
   bindSubmit(e) {
     const formData = e.detail.value
-    if (this.loading) {
+    let msg = ''
+    if (!this.data.formAvatar) {
+      msg = '请上传用户头像'
+    }
+    if (!msg && !isChinese(formData.realName)) {
+      msg = '真实姓名请输入中文'
+    }
+    if (!msg && !checkModbile(formData.phone)) {
+      msg = '手机号格式错误'
+    }
+    if (!msg && formData.registerCode === '') {
+      msg = '内部注册码不能为空'
+    }
+    if (msg) {
+      wx.showToast({
+        title: msg,
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
       return false
     }
-    formData.avatar = ''
+    formData.avatar = this.data.formAvatar
+    // 校验用户数据
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     // 账号设置默认密码
     formData.password = '123456'
     wechatRegister(formData)
@@ -31,9 +73,7 @@ Page({
           // 调用登录接口
           this.loginSystem(formData)
         } else {
-          this.setData({
-            loading: false
-          })
+          wx.hideLoading()
           wx.showToast({
             title: '注册失败, 请稍后再试',
             icon: 'none',
@@ -43,9 +83,7 @@ Page({
         }
       })
       .catch(() => {
-        this.setData({
-          loading: false
-        })
+        wx.hideLoading()
       })
   },
   loginSystem(obj) {
@@ -54,9 +92,7 @@ Page({
       wx.switchTab({
         url: '/pages/diner/diner',
         success: () => {
-          this.setData({
-            loading: false
-          })
+          wx.hideLoading()
         }
       })
     })

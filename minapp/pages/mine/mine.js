@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { baseImageUrl } from '../../utils/config'
+import { baseImageUrl, publicUrl } from '../../utils/config'
 
 Page({
   data: {
@@ -10,7 +10,9 @@ Page({
     mineIcon1: `${baseImageUrl}/mine/modify_mine.png`,
     mineIcon2: `${baseImageUrl}/mine/push_mine.png`,
     mineIcon3: `${baseImageUrl}/mine/help_mine.png`,
-    role: 0
+    role: 0,
+    realName: '',
+    cellphone: '',
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -31,7 +33,12 @@ Page({
   },
   // 初始化页面方法
   initPage() {
-    console.log('ok')
+    const pageUser = myApp.globalData.userInfo
+    this.setData({
+      realName: pageUser.realName,
+      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+      avatarUrl: publicUrl + pageUser.avatar
+    })
   },
   // 事件处理函数
   bindSwitchUrl(e) {

@@ -13,21 +13,21 @@
         </view>
         <image src="{{avatarUrl}}"></image>
       </button>
-      <view>小包子9036</view>
-      <view class="cellphone">186-8881-0955</view>
+      <view>{{realName}}</view>
+      <view class="cellphone">{{cellphone}}</view>
     </view>
     <view class="person-info-wrap">
       <view class="person-info-inner">
         <view class="pii-title">我的个人资料修改</view>
         <form class="personInfo-form" catchsubmit="bindSubmit">
           <view class="input-cell">
-            <input class="input-item" name="realName" placeholder="真实姓名" />
+            <input class="input-item" name="realName" placeholder="真实姓名" value="{{user.realName}}" />
           </view>
           <view class="input-cell">
-            <input class="input-item" name="phone" placeholder="手机号码" />
+            <input class="input-item" type="number" name="phone" placeholder="手机号码" value="{{user.phone}}" />
           </view>
           <view class="input-cell">
-            <input class="input-item" name="licensePlate" placeholder="车牌号" />
+            <input class="input-item" name="licensePlate" placeholder="车牌号" value="{{user.licensePlate}}" />
           </view>
           <view class="textarea-cell">
             <textarea class="textarea-item"
@@ -36,6 +36,7 @@
               placeholder="个人简介"
               cursor-spacing="20rpx"
               show-confirm-bar="{{false}}"
+              value="{{user.brief}}"
             />
           </view>
           <view class="btn-cell">

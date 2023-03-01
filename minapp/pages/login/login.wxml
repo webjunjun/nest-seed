@@ -14,13 +14,13 @@
       </view>
       <form class="login-form" catchsubmit="bindSubmit">
         <view class="input-cell">
-          <input class="input-item" name="realName" placeholder-class="holder-center" placeholder="真实姓名" />
+          <input class="input-item" name="realName" maxlength="16" placeholder-class="holder-center" placeholder="真实姓名" />
         </view>
         <view class="input-cell">
-          <input class="input-item" name="phone" placeholder-class="holder-center" placeholder="手机号码" />
+          <input class="input-item" type="number" name="phone" maxlength="11" placeholder-class="holder-center" placeholder="手机号码" />
         </view>
         <view class="input-cell">
-          <input class="input-item" name="registerCode" placeholder-class="holder-center" placeholder="内部注册码" />
+          <input class="input-item" name="registerCode" maxlength="6" placeholder-class="holder-center" placeholder="内部注册码" />
         </view>
         <view class="btn-cell">
           <button type="default" hover-class="none" formType="submit">登录</button>

@@ -1,14 +1,14 @@
 <view class="tab-page {{isShow ? 'tl-show' : ''}}">
   <view class="common-bg-box">
-    <image class="common-bg" mode="widthFix" src="{{ commuteBg }}"></image>
+    <image class="common-bg" mode="widthFix" src="{{commuteBg}}"></image>
   </view>
   <view class="common-main">
     <view class="common-user">
       <view class="cu-left">
         <image class="avatar" src="{{avatarUrl}}"></image>
         <view class="cu-info">
-          <view>小包子9036</view>
-          <view class="cellphone">186-8881-0955</view>
+          <view>{{realName}}</view>
+          <view class="cellphone">{{cellphone}}</view>
         </view>
       </view>
       <view class="cu-right" bindtap="goMinePage"></view>

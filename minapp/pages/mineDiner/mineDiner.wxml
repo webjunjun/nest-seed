@@ -1,12 +1,12 @@
 <view class="not-tab-page">
   <view class="mine-bg-box">
-    <image class="mine-bg" mode="widthFix" src="{{ mineBg }}"></image>
+    <image class="mine-bg" mode="widthFix" src="{{mineBg}}"></image>
   </view>
   <view class="mine-main">
     <view class="user-box">
       <image class="avatar" src="{{avatarUrl}}"></image>
-      <view>小包子9036</view>
-      <view class="cellphone">186-8881-0955</view>
+      <view>{{realName}}</view>
+      <view class="cellphone">{{cellphone}}</view>
     </view>
     <view class="mine-diner-wrap">
       <view class="mine-diner-inner">

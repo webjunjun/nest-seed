@@ -1,11 +1,13 @@
 const myApp = getApp()
-import { baseImageUrl } from '../../utils/config'
+import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatTime } from '../../utils/util'
 
 Page({
   data: {
     commuteBg: `${baseImageUrl}/commute/commute_bg.png`,
     avatarUrl: '../../static/default_avatar.png',
+    realName: '',
+    cellphone: '',
     statsArr: [{
       num: 18,
       type: '已发布'
@@ -48,7 +50,12 @@ Page({
   },
   // 初始化页面方法
   initPage() {
-    console.log('ok')
+    const pageUser = myApp.globalData.userInfo
+    this.setData({
+      realName: pageUser.realName,
+      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+      avatarUrl: publicUrl + pageUser.avatar
+    })
   },
   handleChange(e) {
     this.setData({

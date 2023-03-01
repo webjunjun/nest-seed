@@ -36,7 +36,49 @@ const versionStringCompare = (preVersion='', lastVersion='') => {
   return result;
 }
 
+// 校验手机号
+const checkModbile = (mobile) => {
+  const reg = /^1[3,4,5,6,7,8,9][0-9]{9}$/
+  if(!reg.test(mobile)) {
+    // 格式错误
+    return false
+  }
+  return true
+}
+
+// 是否全是中文
+const isChinese = (str) => {
+  const reg = /[^\u4E00-\u9FA5]/
+  const curStr = str.trim()
+  if (curStr === '') {
+    return false
+  }
+  if (reg.test(str)) {
+    // 格式错误
+    return false
+  }
+  return true
+}
+
+const isVehicleNumber = (vehicleNumber) => {
+  // 新能源车
+  const xreg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+  // 普通汽车
+  const creg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
+ 
+  if(vehicleNumber.length == 7){
+    return creg.test(vehicleNumber);
+  } else if(vehicleNumber.length == 8){
+    return xreg.test(vehicleNumber);
+  } else{
+    return false;
+  }
+}
+
 module.exports = {
   formatTime,
-  versionStringCompare
+  versionStringCompare,
+  checkModbile,
+  isChinese,
+  isVehicleNumber
 }

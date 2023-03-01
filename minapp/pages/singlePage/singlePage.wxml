@@ -5,8 +5,8 @@
   <view class="mine-main">
     <view class="user-box">
       <image class="avatar" src="{{avatarUrl}}"></image>
-      <view>小包子9036</view>
-      <view class="cellphone">186-8881-0955</view>
+      <view>{{realName}}</view>
+      <view class="cellphone">{{cellphone}}</view>
     </view>
     <view class="single-page-wrap">
       <view class="single-page-inner">
