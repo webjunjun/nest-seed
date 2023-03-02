@@ -21,13 +21,13 @@
         <view class="pii-title">我的个人资料修改</view>
         <form class="personInfo-form" catchsubmit="bindSubmit">
           <view class="input-cell">
-            <input class="input-item" name="realName" placeholder="真实姓名" value="{{user.realName}}" />
+            <input class="input-item" name="realName" maxlength="16" placeholder="真实姓名" value="{{user.realName}}" />
           </view>
           <view class="input-cell">
-            <input class="input-item" type="number" name="phone" placeholder="手机号码" value="{{user.phone}}" />
+            <input class="input-item" type="number" name="phone" maxlength="11" placeholder="手机号码" value="{{user.phone}}" />
           </view>
           <view class="input-cell">
-            <input class="input-item" name="licensePlate" placeholder="车牌号" value="{{user.licensePlate}}" />
+            <input class="input-item" name="licensePlate" placeholder="车牌号" maxlength="8" value="{{user.licensePlate}}" />
           </view>
           <view class="textarea-cell">
             <textarea class="textarea-item"
@@ -37,6 +37,7 @@
               cursor-spacing="20rpx"
               show-confirm-bar="{{false}}"
               value="{{user.brief}}"
+              maxlength="100"
             />
           </view>
           <view class="btn-cell">

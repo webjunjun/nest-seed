@@ -35,6 +35,16 @@
             </view>
           </view>
           <form class="common-form" catchsubmit="bindSubmit">
+            <view class="common-cell {{isDisabled ? 'disabled-input' : ''}}">
+              <input class="common-item"
+                name="licensePlate"
+                placeholder-class="common-holder"
+                placeholder="车牌号"
+                value="{{history.licensePlate}}"
+                disabled="{{history.licensePlate}}"
+                maxlength="8"
+              />
+            </view>
             <view class="common-cell">
               <date-time-picker value="{{commuteDate}}" bind:change="handleChange">
                 <view class="common-picker">
@@ -47,13 +57,32 @@
               </date-time-picker>
             </view>
             <view class="common-cell">
-              <input class="common-item" name="startAddr" placeholder-class="common-holder" placeholder="出发地*" />
+              <input
+                class="common-item"
+                name="startAddr"
+                placeholder-class="common-holder"
+                placeholder="出发地*"
+                value="{{history.startAddr}}"
+                maxlength="32"
+              />
             </view>
             <view class="common-cell">
-              <input class="common-item" name="endAddr" placeholder-class="common-holder" placeholder="目的地*" />
+              <input
+                class="common-item"
+                name="endAddr"
+                placeholder-class="common-holder"
+                placeholder="目的地*"
+                value="{{history.endAddr}}"
+                maxlength="32"
+              />
             </view>
             <view wx:for="{{hasItem}}" wx:key="index" class="common-cell common-flex">
-              <input class="common-item" name="passAddr{{index}}" placeholder-class="common-holder" placeholder="途径地(最多5个)*" />
+              <input class="common-item"
+                name="passAddr{{index}}"
+                placeholder-class="common-holder"
+                placeholder="途径地(最多5个)*"
+                value="{{history.passAddr[index]}}"
+              />
               <view class="common-after pdl30">
                 <view wx:if="{{index === 0}}" class="add-wrap" data-type="add" catchtap="bindPassAddr">
                   <mp-icon icon="add" color="#a6a6a6" size="{{25}}"></mp-icon>
@@ -62,7 +91,14 @@
               </view>
             </view>
             <view class="common-cell common-flex">
-              <input class="common-item" type="number" name="seat" placeholder-class="common-holder" placeholder="空座位数(请填写数字)*" />
+              <input class="common-item"
+                type="number"
+                name="seat"
+                placeholder-class="common-holder"
+                placeholder="空座位数(请填写数字)*"
+                value="{{history.passAddr[index]}}"
+                maxlength="2"
+              />
               <view class="common-after">
                 <view class="seat-word">座</view>
               </view>

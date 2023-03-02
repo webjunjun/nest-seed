@@ -24,6 +24,9 @@ export class CommuteEntity {
 
   @Column({comment: '座位', type: 'tinyint', nullable: true})
   seat: number;
+  
+  @Column({name: 'rest_seat', comment: '剩余座位', type: 'tinyint', nullable: true})
+  restSeat: number;
 
   @Column({name: 'commute_date', comment: '出行时间', type: 'timestamp', nullable: true})
   commuteDate: Date;

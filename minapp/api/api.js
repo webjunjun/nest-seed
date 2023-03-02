@@ -9,6 +9,7 @@ export const wechatLogin = (data) => {
   })
 }
 
+// 注册
 export const wechatRegister = (data) => {
   return request({
     url: '/user/registerWechat',
@@ -17,7 +18,17 @@ export const wechatRegister = (data) => {
   })
 }
 
+// 更新个人信息
 export const wechatUserUpdate = (data) => {
+  return request({
+    url: '/user/update',
+    method: 'POST',
+    data
+  })
+}
+
+// 发布出行
+export const publishCommuteInfo = (data) => {
   return request({
     url: '/user/update',
     method: 'POST',

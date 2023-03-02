@@ -44,3 +44,9 @@
 .pdl30 {
   padding-left: 30rpx;
 }
+.disabled-input {
+  background-color: #eaeaea;
+}
+.disabled-input .common-item {
+  color: #999;
+}
