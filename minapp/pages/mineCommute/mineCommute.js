@@ -11,7 +11,7 @@ Page({
   onLoad() {
     if (myApp.globalData.hasLogin) {
       // 登录完成
-      this.initPage();
+      this.initPage()
     } else {
       // 等待登录完成后操作
       myApp.watchLoginStatus(() => this.initPage())

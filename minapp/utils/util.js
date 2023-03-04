@@ -15,6 +15,15 @@ const formatNumber = n => {
   return n[1] ? n : `0${n}`
 }
 
+const formatDate = date => {
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+
+  return `${month}月${day}日 ${[hour, minute].map(formatNumber).join(':')}`
+}
+
 //版本号比较
 const versionStringCompare = (preVersion='', lastVersion='') => {
   const sources = preVersion.split('.');
@@ -78,6 +87,7 @@ const isVehicleNumber = (vehicleNumber) => {
 
 module.exports = {
   formatTime,
+  formatDate,
   versionStringCompare,
   checkModbile,
   isChinese,

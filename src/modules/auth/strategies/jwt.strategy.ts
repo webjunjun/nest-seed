@@ -25,9 +25,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // 请求需要登录才能访问的接口，校验token成功走这里
   async validate(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, payload: any) {
     const tokenKey = `${payload.phone}&${payload.id}`;
-    const cacheToken = await this.redisCacheService.cacheGet(tokenKey);
+    let cacheToken = await this.redisCacheService.cacheGet(tokenKey);
     if (!cacheToken) {
-      throw new HttpException('登录已失效', HttpStatus.BAD_REQUEST);
+      // 非小程序直接提示失效
+      // throw new HttpException('登录已失效', HttpStatus.BAD_REQUEST);
+      // 小程序在这里就再次登录
+      const reLoginToken = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+      if (!reLoginToken) {
+        throw new HttpException('登录已失效', HttpStatus.BAD_REQUEST);
+      }
+      this.redisCacheService.cacheSet(
+        tokenKey,
+        reLoginToken,
+        1800
+      );
+      cacheToken = reLoginToken;
     }
     const urlToken = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
     if (urlToken !== cacheToken) {
@@ -45,7 +57,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         tokenKey,
         urlToken,
         1800
-      )
+      );
     }
     // 数据塞在@Req() request里 路由通过request.user获取
     return { id: payload.id, phone: payload.phone };

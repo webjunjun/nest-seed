@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { publishCommuteInfo } from '../../api/api'
+import { publishCommuteInfo, postCommuteOne } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatTime } from '../../utils/util'
 
@@ -48,7 +48,7 @@ Page({
     })
     if (myApp.globalData.hasLogin) {
       // 登录完成
-      this.initPage();
+      this.initPage()
     } else {
       // 等待登录完成后操作
       myApp.watchLoginStatus(() => this.initPage())
@@ -57,6 +57,7 @@ Page({
   // 初始化页面方法
   initPage() {
     this.initData()
+    // 编辑获取出行数据
   },
   initData() {
     // 每次显示都执行的
@@ -152,6 +153,7 @@ Page({
       formData.createdId = pageUser.id
       formData.createdName = pageUser.realName
     } else {
+      formData.id = commuteInfo.id
       formData.lastModify = new Date()
       formData.updateId = pageUser.id
       formData.updateName = pageUser.realName

@@ -30,7 +30,34 @@ export const wechatUserUpdate = (data) => {
 // 发布出行
 export const publishCommuteInfo = (data) => {
   return request({
-    url: '/user/update',
+    url: '/commute/create',
+    method: 'POST',
+    data
+  })
+}
+
+// 出行列表
+export const postCommuteList = (data) => {
+  return request({
+    url: '/commute/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 预约出行
+export const postCommuteBooking = (data) => {
+  return request({
+    url: '/commute/booking',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询单条出行
+export const postCommuteOne = (data) => {
+  return request({
+    url: '/commute/one',
     method: 'POST',
     data
   })

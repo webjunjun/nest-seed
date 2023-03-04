@@ -35,84 +35,44 @@
             </view>
           </view>
           <view class="commute-list">
-            <view class="commute-item commute-edit" bindtap="bindBooking">
-              <view class="commute-btn" catchtap="bindEdit">
-                <text>编辑</text>
-              </view>
+            <view
+              wx:for="{{list}}"
+              wx:key="index"
+              class="commute-item {{item.canBooking ? 'commute-edit' : ''}}"
+              data-info="{{item}}"
+              bindtap="bindBooking"
+            >
+              <block wx:if="{{item.canBooking}}">
+                <view wx:if="{{item.curUserId === item.createdId || role === '管理员'}}" data-commute="{{item}}" class="commute-btn" catchtap="bindEdit">
+                  <text>编辑</text>
+                </view>
+              </block>
               <view class="commute-left">
-                <image src="{{avatarUrl}}"></image>
-                <view class="commute-name">小包子9036</view>
+                <image src="{{item.avatar}}"></image>
+                <view class="commute-name">{{item.createdName}}</view>
               </view>
               <view class="commute-right">
                 <view class="commute-date">
-                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
-                  <view class="commute-addr">金融港 <view class="arrow-box">
+                  <view class="commute-time">{{item.newCommuteDate}}<text wx:if="{{item.licensePlate}}">{{item.licensePlate}}</text></view>
+                  <view class="commute-addr">{{item.startAddr}} <view class="arrow-box">
                     <view class="arrow-line"></view>
                     <view class="arrow-right"></view>
-                  </view> 光谷自由城</view>
+                  </view> {{item.endAddr}}</view>
                 </view>
                 <view class="commute-desciption">
                   <view>途径地: <view class="commute-cell-addr">
-                    <view class="commute-addr-atom">王屋村</view>
-                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
+                    <view wx:for="{{item.passAddr}}" wx:key="idx" wx:for-index="idx" wx:for-item="itemName" class="commute-addr-atom">{{itemName}}</view>
                   </view></view>
-                  <view>座位数: 还有3个空位</view>
-                </view>
-              </view>
-            </view>
-            <view class="commute-item commute-edit" bindtap="bindBooking">
-              <view class="commute-btn" catchtap="bindEdit">
-                <text>编辑</text>
-              </view>
-              <view class="commute-left">
-                <image src="{{avatarUrl}}"></image>
-                <view class="commute-name">小包子9036</view>
-              </view>
-              <view class="commute-right">
-                <view class="commute-date">
-                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
-                  <view class="commute-addr">金融港 <view class="arrow-box">
-                    <view class="arrow-line"></view>
-                    <view class="arrow-right"></view>
-                  </view> 光谷自由城</view>
-                </view>
-                <view class="commute-desciption">
-                  <view>途径地: <view class="commute-cell-addr">
-                    <view class="commute-addr-atom">王屋村</view>
-                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
-                  </view></view>
-                  <view>座位数: 还有3个空位</view>
-                </view>
-              </view>
-            </view>
-            <view class="commute-item">
-              <view class="commute-btn" catchtap="bindEdit">
-                <text>编辑</text>
-              </view>
-              <view class="commute-left">
-                <image src="{{avatarUrl}}"></image>
-                <view class="commute-name">小包子9036</view>
-              </view>
-              <view class="commute-right">
-                <view class="commute-date">
-                  <view class="commute-time">2月27日 14:55<text>豫A·809WA</text></view>
-                  <view class="commute-addr">金融港 <view class="arrow-box">
-                    <view class="arrow-line"></view>
-                    <view class="arrow-right"></view>
-                  </view> 光谷自由城</view>
-                </view>
-                <view class="commute-desciption">
-                  <view>途径地: <view class="commute-cell-addr">
-                    <view class="commute-addr-atom">王屋村</view>
-                    <view class="commute-addr-atom">济源市王屋镇人民政府</view>
-                  </view></view>
-                  <view>座位数: 还有3个空位</view>
+                  <view>座位数: 还有{{item.restSeat}}个空位</view>
                 </view>
               </view>
             </view>
           </view>
         </view>
       </view>
+    </view>
+    <view wx:if="{{noMore}}" class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">到底了</view>
     </view>
   </view>
 </view>

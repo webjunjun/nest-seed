@@ -6,6 +6,7 @@ import { aes256Encrypt } from 'src/utils/md5encrypt';
 import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { RegisterCodeEntity } from 'src/entity/register-code.entity';
 import { UserUpdateDto } from './dto/user-update.dto';
+import { ModifyUserLicensePlate } from 'src/type/nestSeed';
 
 @Injectable()
 export class UserService {
@@ -63,5 +64,21 @@ export class UserService {
     Object.assign(curUser, userInfo);
     curUser.modifyDate = new Date();
     return this.userRepository.save(curUser);
+  }
+
+  // 发布出行时更新车牌号
+  async updateLicensePlateById(userData: ModifyUserLicensePlate): Promise<string> {
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        licensePlate: userData.licensePlate,
+        updateId: userData.updateId,
+        updateName: userData.updateName,
+        modifyDate: new Date
+      })
+      .where('id = :id', {id: userData.userId})
+      .execute();
+    return 'ok'
   }
 }

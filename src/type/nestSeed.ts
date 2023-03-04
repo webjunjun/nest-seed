@@ -32,3 +32,10 @@ export type WechatResponse = {
   errcode: number,
   errmsg: string
 }
+
+export type ModifyUserLicensePlate = {
+  userId: string,
+  licensePlate: string,
+  updateId: string,
+  updateName: string
+}

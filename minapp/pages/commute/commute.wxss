@@ -234,3 +234,6 @@
   border-radius: 76rpx!important;
   background: linear-gradient(to right, #be7ef1, #5b60f9);
 }
+.weui-loadmore_line .weui-loadmore__tips {
+  background-color: transparent;
+}

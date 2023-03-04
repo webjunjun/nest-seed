@@ -22,21 +22,9 @@ export class CommuteItemEntity {
   @Column({comment: '出行类型 发布/拼车',length: 8, nullable: true})
   type: string;
 
+  @Column({name: 'commute_date', comment: '出行时间', type: 'timestamp', nullable: true})
+  commuteDate: Date;
+
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})
   created: Date;
-
-  @Column({name: 'created_id', comment: '创建人ID', length: 36, nullable: true})
-  createdId: string;
-
-  @Column({name: 'created_name', comment: '创建人名字', length: 16, nullable: true})
-  createdName: string;
-
-  @Column({name: 'last_modify', comment: '最后修改时间', type: 'timestamp', nullable: true})
-  lastModify: Date;
-
-  @Column({name: 'update_id', comment: '更新人ID', length: 36, nullable: true})
-  updateId: string;
-
-  @Column({name: 'update_name', comment: '更新人名字', length: 16, nullable: true})
-  updateName: string;
 }
