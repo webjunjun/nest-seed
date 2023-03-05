@@ -50,8 +50,8 @@ export class CommuteService {
         ...(pageObject?.passAddr && { passAddr: pageObject.passAddr }),
         ...(pageObject?.commuteDate && { commuteDate: pageObject.commuteDate })
       })
-      .skip(pageSize * (currentPage - 1))
-      .take(pageSize * currentPage)
+      .limit(pageSize)
+      .offset(pageSize * (currentPage - 1))
       .orderBy('commute.created', 'DESC')
       .getRawMany();
   }
