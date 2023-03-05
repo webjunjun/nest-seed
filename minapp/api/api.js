@@ -1,5 +1,9 @@
 import { request } from '../utils/request'
 
+/**
+ * common
+ */
+
 // 登录
 export const wechatLogin = (data) => {
   return request({
@@ -18,6 +22,10 @@ export const wechatRegister = (data) => {
   })
 }
 
+/**
+ * 我的tab
+ */
+
 // 更新个人信息
 export const wechatUserUpdate = (data) => {
   return request({
@@ -26,6 +34,10 @@ export const wechatUserUpdate = (data) => {
     data
   })
 }
+
+/**
+ * 出行tab
+ */
 
 // 发布出行
 export const publishCommuteInfo = (data) => {
@@ -36,10 +48,46 @@ export const publishCommuteInfo = (data) => {
   })
 }
 
-// 出行列表
+// 编辑出行
+export const modifyCommuteInfo = (data) => {
+  return request({
+    url: '/commute/update',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询出行列表
 export const postCommuteList = (data) => {
   return request({
     url: '/commute/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询单条出行
+export const postCommuteOne = (data) => {
+  return request({
+    url: '/commute/one',
+    method: 'POST',
+    data
+  })
+}
+
+// 删除单条出行
+export const deleteCommuteOne = (data) => {
+  return request({
+    url: '/commute/one',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询是否预约
+export const resultCommuteBooking = (data) => {
+  return request({
+    url: '/commute/resultBooking',
     method: 'POST',
     data
   })
@@ -54,11 +102,15 @@ export const postCommuteBooking = (data) => {
   })
 }
 
-// 查询单条出行
-export const postCommuteOne = (data) => {
+// 取消预约出行
+export const rejectCommuteBooking = (data) => {
   return request({
-    url: '/commute/one',
+    url: '/commute/cnacelBooking',
     method: 'POST',
     data
   })
 }
+
+/**
+ * 就餐tab
+ */

@@ -43,6 +43,13 @@ export class CommuteService {
         user.avatar as avatar,
         user.phone as phone
       `)
+      .where({
+        ...(pageObject?.createdName && { createdName: pageObject.createdName }),
+        ...(pageObject?.startAddr && { startAddr: pageObject.startAddr }),
+        ...(pageObject?.endAddr && { endAddr: pageObject.endAddr }),
+        ...(pageObject?.passAddr && { passAddr: pageObject.passAddr }),
+        ...(pageObject?.commuteDate && { commuteDate: pageObject.commuteDate })
+      })
       .skip(pageSize * (currentPage - 1))
       .take(pageSize * currentPage)
       .orderBy('commute.created', 'DESC')

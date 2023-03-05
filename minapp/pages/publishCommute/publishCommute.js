@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { publishCommuteInfo, postCommuteOne } from '../../api/api'
+import { publishCommuteInfo, postCommuteOne, modifyCommuteInfo } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatTime } from '../../utils/util'
 
@@ -9,6 +9,7 @@ Page({
     avatarUrl: '../../static/default_avatar.png',
     realName: '',
     cellphone: '',
+    pageUser: {},
     statsArr: [{
       num: 18,
       type: '已发布'
@@ -24,8 +25,7 @@ Page({
     curTitle: '',
     actionType: '',
     hasItem: 1,
-    history: {},
-    isDisabled: false
+    history: {}
   },
   onLoad(option) {
     let curTitle = ''
@@ -33,17 +33,14 @@ Page({
       curTitle = '发布拼车出行'
     } else {
       curTitle = '编辑拼车出行'
-      // 获取拼车记录
     }
-    this.setData({
-      curTitle,
-      actionType: option.type
-    })
     wx.setNavigationBarTitle({
       title: curTitle
     })
     const currentDatetime = formatTime(new Date())
     this.setData({
+      curTitle,
+      actionType: option.type,
       commuteDate: currentDatetime
     })
     if (myApp.globalData.hasLogin) {
@@ -57,19 +54,36 @@ Page({
   // 初始化页面方法
   initPage() {
     this.initData()
-    // 编辑获取出行数据
+    if (this.data.actionType === 'edit') {
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      postCommuteOne({
+        commuteId: this.data.commuteId
+      })
+        .then((res) => {
+          wx.hideLoading()
+          this.setData({
+            history: res.data
+          })
+        })
+        .catch(() => {
+          wx.hideLoading()
+        })
+    }
   },
   initData() {
     // 每次显示都执行的
-    const pageUser = myApp.globalData.userInfo
+    const curUser = myApp.globalData.userInfo
     this.setData({
-      realName: pageUser.realName,
-      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + pageUser.avatar,
+      pageUser: curUser,
+      realName: curUser.realName,
+      cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+      avatarUrl: publicUrl + curUser.avatar,
       history: {
-        licensePlate: pageUser.licensePlate
-      },
-      isDisabled: pageUser.licensePlate ? true : false
+        licensePlate: curUser.licensePlate
+      }
     })
   },
   handleChange(e) {
@@ -144,21 +158,23 @@ Page({
       title: '加载中',
       mask: true
     })
+    let reqFuc = publishCommuteInfo
     formData.passAddr = tempPassAddr.join('、')
     // 完善其他信息
-    const pageUser = myApp.globalData.userInfo
+    const pageUser = this.data.pageUser
     if (this.data.actionType === 'add') {
       formData.restSeat = formData.seat
       formData.created = new Date()
       formData.createdId = pageUser.id
       formData.createdName = pageUser.realName
     } else {
-      formData.id = commuteInfo.id
+      reqFuc = modifyCommuteInfo
+      formData.id = this.data.history.id
       formData.lastModify = new Date()
       formData.updateId = pageUser.id
       formData.updateName = pageUser.realName
     }
-    publishCommuteInfo(formData)
+    reqFuc(formData)
       .then(res => {
         wx.hideLoading()
         if (res.code === 1) {

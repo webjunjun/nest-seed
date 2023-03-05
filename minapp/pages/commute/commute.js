@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { postCommuteList, postCommuteBooking } from '../../api/api'
+import { postCommuteList, resultCommuteBooking, postCommuteBooking, rejectCommuteBooking } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatDate } from '../../utils/util'
 
@@ -12,7 +12,7 @@ Page({
     noticeUrl: `${baseImageUrl}/commute/notice.png`,
     realName: '',
     cellphone: '',
-    role: null,
+    pageUser: {},
     statsArr: [{
       num: 18,
       type: '已发布'
@@ -57,11 +57,12 @@ Page({
   },
   initData() {
     // 每次显示都执行的
-    const pageUser = myApp.globalData.userInfo
+    const curUser = myApp.globalData.userInfo
     this.setData({
-      realName: pageUser.realName,
-      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + pageUser.avatar
+      pageUser: curUser,
+      realName: curUser.realName,
+      cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+      avatarUrl: publicUrl + curUser.avatar
     })
   },
   goMinePage() {
@@ -81,7 +82,6 @@ Page({
   },
   bindBooking(e) {
     const data = e.currentTarget.dataset.info
-    const pageUser = myApp.globalData.userInfo
     if (!data.canBooking) {
       return false
     }
@@ -95,53 +95,49 @@ Page({
       })
       return false
     }
-    wx.showModal({
-      title: '提示',
-      content: '该出行还有空位，确定预约嘛',
-      success: (res) => {
-        if (res.confirm) {
-          // 界面没刷新
-          if (data.canBooking) {
-            const currentNow = new Date().getTime()
-            const dataTime = new Date(data.commuteDate).getTime()
-            if (dataTime < currentNow) {
-              wx.showToast({
-                title: '已过出行时间，不能预约，请刷新页面',
-                icon: 'none',
-                duration: 2000,
-                mask: true
-              })
-            }
-          }
-          wx.showLoading({
-            title: '加载中',
-            mask: true
-          })
-          postCommuteBooking({
-            commuteId: data.id,
-            travelerId: pageUser.id,
-            traveler: pageUser.realName,
-            type: '拼车',
-            commuteDate: data.commuteDate,
-          })
-            .then((resp) => {
-              this.setData({
-                isShow: true,
-                bookingPhone: data.phone
-              })
-              if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-                this.getTabBar().setData({
-                  selected: 1,
-                  isShowTabBar: false
-                })
-              }
-            })
-            .catch(() => {
-              wx.hideLoading()
-            })
-        }
-      }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
     })
+    resultCommuteBooking({
+      commuteId: data.id,
+      travelerId: this.data.pageUser.id
+    })
+      .then((response) => {
+        wx.hideLoading()
+        if (response.data) {
+          wx.showModal({
+            title: '提示',
+            content: '已预约过该拼车出行',
+            cancelText: '取消拼车',
+            confirmText: '电话联系车主',
+            success (res) {
+              if (res.confirm) {
+                // 电话联系车主
+                this.setData({
+                  bookingPhone: data.phone
+                })
+                this.bindCallphone()
+              } else {
+                this.cancelBooking(data)
+              }
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '该出行还有空位，确定预约嘛',
+            success (res) {
+              if (res.confirm) {
+                this.confirmBooking(data)
+              }
+            }
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
   },
   bindCallphone() {
     wx.makePhoneCall({
@@ -161,6 +157,72 @@ Page({
       })
     }
   },
+  confirmBooking(obj) {
+    const data = obj
+    const pageUser = this.data.pageUser
+    // 页面显示可预约，因没刷新页面，时间其实已过去
+    if (data.canBooking) {
+      const currentNow = new Date().getTime()
+      const dataTime = new Date(data.commuteDate).getTime()
+      if (dataTime < currentNow) {
+        wx.showToast({
+          title: '已过出行时间，不能预约，请刷新页面',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+      }
+    }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    postCommuteBooking({
+      commuteId: data.id,
+      travelerId: pageUser.id,
+      traveler: pageUser.realName,
+      type: '拼车',
+      commuteDate: data.commuteDate,
+    })
+      .then((res) => {
+        wx.hideLoading()
+        this.setData({
+          isShow: true,
+          bookingPhone: data.phone
+        })
+        if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+          this.getTabBar().setData({
+            selected: 1,
+            isShowTabBar: false
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  cancelBooking(obj) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    rejectCommuteBooking({
+      commuteId: obj.id,
+      travelerId: this.data.pageUser.id
+    })
+      .then(res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.data,
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
   getCommuteList() {
     wx.showLoading({
       title: '加载中',
@@ -173,7 +235,7 @@ Page({
       .then((res) => {
         wx.hideLoading()
         const json = res.data
-        const curUserId = myApp.globalData.userInfo.id
+        const curUserId = this.data.pageUser.id
         const curTime = new Date(res.timestamp).getTime()
         json.list.forEach(ele => {
           ele.canBooking = new Date(ele.commuteDate).getTime() > curTime ? true : false

@@ -35,7 +35,8 @@
             </view>
           </view>
           <form class="common-form" catchsubmit="bindSubmit">
-            <view class="common-cell {{isDisabled ? 'disabled-input' : ''}}">
+            <view class="common-cell">
+            <!-- <view class="common-cell {{isDisabled ? 'disabled-input' : ''}}"> -->
               <input class="common-item"
                 name="licensePlate"
                 placeholder-class="common-holder"

@@ -43,7 +43,7 @@
               bindtap="bindBooking"
             >
               <block wx:if="{{item.canBooking}}">
-                <view wx:if="{{item.curUserId === item.createdId || role === '管理员'}}" data-commute="{{item}}" class="commute-btn" catchtap="bindEdit">
+                <view wx:if="{{item.curUserId === item.createdId || pageUser.role === '管理员'}}" data-commute="{{item}}" class="commute-btn" catchtap="bindEdit">
                   <text>编辑</text>
                 </view>
               </block>
