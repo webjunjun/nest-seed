@@ -27,7 +27,8 @@ Page({
     bookingPhone: null,
     pageSize: 20,
     currentPage: 1,
-    list: []
+    list: [],
+    noMore: false
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {

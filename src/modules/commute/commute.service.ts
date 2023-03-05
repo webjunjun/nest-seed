@@ -48,7 +48,8 @@ export class CommuteService {
         ...(pageObject?.startAddr && { startAddr: pageObject.startAddr }),
         ...(pageObject?.endAddr && { endAddr: pageObject.endAddr }),
         ...(pageObject?.passAddr && { passAddr: pageObject.passAddr }),
-        ...(pageObject?.commuteDate && { commuteDate: pageObject.commuteDate })
+        ...(pageObject?.commuteDate && { commuteDate: pageObject.commuteDate }),
+        ...(pageObject?.createdId && { createdId: pageObject.createdId })
       })
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))

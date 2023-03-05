@@ -14,6 +14,9 @@ export class CommuteSearchDto {
   @ApiProperty({description: '出行时间'})
   readonly commuteDate: Date;
 
+  @ApiProperty({description: '出行人ID'})
+  readonly createdId: string;
+
   @ApiProperty({description: '出行人名字'})
   readonly createdName: string;
 
