@@ -38,4 +38,7 @@ export class CommuteCreateDto {
   @ApiProperty({description: '创建人名字'})
   @IsNotEmpty({message: '创建人名字不能为空'})
   readonly createdName: string;
+
+  @ApiProperty({description: '是否修改车牌号'})
+  readonly modifyUserInfo: Boolean;
 }

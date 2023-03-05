@@ -75,9 +75,9 @@ Page({
       url: '/pages/publishCommute/publishCommute?type=add',
     })
   },
-  bindEdit() {
+  bindEdit(e) {
     wx.navigateTo({
-      url: '/pages/publishCommute/publishCommute?type=edit',
+      url: '/pages/publishCommute/publishCommute?type=edit&id=' + e.currentTarget.dataset.commute,
     })
   },
   bindBooking(e) {

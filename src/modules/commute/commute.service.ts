@@ -106,7 +106,19 @@ export class CommuteService {
     return 'ok'
   }
 
-  // 新增一条出行预约记录
+  // 查询是否有拼车出行记录
+  async queryCommuteItem(commuteItemObj: {commuteId: number, travelerId: string}): Promise<string> {
+    return this.commuteItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'commute_id = :commuteId and traveler_id = :travelerId',
+        commuteItemObj
+      )
+      .execute();
+  }
+
+  // 新增一条预约拼车出行记录
   async addCommuteItem(commuteItemInfo: CommuteItemCreateDto): Promise<InsertResult> {
     return this.commuteItemRepository
       .createQueryBuilder()
@@ -116,7 +128,7 @@ export class CommuteService {
       .execute();
   }
 
-  // 删除一条出行预约记录
+  // 删除一条预约拼车出行记录
   async deleteCommuteItem(commuteItemId: string): Promise<string> {
     await this.commuteItemRepository
       .createQueryBuilder()

@@ -97,7 +97,7 @@
                 name="seat"
                 placeholder-class="common-holder"
                 placeholder="空座位数(请填写数字)*"
-                value="{{history.passAddr[index]}}"
+                value="{{history.seat}}"
                 maxlength="2"
               />
               <view class="common-after">

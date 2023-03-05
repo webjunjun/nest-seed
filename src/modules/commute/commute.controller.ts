@@ -2,7 +2,6 @@ import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@n
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommuteEntity } from 'src/entity/commute.entity';
 import { ModifyUserLicensePlate } from 'src/type/nestSeed';
-import { SelectQueryBuilder } from 'typeorm';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserService } from '../user/user.service';
 import { CommuteService } from './commute.service';
@@ -37,8 +36,13 @@ export class CommuteController {
   @ApiOperation({summary: '查询单条出行记录'})
   @UseGuards(JwtAuthGuard)
   @Post('one')
-  async queryCommuteOne(@Body() commuteId: number): Promise<CommuteEntity> {
-    return await this.commuteService.getCommuteById(commuteId);
+  async queryCommuteOne(@Body() commuteInfo: {
+    commuteId: number
+  }): Promise<CommuteEntity> {
+    if (!commuteInfo.commuteId) {
+      throw new HttpException('出行ID不能为空', HttpStatus.BAD_REQUEST);
+    }
+    return await this.commuteService.getCommuteById(commuteInfo.commuteId);
   }
 
   @ApiOperation({summary: '发布出行'})
@@ -49,16 +53,18 @@ export class CommuteController {
       throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
     });
     if (commuteInfo.generatedMaps.length > 0) {
-      const userData: ModifyUserLicensePlate = {
-        userId: commuteObject.createdId,
-        licensePlate: commuteObject.licensePlate,
-        updateId: commuteObject.createdId,
-        updateName: commuteObject.createdName
+      if (commuteObject.modifyUserInfo) {
+        const userData: ModifyUserLicensePlate = {
+          userId: commuteObject.createdId,
+          licensePlate: commuteObject.licensePlate,
+          updateId: commuteObject.createdId,
+          updateName: commuteObject.createdName
+        }
+        await this.userService.updateLicensePlateById(userData).catch(async () => {
+          await this.commuteService.deleteCommuteOne(commuteInfo.generatedMaps[0].id);
+          throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
+        });
       }
-      await this.userService.updateLicensePlateById(userData).catch(async () => {
-        await this.commuteService.deleteCommuteOne(commuteInfo.generatedMaps[0].id);
-        throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
-      });
       await this.commuteService.addCommuteItem({
         commuteId: commuteInfo.generatedMaps[0].id,
         travelerId: commuteObject.createdId,
@@ -87,5 +93,30 @@ export class CommuteController {
   async deleteCommute(@Body() commuteId: number): Promise<string> {
     await this.commuteService.deleteCommuteOne(commuteId);
     return '删除出行成功'
+  }
+
+  @ApiOperation({summary: '查询是否预约拼车'})
+  @UseGuards(JwtAuthGuard)
+  @Post('resultBooking')
+  async resultBooking(@Body() commuteItem: {commuteId: number, travelerId: string}): Promise<Boolean> {
+    const foo = await this.commuteService.queryCommuteItem(commuteItem);
+    console.log(foo);
+    return true
+  }
+
+  @ApiOperation({summary: '预约拼车出行'})
+  @UseGuards(JwtAuthGuard)
+  @Post('booking')
+  async bookingCommute(@Body() commuteId: number): Promise<string> {
+    await this.commuteService.deleteCommuteOne(commuteId);
+    return '预约拼车出行成功'
+  }
+
+  @ApiOperation({summary: '取消预约拼车出行'})
+  @UseGuards(JwtAuthGuard)
+  @Post('cnacelBooking')
+  async cnacelBookingCommute(@Body() commuteId: number): Promise<string> {
+    await this.commuteService.deleteCommuteOne(commuteId);
+    return '取消拼车出行成功'
   }
 }

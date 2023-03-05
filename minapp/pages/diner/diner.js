@@ -48,11 +48,13 @@ Page({
   // 初始化页面方法
   initPage() {
     const pageUser = myApp.globalData.userInfo
-    this.setData({
-      realName: pageUser.realName,
-      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + pageUser.avatar
-    })
+    if (pageUser) {
+      this.setData({
+        realName: pageUser.realName,
+        cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+        avatarUrl: publicUrl + pageUser.avatar
+      })
+    }
   },
   goMinePage() {
     wx.navigateTo({

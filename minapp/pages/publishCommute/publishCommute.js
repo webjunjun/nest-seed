@@ -22,6 +22,7 @@ Page({
     }],
     isShow: false,
     commuteDate: '',
+    commuteId: null,
     curTitle: '',
     actionType: '',
     hasItem: 1,
@@ -41,7 +42,8 @@ Page({
     this.setData({
       curTitle,
       actionType: option.type,
-      commuteDate: currentDatetime
+      commuteDate: currentDatetime,
+      commuteId: option.id || null
     })
     if (myApp.globalData.hasLogin) {
       // 登录完成
@@ -64,8 +66,14 @@ Page({
       })
         .then((res) => {
           wx.hideLoading()
+          res.data.passAddr = res.data.passAddr.split('、')
+          for (let i = 0; i < res.data.passAddr.length; i++) {
+            res.data['passAddr' + i] = res.data.passAddr[i]
+          }
           this.setData({
-            history: res.data
+            history: res.data,
+            commuteDate: res.data.commuteDate,
+            hasItem: res.data.passAddr.length
           })
         })
         .catch(() => {
@@ -76,15 +84,17 @@ Page({
   initData() {
     // 每次显示都执行的
     const curUser = myApp.globalData.userInfo
-    this.setData({
-      pageUser: curUser,
-      realName: curUser.realName,
-      cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + curUser.avatar,
-      history: {
-        licensePlate: curUser.licensePlate
-      }
-    })
+    if (curUser) {
+      this.setData({
+        pageUser: curUser,
+        realName: curUser.realName,
+        cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+        avatarUrl: publicUrl + curUser.avatar,
+        history: {
+          licensePlate: curUser.licensePlate
+        }
+      })
+    }
   },
   handleChange(e) {
     this.setData({
@@ -160,21 +170,41 @@ Page({
     })
     let reqFuc = publishCommuteInfo
     formData.passAddr = tempPassAddr.join('、')
+    const reqData = { ...formData }
+    for (let i = 0; i < this.data.hasItem; i++) {
+      delete reqData['passAddr' + i]
+    }
     // 完善其他信息
     const pageUser = this.data.pageUser
     if (this.data.actionType === 'add') {
-      formData.restSeat = formData.seat
-      formData.created = new Date()
-      formData.createdId = pageUser.id
-      formData.createdName = pageUser.realName
+      reqData.restSeat = reqData.seat
+      reqData.created = formatTime(new Date())
+      reqData.createdId = pageUser.id
+      reqData.createdName = pageUser.realName
+      if (this.data.history.licensePlate) {
+        reqData.modifyUserInfo = false
+      } else {
+        reqData.modifyUserInfo = true
+      }
     } else {
+      const usedSeat = Number(this.data.history.seat) - Number(this.data.history.restSeat)
+      if (Number(reqData.seat) < usedSeat) {
+        wx.showToast({
+          title: '空座位数不能小于已使用座位数',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+        return false
+      }
       reqFuc = modifyCommuteInfo
-      formData.id = this.data.history.id
-      formData.lastModify = new Date()
-      formData.updateId = pageUser.id
-      formData.updateName = pageUser.realName
+      reqData.id = this.data.history.id
+      reqData.lastModify = formatTime(new Date())
+      reqData.updateId = pageUser.id
+      reqData.updateName = pageUser.realName
+      reqData.restSeat = Number(reqData.seat) - usedSeat
     }
-    reqFuc(formData)
+    reqFuc(reqData)
       .then(res => {
         wx.hideLoading()
         if (res.code === 1) {
