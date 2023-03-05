@@ -19,7 +19,7 @@ export class CommuteService {
   ) {}
 
   // 分页查询出行记录
-  async getCommuteList(pageObject: CommuteSearchDto) {
+  async getCommuteList(pageObject: CommuteSearchDto): Promise<Array<CommuteEntity>> {
     const pageSize = pageObject.pageSize ? pageObject.pageSize : 10;
     const currentPage = pageObject.currentPage ? pageObject.currentPage : 1;
     return await this.commuteRepository
@@ -79,18 +79,18 @@ export class CommuteService {
   }
 
   // 修改一条出行记录
-  async modifyhCommuteOne(commuteInfo: CommuteUpdateDto): Promise<string> {
+  async modifyhCommuteOne(commuteInfo: CommuteUpdateDto): Promise<Boolean> {
     await this.commuteRepository
       .createQueryBuilder()
       .update(CommuteEntity)
       .set(commuteInfo)
       .where('id = :id', {id: commuteInfo.id})
       .execute();
-    return 'ok';
+    return true;
   }
 
   // 删除一条出行记录
-  async deleteCommuteOne(commuteId: number): Promise<string> {
+  async deleteCommuteOne(commuteId: number): Promise<Boolean> {
     await this.commuteRepository
       .createQueryBuilder()
       .delete()
@@ -103,11 +103,11 @@ export class CommuteService {
       .delete()
       .from(CommuteItemEntity)
       .where('commute_id = :commuteId', { commuteId })
-    return 'ok'
+    return true;
   }
 
   // 查询是否有拼车出行记录
-  async queryCommuteItem(commuteItemObj: {commuteId: number, travelerId: string}): Promise<string> {
+  async queryCommuteItem(commuteItemObj: {commuteId: number, travelerId: string}): Promise<CommuteItemEntity> {
     return this.commuteItemRepository
       .createQueryBuilder()
       .select()
@@ -129,13 +129,13 @@ export class CommuteService {
   }
 
   // 删除一条预约拼车出行记录
-  async deleteCommuteItem(commuteItemId: string): Promise<string> {
+  async deleteCommuteItem(commuteItemId: string): Promise<Boolean> {
     await this.commuteItemRepository
       .createQueryBuilder()
       .delete()
       .from(CommuteEntity)
       .where('id = :id', {id: commuteItemId})
       .execute();
-    return 'ok'
+    return true;
   }
 }

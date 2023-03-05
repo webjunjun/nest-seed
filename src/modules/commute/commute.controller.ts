@@ -83,15 +83,21 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('update')
   async updateCommute(@Body() commuteObject: CommuteUpdateDto): Promise<string> {
-    await this.commuteService.modifyhCommuteOne(commuteObject);
+    await this.commuteService.modifyhCommuteOne(commuteObject).catch(() => {
+      throw new HttpException('修改出行失败', HttpStatus.BAD_REQUEST);
+    });
     return '修改出行成功'
   }
 
   @ApiOperation({summary: '删除出行'})
   @UseGuards(JwtAuthGuard)
   @Post('delete')
-  async deleteCommute(@Body() commuteId: number): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteId);
+  async deleteCommute(@Body()  commuteInfo: {
+    commuteId: number
+  }): Promise<string> {
+    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
+      throw new HttpException('删除出行失败', HttpStatus.BAD_REQUEST);
+    });
     return '删除出行成功'
   }
 
@@ -99,24 +105,33 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('resultBooking')
   async resultBooking(@Body() commuteItem: {commuteId: number, travelerId: string}): Promise<Boolean> {
-    const foo = await this.commuteService.queryCommuteItem(commuteItem);
-    console.log(foo);
+    await this.commuteService.queryCommuteItem(commuteItem).catch(() => {
+      throw new HttpException('查询预约拼车记录失败', HttpStatus.BAD_REQUEST);
+    });
     return true
   }
 
   @ApiOperation({summary: '预约拼车出行'})
   @UseGuards(JwtAuthGuard)
   @Post('booking')
-  async bookingCommute(@Body() commuteId: number): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteId);
+  async bookingCommute(@Body() commuteInfo: {
+    commuteId: number
+  }): Promise<string> {
+    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
+      throw new HttpException('预约拼车出行失败', HttpStatus.BAD_REQUEST);
+    });
     return '预约拼车出行成功'
   }
 
   @ApiOperation({summary: '取消预约拼车出行'})
   @UseGuards(JwtAuthGuard)
   @Post('cnacelBooking')
-  async cnacelBookingCommute(@Body() commuteId: number): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteId);
+  async cnacelBookingCommute(@Body() commuteInfo: {
+    commuteId: number
+  }): Promise<string> {
+    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
+      throw new HttpException('取消拼车出行失败', HttpStatus.BAD_REQUEST);
+    });
     return '取消拼车出行成功'
   }
 }
