@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserService } from '../user/user.service';
 import { CommuteService } from './commute.service';
 import { CommuteCreateDto } from './dto/commute-create.dto';
+import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
 import { CommuteUpdateDto } from './dto/commute-update.dto';
 
@@ -86,7 +87,7 @@ export class CommuteController {
     await this.commuteService.modifyhCommuteOne(commuteObject).catch(() => {
       throw new HttpException('修改出行失败', HttpStatus.BAD_REQUEST);
     });
-    return '修改出行成功'
+    return '修改出行成功';
   }
 
   @ApiOperation({summary: '删除出行'})
@@ -98,40 +99,42 @@ export class CommuteController {
     await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
       throw new HttpException('删除出行失败', HttpStatus.BAD_REQUEST);
     });
-    return '删除出行成功'
+    return '删除出行成功';
   }
 
   @ApiOperation({summary: '查询是否预约拼车'})
   @UseGuards(JwtAuthGuard)
   @Post('resultBooking')
   async resultBooking(@Body() commuteItem: {commuteId: number, travelerId: string}): Promise<Boolean> {
-    await this.commuteService.queryCommuteItem(commuteItem).catch(() => {
+    const result = await this.commuteService.queryCommuteItem(commuteItem).catch(() => {
       throw new HttpException('查询预约拼车记录失败', HttpStatus.BAD_REQUEST);
     });
-    return true
+    if (result.length > 0) {
+      return true;
+    }
+    return false;
   }
 
   @ApiOperation({summary: '预约拼车出行'})
   @UseGuards(JwtAuthGuard)
   @Post('booking')
-  async bookingCommute(@Body() commuteInfo: {
-    commuteId: number
-  }): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
+  async bookingCommute(@Body() commuteInfo: CommuteItemCreateDto): Promise<string> {
+    await this.commuteService.addCommuteItem(commuteInfo).catch(() => {
       throw new HttpException('预约拼车出行失败', HttpStatus.BAD_REQUEST);
     });
-    return '预约拼车出行成功'
+    return '预约拼车出行成功';
   }
 
   @ApiOperation({summary: '取消预约拼车出行'})
   @UseGuards(JwtAuthGuard)
   @Post('cnacelBooking')
   async cnacelBookingCommute(@Body() commuteInfo: {
-    commuteId: number
+    commuteId: number,
+    travelerId: string
   }): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
+    await this.commuteService.deleteCommuteItem(commuteInfo).catch(() => {
       throw new HttpException('取消拼车出行失败', HttpStatus.BAD_REQUEST);
     });
-    return '取消拼车出行成功'
+    return '取消拼车出行成功';
   }
 }

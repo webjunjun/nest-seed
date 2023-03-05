@@ -37,12 +37,12 @@
           <form class="common-form" catchsubmit="bindSubmit">
             <view class="common-cell">
             <!-- <view class="common-cell {{isDisabled ? 'disabled-input' : ''}}"> -->
+            <!-- disabled="{{history.licensePlate}}" -->
               <input class="common-item"
                 name="licensePlate"
                 placeholder-class="common-holder"
                 placeholder="车牌号"
                 value="{{history.licensePlate}}"
-                disabled="{{history.licensePlate}}"
                 maxlength="8"
               />
             </view>

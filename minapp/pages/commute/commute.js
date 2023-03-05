@@ -110,8 +110,8 @@ Page({
             title: '提示',
             content: '已预约过该拼车出行',
             cancelText: '取消拼车',
-            confirmText: '电话联系车主',
-            success (res) {
+            confirmText: '联系车主',
+            success: (res) => {
               if (res.confirm) {
                 // 电话联系车主
                 this.setData({
@@ -127,7 +127,7 @@ Page({
           wx.showModal({
             title: '提示',
             content: '该出行还有空位，确定预约嘛',
-            success (res) {
+            success: (res) => {
               if (res.confirm) {
                 this.confirmBooking(data)
               }

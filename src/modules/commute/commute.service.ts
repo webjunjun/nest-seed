@@ -58,7 +58,7 @@ export class CommuteService {
 
   // 根据出行ID查询一条出行记录
   async getCommuteById(commuteId: number): Promise<CommuteEntity> {
-    return this.commuteRepository
+    return await this.commuteRepository
       .createQueryBuilder()
       .select()
       .where("id = :id", { id: commuteId })
@@ -67,7 +67,7 @@ export class CommuteService {
 
   // 新增一条出行记录
   async publishCommuteOne(commuteInfo: CommuteCreateDto): Promise<InsertResult> {
-    return this.commuteRepository
+    return await this.commuteRepository
       .createQueryBuilder()
       .insert()
       .into(CommuteEntity)
@@ -107,8 +107,8 @@ export class CommuteService {
   }
 
   // 查询是否有拼车出行记录
-  async queryCommuteItem(commuteItemObj: {commuteId: number, travelerId: string}): Promise<CommuteItemEntity> {
-    return this.commuteItemRepository
+  async queryCommuteItem(commuteItemObj: {commuteId: number, travelerId: string}): Promise<Array<CommuteItemEntity>> {
+    return await this.commuteItemRepository
       .createQueryBuilder()
       .select()
       .where(
@@ -120,7 +120,7 @@ export class CommuteService {
 
   // 新增一条预约拼车出行记录
   async addCommuteItem(commuteItemInfo: CommuteItemCreateDto): Promise<InsertResult> {
-    return this.commuteItemRepository
+    return await this.commuteItemRepository
       .createQueryBuilder()
       .insert()
       .into(CommuteItemEntity)
@@ -129,12 +129,15 @@ export class CommuteService {
   }
 
   // 删除一条预约拼车出行记录
-  async deleteCommuteItem(commuteItemId: string): Promise<Boolean> {
+  async deleteCommuteItem(commuteInfo: {
+    commuteId: number,
+    travelerId: string
+  }): Promise<Boolean> {
     await this.commuteItemRepository
       .createQueryBuilder()
       .delete()
-      .from(CommuteEntity)
-      .where('id = :id', {id: commuteItemId})
+      .from(CommuteItemEntity)
+      .where('commute_id = :commuteId and traveler_id = :travelerId', commuteInfo)
       .execute();
     return true;
   }
