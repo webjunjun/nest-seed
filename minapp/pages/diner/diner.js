@@ -1,4 +1,5 @@
 const myApp = getApp()
+import { queryVisitorList } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 
 Page({
@@ -26,7 +27,13 @@ Page({
       type: '来客就餐',
       urlQuery: 'visit'
     }],
-    isShow: false
+    isShow: false,
+    loading: true,
+    pageUser: {},
+    noMore: false,
+    list: [],
+    currentPage: 1,
+    pageSize: 20
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -44,15 +51,23 @@ Page({
         selected: 0
       })
     }
+    if (myApp.globalData.hasLogin) {
+      this.initData()
+    }
   },
-  // 初始化页面方法
   initPage() {
-    const pageUser = myApp.globalData.userInfo
-    if (pageUser) {
+    this.initData()
+    this.getVisitorList()
+  },
+  initData() {
+    const curUser = myApp.globalData.userInfo
+    if (curUser) {
       this.setData({
-        realName: pageUser.realName,
-        cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-        avatarUrl: publicUrl + pageUser.avatar
+        pageUser: curUser,
+        realName: curUser.realName,
+        cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+        avatarUrl: publicUrl + curUser.avatar,
+        loading: false
       })
     }
   },
@@ -64,11 +79,6 @@ Page({
   publishDiner() {
     wx.navigateTo({
       url: '/pages/publishDiner/publishDiner?type=add',
-    })
-  },
-  bindEdit() {
-    wx.navigateTo({
-      url: '/pages/publishCommute/publishCommute?type=edit',
     })
   },
   navDinerStat(e) {
@@ -100,6 +110,51 @@ Page({
         selected: 0,
         isShowTabBar: true
       })
+    }
+  },
+  bindEdit(e) {
+    wx.navigateTo({
+      url: '/pages/publishDiner/publishDiner?type=edit&id=' + e.currentTarget.dataset.visitor,
+    })
+  },
+  getVisitorList() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    queryVisitorList({
+      pageSize: this.data.pageSize,
+      currentPage: this.data.currentPage
+    })
+      .then((res) => {
+        wx.hideLoading()
+        const json = res.data
+        json.list.forEach(ele => {
+          ele.dinerDate = ele.dinerDate.slice(0, 16)
+        });
+        if (json.list.length < this.data.pageSize) {
+          // 显示到底 禁止触底加载了
+          this.setData({
+            list: this.data.list.concat(json.list),
+            noMore: true
+          })
+        } else {
+          this.setData({
+            list: this.data.list.concat(json.list),
+            currentPage: this.data.currentPage + 1,
+            noMore: false
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  onReachBottom() {
+    if (this.data.noMore) {
+      return false
+    } else {
+      this.getVisitorList()
     }
   }
 })

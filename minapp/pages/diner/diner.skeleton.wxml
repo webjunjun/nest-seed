@@ -1,0 +1,128 @@
+<template name="skeleton">
+  <view class="sk-container">
+    <view class="tab-page">
+      <view class="common-bg-box">
+        <image class="common-bg sk-image" mode="widthFix" style="height: 245.64px;"></image>
+      </view>
+      <view class="common-main">
+        <view class="common-user">
+          <view class="cu-left">
+            <image class="avatar sk-image"></image>
+            <view class="cu-info">
+              <view class="sk-transparent sk-text-18-7500-823 sk-text">刘军</view>
+              <view class="cellphone sk-transparent sk-text-18-7500-996 sk-text">131-1234-5671</view>
+            </view>
+          </view>
+          <view class="cu-right"></view>
+        </view>
+        <view class="common-content">
+          <view class="common-stats-box">
+            <view class="common-stats-list">
+              <view class="stats-item" data-item="[object Object]">
+                <view class="stats-cell">
+                  <view class="stats-num sk-transparent sk-text-18-7500-739 sk-text" style="background-position-x: 50%;">18</view>
+                  <view class="sk-transparent sk-opacity">次</view>
+                </view>
+                <view class="stats-type sk-transparent sk-text-18-7500-61 sk-text" style="background-position-x: 50%;">今日早餐</view>
+              </view>
+              <view class="stats-item" data-item="[object Object]">
+                <view class="stats-cell">
+                  <view class="stats-num sk-transparent sk-text-18-7500-929 sk-text" style="background-position-x: 50%;">5</view>
+                  <view class="sk-transparent sk-opacity">次</view>
+                </view>
+                <view class="stats-type sk-transparent sk-text-18-7500-494 sk-text" style="background-position-x: 50%;">今日中餐</view>
+              </view>
+              <view class="stats-item" data-item="[object Object]">
+                <view class="stats-cell">
+                  <view class="stats-num sk-transparent sk-text-18-7500-443 sk-text" style="background-position-x: 50%;">350</view>
+                  <view class="sk-transparent sk-opacity">次</view>
+                </view>
+                <view class="stats-type sk-transparent sk-text-18-7500-22 sk-text" style="background-position-x: 50%;">今日晚餐</view>
+              </view>
+              <view class="stats-item" data-item="[object Object]">
+                <view class="stats-cell">
+                  <view class="stats-num sk-transparent sk-text-18-7500-395 sk-text" style="background-position-x: 50%;">350</view>
+                  <view class="sk-transparent sk-opacity">次</view>
+                </view>
+                <view class="stats-type sk-transparent sk-text-18-7500-94 sk-text" style="background-position-x: 50%;">来客就餐</view>
+              </view>
+            </view>
+          </view>
+          <view class="diner-tab-wrap">
+            <view class="diner-tab-inner">
+              <view class="diner-tab-box">
+                <view class="dti-title sk-transparent sk-text-18-7500-426 sk-text">我的今日三餐</view>
+                <view class="recipe-arrow sk-transparent">本周菜谱
+                  <view is="miniprogram_npm/weui-miniprogram/icon/icon">
+                    <view class="maright icon--maright weui-icon icon--weui-icon" style="background:#6d6d6d;width:10px;height:20px;mask-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAxMiAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT4zLkljb25zL091dGxpbmVkL2Fycm93PC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPiAgICAgICAgPHBhdGggZD0iTTcuNTg3NTA4NzMsMTIuNDI5ODkxNiBMNi41MjY4NDg1NiwxMy40OTA1NTE4IEwwLjc0Nzk1MTUyNiw3LjcxMTY1NDczIEMwLjM1NzgyNjIyNyw3LjMyMTUyOTQzIDAuMzU0MzY1Nzg2LDYuNjkyNDcxNzkgMC43NDc5NTE1MjYsNi4yOTg4ODYwNSBMNi41MjY4NDg1NiwwLjUxOTk4OTAxNCBMNy41ODc1MDg3MywxLjU4MDY0OTE5IEwyLjE2Mjg4NzUzLDcuMDA1MjcwMzkgTDcuNTg3NTA4NzMsMTIuNDI5ODkxNiBaIiBpZD0icGF0aC0xIj48L3BhdGg+ICAgIDwvZGVmcz4gICAgPGcgaWQ9IjMuSWNvbnMvT3V0bGluZWQvYXJyb3ciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9Ikdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyLjAwMDAwMCwgNS4wMDAwMDApIj4gICAgICAgICAgICA8bWFzayBpZD0ibWFzay0yIiBmaWxsPSJ3aGl0ZSI+ICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICAgICAgPC9tYXNrPiAgICAgICAgICAgIDx1c2UgaWQ9IuWbvuagh+minOiJsiIgZmlsbC1vcGFjaXR5PSIwLjkiIGZpbGw9IiMwMDAwMDAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDIwNzg0LCA3LjAwNTI3MCkgcm90YXRlKC0xODAuMDAwMDAwKSB0cmFuc2xhdGUoLTQuMDIwNzg0LCAtNy4wMDUyNzApICIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=);-webkit-mask-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAxMiAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT4zLkljb25zL091dGxpbmVkL2Fycm93PC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPiAgICAgICAgPHBhdGggZD0iTTcuNTg3NTA4NzMsMTIuNDI5ODkxNiBMNi41MjY4NDg1NiwxMy40OTA1NTE4IEwwLjc0Nzk1MTUyNiw3LjcxMTY1NDczIEMwLjM1NzgyNjIyNyw3LjMyMTUyOTQzIDAuMzU0MzY1Nzg2LDYuNjkyNDcxNzkgMC43NDc5NTE1MjYsNi4yOTg4ODYwNSBMNi41MjY4NDg1NiwwLjUxOTk4OTAxNCBMNy41ODc1MDg3MywxLjU4MDY0OTE5IEwyLjE2Mjg4NzUzLDcuMDA1MjcwMzkgTDcuNTg3NTA4NzMsMTIuNDI5ODkxNiBaIiBpZD0icGF0aC0xIj48L3BhdGg+ICAgIDwvZGVmcz4gICAgPGcgaWQ9IjMuSWNvbnMvT3V0bGluZWQvYXJyb3ciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9Ikdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyLjAwMDAwMCwgNS4wMDAwMDApIj4gICAgICAgICAgICA8bWFzayBpZD0ibWFzay0yIiBmaWxsPSJ3aGl0ZSI+ICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICAgICAgPC9tYXNrPiAgICAgICAgICAgIDx1c2UgaWQ9IuWbvuagh+minOiJsiIgZmlsbC1vcGFjaXR5PSIwLjkiIGZpbGw9IiMwMDAwMDAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDIwNzg0LCA3LjAwNTI3MCkgcm90YXRlKC0xODAuMDAwMDAwKSB0cmFuc2xhdGUoLTQuMDIwNzg0LCAtNy4wMDUyNzApICIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=);-moz-mask-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAxMiAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT4zLkljb25zL091dGxpbmVkL2Fycm93PC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPiAgICAgICAgPHBhdGggZD0iTTcuNTg3NTA4NzMsMTIuNDI5ODkxNiBMNi41MjY4NDg1NiwxMy40OTA1NTE4IEwwLjc0Nzk1MTUyNiw3LjcxMTY1NDczIEMwLjM1NzgyNjIyNyw3LjMyMTUyOTQzIDAuMzU0MzY1Nzg2LDYuNjkyNDcxNzkgMC43NDc5NTE1MjYsNi4yOTg4ODYwNSBMNi41MjY4NDg1NiwwLjUxOTk4OTAxNCBMNy41ODc1MDg3MywxLjU4MDY0OTE5IEwyLjE2Mjg4NzUzLDcuMDA1MjcwMzkgTDcuNTg3NTA4NzMsMTIuNDI5ODkxNiBaIiBpZD0icGF0aC0xIj48L3BhdGg+ICAgIDwvZGVmcz4gICAgPGcgaWQ9IjMuSWNvbnMvT3V0bGluZWQvYXJyb3ciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGcgaWQ9Ikdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyLjAwMDAwMCwgNS4wMDAwMDApIj4gICAgICAgICAgICA8bWFzayBpZD0ibWFzay0yIiBmaWxsPSJ3aGl0ZSI+ICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICAgICAgPC9tYXNrPiAgICAgICAgICAgIDx1c2UgaWQ9IuWbvuagh+minOiJsiIgZmlsbC1vcGFjaXR5PSIwLjkiIGZpbGw9IiMwMDAwMDAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMDIwNzg0LCA3LjAwNTI3MCkgcm90YXRlKC0xODAuMDAwMDAwKSB0cmFuc2xhdGUoLTQuMDIwNzg0LCAtNy4wMDUyNzApICIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=)"></view>
+                  </view>
+                </view>
+              </view>
+              <view class="booking-wrap">
+                <view class="booking-box today-one sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-267 sk-text">早餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-503 sk-text" style="background-position-x: 50%;">已就餐</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-684 sk-text">01/01 06:10-07:30</view>
+                </view>
+                <view class="booking-box today-two sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-596 sk-text">中餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-198 sk-text" style="background-position-x: 50%;">已预约</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-702 sk-text">01/01 12:10-13:30</view>
+                </view>
+                <view class="booking-box today-three sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-361 sk-text">晚餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-255 sk-text" style="background-position-x: 50%;">未预约</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-302 sk-text">01/01 18:10-19:30</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="diner-tab-wrap">
+            <view class="diner-tab-inner">
+              <view class="diner-tab-box">
+                <view class="dti-title sk-transparent sk-text-18-7500-66 sk-text">预约明日三餐</view>
+                <view class="dti-rest sk-transparent sk-text-18-7500-636 sk-text">已截止预约/请于明日8:00前预约</view>
+              </view>
+              <view class="booking-wrap">
+                <view class="booking-box tomorrow-one sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-90 sk-text">早餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-843 sk-text" style="background-position-x: 50%;">未预约</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-539 sk-text">01/02 06:10-07:30</view>
+                </view>
+                <view class="booking-box tomorrow-one sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-713 sk-text">中餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-988 sk-text" style="background-position-x: 50%;">未预约</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-282 sk-text">01/02 12:10-13:30</view>
+                </view>
+                <view class="booking-box tomorrow-two sk-image">
+                  <view class="booking-info">
+                    <view class="booking-type sk-transparent sk-text-18-7500-822 sk-text">晚餐</view>
+                    <view class="booking-done sk-transparent sk-text-21-8750-8 sk-text" style="background-position-x: 50%;">已预约</view>
+                  </view>
+                  <view class="booking-date sk-transparent sk-text-18-7500-696 sk-text">01/02 18:10-19:30</view>
+                </view>
+              </view>
+              <view class="booking-tips sk-transparent sk-text-18-7500-112 sk-text">点击早餐、中餐、晚餐即可预约明日三餐，预约时间截止前可修改预约数据。</view>
+            </view>
+          </view>
+          <view class="diner-tab-wrap">
+            <view class="diner-tab-inner"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="publish-box">
+      <image class="publish-btn sk-image"></image>
+    </view>
+  </view>
+</template>

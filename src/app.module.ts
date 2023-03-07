@@ -11,6 +11,7 @@ import { RedisCacheModule } from './modules/redis/redis-cache.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { CodesModule } from './modules/codes/codes.module';
 import { CommuteModule } from './modules/commute/commute.module';
+import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -45,6 +46,7 @@ import { CommuteModule } from './modules/commute/commute.module';
     AuthModule,
     UserModule,
     CommuteModule,
+    VisitorDinerModule,
     CodesModule
   ]
 })

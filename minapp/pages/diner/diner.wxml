@@ -1,4 +1,6 @@
-<view class="tab-page {{isShow ? 'tl-show' : ''}}">
+<import src="diner.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{loading}}" />
+<view wx:else class="tab-page {{isShow ? 'tl-show' : ''}}">
   <view class="common-bg-box">
     <image class="common-bg" mode="widthFix" src="{{dinerBg}}"></image>
   </view>
@@ -97,88 +99,52 @@
             <!-- <view class="dti-rest">已截止预约/请于明日10:00前预约</view> -->
           </view>
           <view class="visit-list">
-            <view class="visit-item visit-edit">
-              <view class="visit-btn">
+            <view
+              wx:for="{{list}}"
+              wx:key="index"
+              class="visit-item visit-edit"
+            >
+              <view class="visit-btn" data-visitor="{{item.id}}" catchtap="bindEdit">
                 <text>编辑</text>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">预约编号: </view>
-                  <view class="visit-txt">0018</view>
+                  <view class="visit-txt">{{item.id}}</view>
                 </view>
                 <view class="visit-info">
                   <view class="visit-title">预约人: </view>
-                  <view class="visit-txt">张三五</view>
+                  <view class="visit-txt">{{item.bookerName}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐人数: </view>
-                  <view class="visit-txt">20人</view>
+                  <view class="visit-txt">{{item.dinerNum}}人</view>
                 </view>
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023-03-18 12:18</view>
+                  <view class="visit-txt">{{item.dinerDate}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">来客单位: </view>
-                  <view class="visit-txt">某某高新集团</view>
+                  <view class="visit-txt">{{item.visitorCompany}}</view>
                 </view>
                 <view class="visit-info">
                   <view class="visit-title">来客级别: </view>
-                  <view class="visit-txt">正科级</view>
+                  <view class="visit-txt">{{item.visitorLevel}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">就餐备注: </view>
-                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
+                  <view class="visit-txt">{{item.remark}}</view>
                 </view>
               </view>
             </view>
-            <view class="visit-item">
-              <view class="visit-btn">
-                <text>编辑</text>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">预约编号: </view>
-                  <view class="visit-txt">0018</view>
-                </view>
-                <view class="visit-info">
-                  <view class="visit-title">预约人: </view>
-                  <view class="visit-txt">张三五</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info visit-red">
-                  <view class="visit-title">就餐人数: </view>
-                  <view class="visit-txt">20人</view>
-                </view>
-                <view class="visit-info visit-red">
-                  <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023-03-18 12:18</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">来客单位: </view>
-                  <view class="visit-txt">某某高新集团</view>
-                </view>
-                <view class="visit-info">
-                  <view class="visit-title">来客级别: </view>
-                  <view class="visit-txt">正科级</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">就餐备注: </view>
-                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
-                </view>
-              </view>
-            </view>
+
           </view>
         </view>
       </view>

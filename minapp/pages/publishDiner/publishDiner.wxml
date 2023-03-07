@@ -33,10 +33,23 @@
           </view>
           <form class="common-form" catchsubmit="bindSubmit">
             <view class="common-cell">
-              <input class="common-item" name="bookerName" placeholder-class="common-holder" placeholder="预约人*" />
+              <input
+                class="common-item"
+                name="bookerName"
+                placeholder-class="common-holder"
+                placeholder="预约人*"
+                value="{{history.bookerName}}"
+              />
             </view>
             <view class="common-cell common-flex">
-              <input class="common-item" type="number" name="dinerNum" placeholder-class="common-holder" placeholder="就餐人数*" />
+              <input
+                class="common-item"
+                type="number"
+                name="dinerNum"
+                placeholder-class="common-holder"
+                placeholder="就餐人数*"
+                value="{{history.dinerNum}}"
+              />
               <view class="common-after">
                 <view class="seat-word">人</view>
               </view>
@@ -53,10 +66,22 @@
               </date-time-picker>
             </view>
             <view class="common-cell">
-              <input class="common-item" name="visitorCompany" placeholder-class="common-holder" placeholder="来客单位*" />
+              <input
+                class="common-item"
+                name="visitorCompany"
+                placeholder-class="common-holder"
+                placeholder="来客单位*"
+                value="{{history.visitorCompany}}"
+              />
             </view>
             <view class="common-cell">
-              <input class="common-item" name="visitorLevel" placeholder-class="common-holder" placeholder="来客级别*" />
+              <input
+                class="common-item"
+                name="visitorLevel"
+                placeholder-class="common-holder"
+                placeholder="来客级别*"
+                value="{{history.visitorLevel}}"
+              />
             </view>
             <view class="common-textarea-cell">
               <textarea class="common-textarea-item"
@@ -65,6 +90,7 @@
                 placeholder="请备注客人用餐口味及其他事项说明*"
                 cursor-spacing="20rpx"
                 show-confirm-bar="{{false}}"
+                value="{{history.remark}}"
               />
             </view>
             <view class="common-btn">

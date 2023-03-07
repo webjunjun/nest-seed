@@ -255,8 +255,7 @@ Page({
           this.setData({
             list: this.data.list.concat(json.list),
             currentPage: this.data.currentPage + 1,
-            noMore: false,
-            currentPage: this.data.currentPage + 1
+            noMore: false
           })
         }
       })

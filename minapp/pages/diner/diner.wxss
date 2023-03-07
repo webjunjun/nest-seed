@@ -1,3 +1,4 @@
+@import "./diner.skeleton.wxss";
 .common-bg-box .common-bg {
   top: -40rpx;
 }
