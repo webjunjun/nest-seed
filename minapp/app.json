@@ -10,8 +10,9 @@
     "pages/publishDiner/publishDiner",
     "pages/publishCommute/publishCommute",
     "pages/singlePage/singlePage",
-    "pages/settingList/settingList",
-    "pages/settingPage/settingPage",
+    "pages/admin/admin",
+    "pages/adminList/adminList",
+    "pages/adminPage/adminPage",
     "pages/editor/editor",
     "pages/login/login"
   ],

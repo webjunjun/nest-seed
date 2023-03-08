@@ -10,7 +10,7 @@ Page({
     mineIcon1: `${baseImageUrl}/mine/modify_mine.png`,
     mineIcon2: `${baseImageUrl}/mine/push_mine.png`,
     mineIcon3: `${baseImageUrl}/mine/help_mine.png`,
-    role: 0,
+    role: 1,
     realName: '',
     cellphone: '',
   },
