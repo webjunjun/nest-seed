@@ -12,6 +12,8 @@ import { UploadModule } from './modules/upload/upload.module';
 import { CodesModule } from './modules/codes/codes.module';
 import { CommuteModule } from './modules/commute/commute.module';
 import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
+import { DinerModule } from './modules/diner/diner.module';
+import { DinerItemModule } from './modules/dinerItem/diner-item.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -47,6 +49,8 @@ import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
     UserModule,
     CommuteModule,
     VisitorDinerModule,
+    DinerModule,
+    DinerItemModule,
     CodesModule
   ]
 })

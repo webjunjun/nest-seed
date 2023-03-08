@@ -7,6 +7,8 @@ import { UserService } from '../user/user.service';
 import { CommuteService } from './commute.service';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
+import { CommuteItemDto } from './dto/commute-item.dto';
+import { CommuteOneDto } from './dto/commute-one.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
 import { CommuteUpdateDto } from './dto/commute-update.dto';
 
@@ -37,9 +39,7 @@ export class CommuteController {
   @ApiOperation({summary: '查询单条出行记录'})
   @UseGuards(JwtAuthGuard)
   @Post('one')
-  async queryCommuteOne(@Body() commuteInfo: {
-    commuteId: number
-  }): Promise<CommuteEntity> {
+  async queryCommuteOne(@Body() commuteInfo: CommuteOneDto): Promise<CommuteEntity> {
     if (!commuteInfo.commuteId) {
       throw new HttpException('出行ID不能为空', HttpStatus.BAD_REQUEST);
     }
@@ -93,9 +93,7 @@ export class CommuteController {
   @ApiOperation({summary: '删除出行'})
   @UseGuards(JwtAuthGuard)
   @Post('delete')
-  async deleteCommute(@Body()  commuteInfo: {
-    commuteId: number
-  }): Promise<string> {
+  async deleteCommute(@Body()  commuteInfo: CommuteOneDto): Promise<string> {
     await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
       throw new HttpException('删除出行失败', HttpStatus.BAD_REQUEST);
     });
@@ -105,7 +103,7 @@ export class CommuteController {
   @ApiOperation({summary: '查询是否预约拼车'})
   @UseGuards(JwtAuthGuard)
   @Post('resultBooking')
-  async resultBooking(@Body() commuteItem: {commuteId: number, travelerId: string}): Promise<Boolean> {
+  async resultBooking(@Body() commuteItem: CommuteItemDto): Promise<Boolean> {
     const result = await this.commuteService.queryCommuteItem(commuteItem).catch(() => {
       throw new HttpException('查询预约拼车记录失败', HttpStatus.BAD_REQUEST);
     });
@@ -128,10 +126,7 @@ export class CommuteController {
   @ApiOperation({summary: '取消预约拼车出行'})
   @UseGuards(JwtAuthGuard)
   @Post('cnacelBooking')
-  async cnacelBookingCommute(@Body() commuteInfo: {
-    commuteId: number,
-    travelerId: string
-  }): Promise<string> {
+  async cnacelBookingCommute(@Body() commuteInfo: CommuteItemDto): Promise<string> {
     await this.commuteService.deleteCommuteItem(commuteInfo).catch(() => {
       throw new HttpException('取消拼车出行失败', HttpStatus.BAD_REQUEST);
     });

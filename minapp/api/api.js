@@ -160,11 +160,11 @@ export const queryVisitorList = (data) => {
   })
 }
 
-// 我的明日三餐状态
+// 今日/明日三餐状态
 // 查询到就是已预约，未查询到就是未预约
-export const queryMineTomorrow = (data) => {
+export const queryMineTwoDays = (data) => {
   return request({
-    url: '/visitor/list',
+    url: '/dinerItem/twoDays',
     method: 'POST',
     data
   })
@@ -173,7 +173,7 @@ export const queryMineTomorrow = (data) => {
 // 预约明日三餐
 export const bookMineTomorrow = (data) => {
   return request({
-    url: '/visitor/list',
+    url: '/dinerItem/booking',
     method: 'POST',
     data
   })
@@ -182,34 +182,16 @@ export const bookMineTomorrow = (data) => {
 // 取消预约明日三餐
 export const cancelMineTomorrow = (data) => {
   return request({
-    url: '/visitor/list',
+    url: '/dinerItem/cancel',
     method: 'POST',
     data
   })
 }
 
-// 我的今日三餐状态
-export const queryMineToday = (data) => {
-  return request({
-    url: '/visitor/list',
-    method: 'POST',
-    data
-  })
-}
-
-// 今日三餐预约列表
+// 所有人今日三餐预约列表
 export const queryTodayStatList = (data) => {
   return request({
-    url: '/visitor/list',
-    method: 'POST',
-    data
-  })
-}
-
-// 今日来客就餐人数列表
-export const queryVisitorStatList = (data) => {
-  return request({
-    url: '/visitor/list',
+    url: '/dinerItem/list',
     method: 'POST',
     data
   })
@@ -218,7 +200,7 @@ export const queryVisitorStatList = (data) => {
 // 我的三餐统计记录
 export const queryMineTodayList = (data) => {
   return request({
-    url: '/visitor/list',
+    url: '/dinerItem/mineList',
     method: 'POST',
     data
   })
