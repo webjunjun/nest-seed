@@ -14,6 +14,7 @@ import { CommuteModule } from './modules/commute/commute.module';
 import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
 import { DinerModule } from './modules/diner/diner.module';
 import { DinerItemModule } from './modules/dinerItem/diner-item.module';
+import { SingleModule } from './modules/single/single.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -51,6 +52,7 @@ import { DinerItemModule } from './modules/dinerItem/diner-item.module';
     VisitorDinerModule,
     DinerModule,
     DinerItemModule,
+    SingleModule,
     CodesModule
   ]
 })
