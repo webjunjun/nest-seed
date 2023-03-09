@@ -1,7 +1,12 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { DinerEntity } from 'src/entity/diner.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { DinerService } from './diner.service';
+import { DinerAddDto } from './dto/diner-add.dto';
+import { DinerDeleteDto } from './dto/diner-delete.dto';
+import { DinerEditDto } from './dto/diner-edit.dto';
+import { DinerQueryDto } from './dto/diner-query.dto';
 
 @ApiTags('就餐')
 @Controller('diner')
@@ -11,28 +16,40 @@ export class DinerController {
   @ApiOperation({summary: '设置明日来客/三餐预约时间段'})
   @UseGuards(JwtAuthGuard)
   @Post('booking')
-  async settingBookingDate() {
-    // 
+  async settingBookingDate(@Body() singleObject: DinerAddDto): Promise<string> {
+    await this.dinerService.addOne(singleObject).catch(() => {
+      throw new HttpException('设置失败', HttpStatus.BAD_REQUEST);
+    });
+    return '设置成功';
   }
 
   @ApiOperation({summary: '更新明日来客/三餐预约时间段'})
   @UseGuards(JwtAuthGuard)
   @Post('update')
-  async updateBookingDate() {
-    // 
+  async updateBookingDate(@Body() singleObject: DinerEditDto): Promise<string> {
+    await this.dinerService.modifyOne(singleObject).catch(() => {
+      throw new HttpException('修改失败', HttpStatus.BAD_REQUEST);
+    });
+    return '修改成功';
   }
 
   @ApiOperation({summary: '删除明日来客/三餐预约时间段'})
   @UseGuards(JwtAuthGuard)
   @Post('delete')
-  async deleteBookingDate() {
-    // 
+  async deleteBookingDate(@Body() singleObject: DinerDeleteDto): Promise<string> {
+    await this.dinerService.deleteOne(singleObject).catch(() => {
+      throw new HttpException('删除失败', HttpStatus.BAD_REQUEST);
+    });
+    return '删除成功';
   }
 
   @ApiOperation({summary: '查询单条明日来客/三餐预约时间段'})
   @UseGuards(JwtAuthGuard)
   @Post('query')
-  async querBookingDate() {
-    // 
+  async querBookingDate(@Body() singleObject: DinerQueryDto): Promise<DinerEntity> {
+    const data = await this.dinerService.queryOne(singleObject).catch(() => {
+      throw new HttpException('查询失败', HttpStatus.BAD_REQUEST);
+    });
+    return data;
   }
 }
