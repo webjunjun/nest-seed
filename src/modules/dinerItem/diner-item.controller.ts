@@ -7,7 +7,7 @@ import { DinerItemAddDto } from './dto/diner-item-add.dto';
 import { DinerItemDeleteDto } from './dto/diner-item-delete.dto';
 import { DinerItemQueryDto } from './dto/diner-item-query.dto';
 
-@ApiTags('就餐')
+@ApiTags('就餐预约')
 @Controller('dinerItem')
 export class DinerItemController {
   constructor (private readonly dinerItemService: DinerItemService) {}

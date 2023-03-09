@@ -1,8 +1,10 @@
 import {
   ArgumentsHost, Catch, ExceptionFilter, HttpException,
-  HttpStatus, UnauthorizedException
+  HttpStatus
 } from "@nestjs/common";
 import { HttpAdapterHost } from "@nestjs/core";
+import { Request } from "express";
+import { Logger } from "src/utils/log4js";
 
 // catch不填参数 捕获每一个异常
 @Catch()
@@ -13,10 +15,10 @@ export class BaseExceptionFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost; // 解决httpAdapte某些情况下在构造方法中不可用
 
     const ctx = host.switchToHttp();
+    const request = ctx.getRequest<Request>();
     // exception在不在HttpException里
     const httpStatus = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     let message: string | object = '';
-    console.log(exception);
     if (exception instanceof HttpException) {
       if (exception.message) {
         const currentResponse: string | object = exception.getResponse();
@@ -31,8 +33,6 @@ export class BaseExceptionFilter implements ExceptionFilter {
           message = exception.message;
         }
       }
-    } else if (exception instanceof UnauthorizedException) {
-      console.log('22', exception.getResponse())
     } else {
       message = httpStatus >= 500 ? 'Internet Server Error' : 'Client Error';
     }
@@ -58,6 +58,15 @@ export class BaseExceptionFilter implements ExceptionFilter {
       // timestamp: new Date().toISOString()
       timestamp: new Date().toLocaleString()
     }
+
+    const logFormat = ` <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    Request original url: ${request.originalUrl}
+    Method: ${request.method}
+    IP: ${request.ip}
+    Status code: ${httpStatus}
+    Response: ${exception.toString()} \n  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    `;
+    Logger.info(logFormat);
 
     // httpAdapter.reply(ctx.getResponse(), responseBody, 200);
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);

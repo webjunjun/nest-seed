@@ -5,6 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { logger } from './middleware/logger.middleware';
+import * as express from'express';
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
@@ -55,6 +57,12 @@ async function bootstrap() {
     // 虚拟前缀
     prefix: '/static'
   });
+
+  // 日志打印参数
+  app.use(express.json());
+  app.use(express.urlencoded({extended:true}));
+  // 监听所有的请求路由，并打印日志
+  app.use(logger);
 
   // 监听端口
   await app.listen(3000);
