@@ -18,7 +18,7 @@ export class SingleController {
   @Post('add')
   async addSinglePage(@Body() singleObject: SingleCreateDto): Promise<string> {
     await this.singleService.addOne(singleObject).catch(() => {
-      throw new HttpException('发布来客就餐预约失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('新增单页面失败', HttpStatus.BAD_REQUEST);
     });
     return '新增单页面成功';
   }
@@ -28,7 +28,7 @@ export class SingleController {
   @Post('update')
   async updateSinglePage(@Body() singleObject: SingleUpdateDto): Promise<string> {
     await this.singleService.modifyOne(singleObject).catch(() => {
-      throw new HttpException('修改来客就餐预约失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('修改单页面失败', HttpStatus.BAD_REQUEST);
     });
     return '修改单页面成功';
   }
@@ -38,7 +38,7 @@ export class SingleController {
   @Post('update')
   async deleteSinglePage(@Body() singleObject: SingleDeleteDto): Promise<string> {
     await this.singleService.deleteOne(singleObject).catch(() => {
-      throw new HttpException('删除来客就餐预约失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('删除单页面失败', HttpStatus.BAD_REQUEST);
     });
     return '删除单页面成功';
   }
