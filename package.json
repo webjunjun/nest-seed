@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "pm2": "pm2 start --name wwz_booking dist/main.js",
+    "pm2:prod": "pm2 start ecosystem.config.js --env production",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {

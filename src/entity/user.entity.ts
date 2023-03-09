@@ -36,8 +36,11 @@ export class UserEntity {
   @Column({name: 'license_plate', comment: '车牌号', length: 8, nullable: true})
   licensePlate: string;
 
-  @Column({comment: '角色', length: 8, nullable: true})
-  role: string;
+  @Column({comment: '角色', type: 'tinyint', nullable: true})
+  role: number;
+
+  @Column({name: 'role_name', comment: '角色名称', length: 8, nullable: true})
+  roleName: string;
 
   @Column({name: 'register_code', comment: '注册码', length: 8, nullable: true})
   registerCode: string;

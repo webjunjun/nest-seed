@@ -37,6 +37,9 @@ export class UserService {
     const newUser = await this.userRepository.create(wechatInfo);
     // 加密密码
     newUser.password = aes256Encrypt(wechatInfo.password);
+    // 默认是用户
+    newUser.role = 1;
+    newUser.roleName = '用户';
     const dbUser = await this.userRepository.save(newUser);
     dbUser.password = '';
     return dbUser;
