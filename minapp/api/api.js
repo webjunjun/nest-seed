@@ -205,3 +205,44 @@ export const queryMineTodayList = (data) => {
     data
   })
 }
+
+// 查询单页面
+export const querySingleList = (data) => {
+  return request({
+    url: '/single/list',
+    method: 'POST',
+    data
+  })
+}
+
+export const addSinglePage = (data) => {
+  return request({
+    url: '/single/add',
+    method: 'POST',
+    data
+  })
+}
+
+export const editSinglePage = (data) => {
+  return request({
+    url: '/single/update',
+    method: 'POST',
+    data
+  })
+}
+
+export const deleteSinglePage = (data) => {
+  return request({
+    url: '/single/delete',
+    method: 'POST',
+    data
+  })
+}
+
+export const querySingleOne = (data) => {
+  return request({
+    url: '/single/query',
+    method: 'POST',
+    data
+  })
+}

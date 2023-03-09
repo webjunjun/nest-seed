@@ -35,7 +35,7 @@ export class SingleController {
 
   @ApiOperation({summary: '删除文章'})
   @UseGuards(JwtAuthGuard)
-  @Post('update')
+  @Post('delete')
   async deleteSinglePage(@Body() singleObject: SingleDeleteDto): Promise<string> {
     await this.singleService.deleteOne(singleObject).catch(() => {
       throw new HttpException('删除单页面失败', HttpStatus.BAD_REQUEST);

@@ -13,6 +13,12 @@ export class RichTextEntity {
   @Column({comment: '类型 本周食谱: 0/帮助: 1/关于我们: 2', nullable: true})
   type: number;
 
+  @Column({comment: '标题', length: 32, nullable: true})
+  title: string;
+
+  @Column({comment: '简介', length: 255, nullable: true})
+  desc: string;
+
   @Column({comment: '内容', type: 'text', nullable: true})
   content: string;
 

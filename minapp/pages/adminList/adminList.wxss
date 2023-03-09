@@ -25,3 +25,6 @@ page {
 .fixed-bottom .weui-btn {
   margin-top: 20rpx;
 }
+.weui-loadmore_line .weui-loadmore__tips {
+  background-color: #f1f1f1;
+}
