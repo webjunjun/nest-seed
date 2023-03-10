@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "单页面管理"
+  "navigationBarTitleText": "用户管理",
+  "usingComponents": {
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
+  }
 }

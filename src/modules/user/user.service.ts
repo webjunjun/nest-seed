@@ -7,6 +7,9 @@ import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { RegisterCodeEntity } from 'src/entity/register-code.entity';
 import { UserUpdateDto } from './dto/user-update.dto';
 import { ModifyUserLicensePlate } from 'src/type/nestSeed';
+import { UserQueryDto } from './dto/user-query.dto';
+import { UserDeleteDto } from './dto/user-delete.dto';
+import { UserRoleDto } from './dto/user-role.dto';
 
 @Injectable()
 export class UserService {
@@ -78,10 +81,56 @@ export class UserService {
         licensePlate: userData.licensePlate,
         updateId: userData.updateId,
         updateName: userData.updateName,
-        modifyDate: new Date
+        modifyDate: new Date()
       })
       .where('id = :id', {id: userData.userId})
       .execute();
     return 'ok'
+  }
+
+  async queryList(singleObject: UserQueryDto): Promise<Array<UserEntity>> {
+    const pageSize = singleObject.pageSize ? singleObject.pageSize : 10;
+    const currentPage = singleObject.currentPage ? singleObject.currentPage : 1;
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .select(`
+        user.id as id,
+        user.phone as phone,
+        user.real_name as realName,
+        user.license_plate as licensePlate,
+        user.role as role,
+        user.role_name as roleName,
+        user.created as created
+      `)
+      .limit(pageSize)
+      .offset(pageSize * (currentPage - 1))
+      .orderBy('user.created', 'DESC')
+      .getRawMany();
+  }
+
+  async deleteOne(singleObject: UserDeleteDto): Promise<Boolean> {
+    await this.userRepository
+      .createQueryBuilder()
+      .delete()
+      .from(UserEntity)
+      .where('id = :id', {id: singleObject.id})
+      .execute();
+    return true;
+  }
+
+  async setUserRole(singleObject: UserRoleDto): Promise<Boolean> {
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        role: singleObject.role,
+        roleName: singleObject.roleName,
+        updateId: singleObject.updateId,
+        updateName: singleObject.updateName,
+        modifyDate: new Date()
+      })
+      .where('id = :id', {id: singleObject.id})
+      .execute();
+    return true;
   }
 }

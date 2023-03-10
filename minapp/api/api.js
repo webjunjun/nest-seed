@@ -26,6 +26,31 @@ export const wechatRegister = (data) => {
  * 我的tab
  */
 
+// 查询用户列表
+export const queryUserList = (data) => {
+  return request({
+    url: '/user/list',
+    method: 'POST',
+    data
+  })
+}
+
+export const deleteUser = (data) => {
+  return request({
+    url: '/user/delete',
+    method: 'POST',
+    data
+  })
+}
+
+export const updateUserRole = (data) => {
+  return request({
+    url: '/user/role',
+    method: 'POST',
+    data
+  })
+}
+
 // 更新个人信息
 export const wechatUserUpdate = (data) => {
   return request({

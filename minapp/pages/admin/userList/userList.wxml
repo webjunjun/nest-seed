@@ -7,36 +7,41 @@
     wx:key="index"
     class="weui-form-preview"
   >
-    <view class="weui-form-preview__hd" data-id="{{item.id}}" bindtap="viewDetail">
+    <view class="weui-form-preview__hd">
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">标题</view>
-        <view class="weui-form-preview__value_in-hd">{{item.title}}</view>
+        <view class="weui-form-preview__label">姓名</view>
+        <view class="weui-form-preview__value_in-hd">{{item.realName}}</view>
       </view>
     </view>
     <view class="weui-form-preview__bd">
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">类型</view>
-        <view class="weui-form-preview__value">{{typeName[item.type]}}</view>
+        <view class="weui-form-preview__label">角色</view>
+        <view class="weui-form-preview__value">{{item.roleName || ''}}</view>
       </view>
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">简介</view>
-        <view class="weui-form-preview__value">{{item.desc}}</view>
+        <view class="weui-form-preview__label">手机号</view>
+        <view class="weui-form-preview__value">{{item.phone}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">车牌号</view>
+        <view class="weui-form-preview__value">{{item.licensePlate}}</view>
       </view>
     </view>
     <view class="weui-form-preview__ft">
-      <view
+      <!-- <view
         class="weui-form-preview__btn weui-form-preview__btn_default"
         data-id="{{item.id}}"
+        data-num="{{index}}"
         bindtap="deleteItem"
-      >删除</view>
+      >删除</view> -->
       <view
         class="weui-form-preview__btn weui-form-preview__btn_primary"
         data-id="{{item.id}}"
+        data-num="{{index}}"
         bindtap="modifyItem"
-      >编辑</view>
+      >设置角色</view>
     </view>
   </view>
 </view>
-<view class="fixed-bottom">
-  <button class="weui-btn" type="primary" bindtap="goSingle">新增</button>
-</view>
+<mp-actionSheet bindactiontap="btnClick" show="{{showDialog}}" actions="{{groups}}" title="设置用户角色">
+</mp-actionSheet>

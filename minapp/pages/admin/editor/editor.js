@@ -1,3 +1,5 @@
+import { baseUrl, publicUrl } from '../../../utils/config'
+
 Page({
   data: {
     formats: {},
@@ -142,23 +144,32 @@ Page({
   },
   // 插入图片
   insertImage() {
-    const that = this
     wx.chooseImage({
       count: 1,
-      success: function (res) {
-        // https://juejin.cn/post/7108291924674494471
-        // 调用上传图片接口 再调用小程序的编辑器插入方法
-        that.editorCtx.insertImage({
-          src: res.tempFilePaths[0],
-          data: {
-            id: 'abcd',
-            role: 'god'
+      success: (res) => {
+        let filePath = res.tempFilePaths[0];
+        wx.uploadFile({
+          url: `${baseUrl}/file/upload`,
+          filePath,
+          name: 'file',
+          success: (res) => {
+            const json = JSON.parse(res.data)
+            this.editorInsertImg(json.data)
+            wx.hideLoading()
           },
-          width: '100%',
-          success: function () {
-            console.log('insert image success')
+          fail: () => {
+            wx.hideLoading()
           }
         })
+      }
+    })
+  },
+  editorInsertImg(filePath) {
+    this.editorCtx.insertImage({
+      src: publicUrl + filePath,
+      width: '100%',
+      success: function () {
+        console.log('insert image success')
       }
     })
   },
