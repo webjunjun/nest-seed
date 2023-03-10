@@ -1,5 +1,6 @@
-const myApp = getApp()
 import { baseImageUrl, publicUrl } from '../../utils/config'
+import { querySingleOne } from '../../api/api'
+const myApp = getApp()
 
 Page({
   data: {
@@ -7,7 +8,9 @@ Page({
     avatarUrl: '../../static/default_avatar.png',
     realName: '',
     cellphone: '',
-    curTitle: ''
+    curTitle: '',
+    id: '',
+    pageData: {}
   },
   onLoad(option) {
     // 处理标题
@@ -25,7 +28,9 @@ Page({
       title: curTitle
     })
     this.setData({
-      curTitle
+      curTitle,
+      id: option.id || '',
+      typeId: option.typeId || ''
     })
     if (myApp.globalData.hasLogin) {
       // 登录完成
@@ -43,5 +48,36 @@ Page({
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + pageUser.avatar
     })
+    this.getDetailData()
+  },
+  getDetailData() {
+    let reqData = {}
+    if (this.data.id === '') {
+      reqData = {
+        type: this.data.typeId
+      }
+    } else {
+      reqData = {
+        id: this.data.id
+      }
+    }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    querySingleOne(reqData)
+      .then((res) => {
+        const json = res.data
+        this.setData({
+          pageData: json
+        })
+        if (json.content) {
+          wx.setStorageSync('editorTxt', json.content)
+        }
+        wx.hideLoading()
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
   }
 })

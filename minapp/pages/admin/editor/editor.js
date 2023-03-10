@@ -16,6 +16,10 @@ Page({
     })
   },
   onLoad() {
+    const contents = wx.getStorageSync('editorTxt')
+    this.setData({
+      content: contents
+    })
     // const platform = wx.getSystemInfoSync().platform
     // const isIOS = platform === 'ios'
     // this.setData({ isIOS })
@@ -55,6 +59,10 @@ Page({
     const that = this
     wx.createSelectorQuery().select('#editor').context(function (res) {
       that.editorCtx = res.context
+      const contents = wx.getStorageSync('editorTxt')
+      that.editorCtx.setContents({
+        html: contents
+      })
     }).exec()
   },
   blur() {

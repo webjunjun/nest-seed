@@ -48,9 +48,13 @@ export class SingleService {
 
   async queryOne(singleObject: SingleQueryDto): Promise<RichTextEntity> {
     return await this.singleRepository
-      .createQueryBuilder()
+      .createQueryBuilder('rich_text')
       .select()
-      .where("id = :id", { id: singleObject.id })
+      .where({
+        ...(singleObject?.id && { id: singleObject.id }),
+        ...(singleObject?.type && { type: singleObject.type })
+      })
+      .orderBy('rich_text.created', 'DESC')
       .getOne();
   }
 

@@ -46,7 +46,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view class="list-item" data-url="/pages/singlePage/singlePage?type=recipe" bindtap="bindSwitchUrl">
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=recipe&typeId=0" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <image mode="aspectFit" src="{{mineIcon3}}"></image>
@@ -55,7 +55,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view class="list-item" data-url="/pages/singlePage/singlePage?type=help" bindtap="bindSwitchUrl">
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=help&typeId=1" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <image mode="aspectFit" src="{{mineIcon3}}"></image>
@@ -64,7 +64,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view class="list-item" data-url="/pages/singlePage/singlePage?type=aboutus" bindtap="bindSwitchUrl">
+      <view class="list-item" data-url="/pages/singlePage/singlePage?type=aboutus&typeId=2" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <image mode="aspectFit" src="{{mineIcon3}}"></image>

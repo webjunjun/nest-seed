@@ -139,11 +139,14 @@ Page({
             duration: 2000,
             mask: true,
             success: () => {
-              wx.navigateBack({
-                delta: 1,
-              })
+              
             }
           })
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1,
+            })
+          }, 1500)
         } else {
           wx.showToast({
             title: res.msg,

@@ -90,15 +90,18 @@ Page({
     deleteSinglePage({
       id: obj.id
     })
-      .then(() => {
+      .then((res) => {
         wx.hideLoading()
         wx.showToast({
           title: res.data,
-          icon: 'none',
+          icon: 'success',
           duration: 2000,
           mask: true
         })
         this.data.list.splice(obj.num, 1)
+        this.setData({
+          list: this.data.list
+        })
       })
       .catch(() => {
         wx.hideLoading()

@@ -10,8 +10,10 @@
     </view>
     <view class="single-page-wrap">
       <view class="single-page-inner">
-        <view class="spi-title">{{curTitle}}</view>
-        <view class="spi-content"></view>
+        <view class="spi-title">{{pageData.title || ''}}</view>
+        <view class="spi-content" wx:if="{{pageData.title}}">
+          <rich-text nodes="{{pageData.content}}"></rich-text>
+        </view>
       </view>
     </view>
   </view>
