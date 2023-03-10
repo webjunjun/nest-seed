@@ -35,3 +35,6 @@
   >
   </editor>
 </view>
+<view class="fixed-bottom">
+  <button class="weui-btn" type="primary" bindtap="saveContent">新增</button>
+</view>

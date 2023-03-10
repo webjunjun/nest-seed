@@ -27,7 +27,7 @@
             <view class="weui-cell">
               <view class="weui-cell__hd"><label class="weui-label">简述</label></view>
               <view class="weui-cell__bd">
-                <textarea class="weui-textarea" name="desc" placeholder="请输入简述, 最多30字" maxlength="30" style="height: 3.3em" />
+                <textarea class="weui-textarea" name="description" placeholder="请输入简述, 最多30字" maxlength="30" style="height: 3.3em" />
               </view>
             </view>
           </view>

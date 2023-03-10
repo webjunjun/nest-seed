@@ -23,7 +23,7 @@
       <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
     </view>
   </mp-cell>
-  <mp-cell link url="/pages/adminList/adminList?type=single&title=单页面管理">
+  <mp-cell link url="/pages/admin/singleList/singleList">
     <view>单页面管理</view>
   </mp-cell>
 </mp-cells>

@@ -73,7 +73,7 @@
         </view>
         <view class="list-right"></view>
       </view>
-      <view wx:if="{{role === 1}}" class="list-item" data-url="/pages/admin/admin" bindtap="bindSwitchUrl">
+      <view wx:if="{{role === 1}}" class="list-item" data-url="/pages/admin/admin/admin" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">
             <mp-icon extClass="my-setting" icon="setting" color="#fff" size="{{24}}"></mp-icon>

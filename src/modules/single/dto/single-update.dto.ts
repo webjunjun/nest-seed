@@ -12,7 +12,7 @@ export class SingleUpdateDto {
 
   @ApiProperty({description: '简述'})
   @IsNotEmpty({message: '简述不能为空'})
-  readonly desc: string;
+  readonly description: string;
 
   @ApiProperty({description: '类型'})
   @IsNotEmpty({message: '类型不能为空'})

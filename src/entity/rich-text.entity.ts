@@ -17,7 +17,7 @@ export class RichTextEntity {
   title: string;
 
   @Column({comment: '简介', length: 255, nullable: true})
-  desc: string;
+  description: string;
 
   @Column({comment: '内容', type: 'text', nullable: true})
   content: string;

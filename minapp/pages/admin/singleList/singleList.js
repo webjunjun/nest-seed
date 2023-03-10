@@ -1,21 +1,15 @@
-import { querySingleList, deleteSinglePage } from '../../api/api'
+import { querySingleList, deleteSinglePage } from '../../../api/api'
 
 const myApp = getApp()
 Page({
   data: {
-    type: '',
     list: [],
     noMore: false,
     pageSize: 20,
-    currentPage: 1
+    currentPage: 1,
+    typeName: ['本周食谱', '帮助', '关于我们']
   },
-  onLoad(option) {
-    wx.setNavigationBarTitle({
-      title: option.title
-    })
-    this.setData({
-      type: option.type
-    })
+  onLoad() {
     if (myApp.globalData.hasLogin) {
       // 登录完成
       this.initPage()
@@ -33,11 +27,7 @@ Page({
       title: '加载中',
       mask: true
     })
-    let reqFuc = ''
-    if (this.data.type === 'single') {
-      reqFuc = querySingleList
-    }
-    reqFuc({
+    querySingleList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })
@@ -62,10 +52,19 @@ Page({
         wx.hideLoading()
       })
   },
-  publishPage() {
+  goSingle() {
     wx.navigateTo({
-      url: `/pages/adminPage/adminPage?type=${this.data.type}&action=add`,
+      url: `/pages/admin/singleForm/singleForm?action=add`,
     })
+  },
+  viewDetail() {
+    // 
+  },
+  deleteItem() {
+    // 
+  },
+  modifyItem() {
+    // 
   },
   onReachBottom() {
     if (this.data.noMore) {

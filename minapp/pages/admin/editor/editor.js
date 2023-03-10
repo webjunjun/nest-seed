@@ -7,7 +7,8 @@ Page({
     keyboardHeight: 0,
     isIOS: false,
     showFont: false,
-    showAlign: false
+    showAlign: false,
+    content: ''
   },
   readOnlyChange() {
     this.setData({
@@ -150,6 +151,24 @@ Page({
             console.log('insert image success')
           }
         })
+      }
+    })
+  },
+  saveContent() {
+    this.editorCtx.getContents({
+      success: (res) => {
+        wx.setStorageSync('editorTxt', res.html)
+        wx.showToast({
+          title: '保存成功',
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }, 2000)
       }
     })
   }

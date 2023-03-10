@@ -1,22 +1,13 @@
-import { addSinglePage, editSinglePage } from '../../api/api'
+import { addSinglePage, editSinglePage } from '../../../api/api'
 const myApp = getApp()
 
 Page({
   data: {
-    title: '',
-    type: '',
+    title: '单页面',
     action: '',
-    titleObj: {
-      single: '单页面',
-      user: '用户',
-      commute: '出行',
-      visit: '来客就餐预约',
-      booking: '预约时间段'
-    },
     actionObj: {
       add: '新增',
-      edit: '修改',
-      set: '设置'
+      edit: '修改'
     },
     singleArray: [{
       label: '本周食谱',
@@ -29,16 +20,27 @@ Page({
       value: 2
     }],
     single: 0,
-    editContent: ''
+    pageUser: {}
   },
   onLoad(option) {
     wx.setNavigationBarTitle({
-      title: `${this.data.actionObj[option.action]}${this.data.titleObj[option.type]}`
+      title: `${this.data.actionObj[option.action]}${this.data.title}`
     })
     this.setData({
-      type: option.type,
       action: option.action,
-      title: `${this.data.actionObj[option.action]}${this.data.titleObj[option.type]}`
+      title: `${this.data.actionObj[option.action]}${this.data.title}`
+    })
+    if (myApp.globalData.hasLogin) {
+      // 登录完成
+      this.initPage()
+    } else {
+      // 等待登录完成后操作
+      myApp.watchLoginStatus(() => this.initPage())
+    }
+  },
+  initPage() {
+    this.setData({
+      pageUser: myApp.globalData.userInfo
     })
   },
   bindPickerChange(e) {
@@ -48,19 +50,20 @@ Page({
   },
   goEditor() {
     wx.navigateTo({
-      url: '/pages/editor/editor',
+      url: '/pages/admin/editor/editor',
     })
   },
   submitSingle(e) {
     const formData = e.detail.value
+    const contents = wx.getStorageSync('editorTxt')
     let msg = ''
     if (formData.title === '') {
       msg = '请输入标题'
     }
-    if (!msg && formData.desc === '') {
+    if (!msg && formData.description === '') {
       msg = '请输入简述'
     }
-    if (!msg && this.data.editContent === '') {
+    if (!msg && !contents) {
       msg = '请输入内容'
     }
     if (msg) {
@@ -79,7 +82,10 @@ Page({
     })
     const reqData = {
       ...formData,
-      content: this.data.editContent
+      type: this.data.singleArray[this.data.single].value,
+      content: contents,
+      createdId: this.data.pageUser.id,
+      createdName: this.data.pageUser.realName
     }
     addSinglePage(reqData)
       .then(res => {
@@ -108,5 +114,9 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
+  },
+  onUnload() {
+    // 卸载页面清理编辑器缓存
+    wx.removeStorageSync('editorTxt')
   }
 })

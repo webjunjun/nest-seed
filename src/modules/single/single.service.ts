@@ -61,8 +61,9 @@ export class SingleService {
       .createQueryBuilder('rich_text')
       .select(`
         rich_text.id as id,
+        rich_text.title as title,
+        rich_text.description as description,
         rich_text.type as type,
-        rich_text.content as content,
         rich_text.created as created,
         rich_text.created_id as createdId,
         rich_text.created_name as createdName,
