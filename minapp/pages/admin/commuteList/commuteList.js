@@ -52,57 +52,19 @@ Page({
         wx.hideLoading()
       })
   },
-  addItem() {
+  goSingle() {
     wx.navigateTo({
       url: `/pages/admin/singleForm/singleForm?action=add`,
     })
   },
-  deleteItem(e) {
-    const paramsObj = e.currentTarget.dataset
-    wx.showModal({
-      title: '提示',
-      content: '确认删除嘛',
-      success: (res) => {
-        if (res.confirm) {
-          this.deleteConfirm(paramsObj)
-        }
-      }
-    })
+  viewDetail() {
+    // 
   },
-  modifyItem(e) {
-    const paramsObj = e.currentTarget.dataset
-    wx.navigateTo({
-      url: `/pages/admin/singleForm/singleForm?action=edit&id=${paramsObj.id}`,
-    })
+  deleteItem() {
+    // 
   },
-  viewDetail(e) {
-    const paramsObj = e.currentTarget.dataset
-    const types = ['recipe', 'help', 'aboutus']
-    wx.navigateTo({
-      url: `/pages/singlePage/singlePage?type=${types[paramsObj.type]}&id=${paramsObj.id}`,
-    })
-  },
-  deleteConfirm(obj) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    deleteSinglePage({
-      id: obj.id
-    })
-      .then(() => {
-        wx.hideLoading()
-        wx.showToast({
-          title: res.data,
-          icon: 'none',
-          duration: 2000,
-          mask: true
-        })
-        this.data.list.splice(obj.num, 1)
-      })
-      .catch(() => {
-        wx.hideLoading()
-      })
+  modifyItem() {
+    // 
   },
   onReachBottom() {
     if (this.data.noMore) {

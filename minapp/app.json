@@ -15,6 +15,10 @@
     "pages/admin/admin/admin",
     "pages/admin/singleList/singleList",
     "pages/admin/singleForm/singleForm",
+    "pages/admin/visitorList/visitorList",
+    "pages/admin/userList/userList",
+    "pages/admin/setBookingList/setBookingList",
+    "pages/admin/commuteList/commuteList",
     "pages/admin/editor/editor"
   ],
   "tabBar": {

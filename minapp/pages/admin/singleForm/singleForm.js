@@ -1,10 +1,12 @@
-import { addSinglePage, editSinglePage } from '../../../api/api'
+import { addSinglePage, editSinglePage, querySingleOne } from '../../../api/api'
+import { formatTime } from '../../../utils/util'
 const myApp = getApp()
 
 Page({
   data: {
     title: '单页面',
     action: '',
+    id: '',
     actionObj: {
       add: '新增',
       edit: '修改'
@@ -20,6 +22,7 @@ Page({
       value: 2
     }],
     single: 0,
+    history: {},
     pageUser: {}
   },
   onLoad(option) {
@@ -28,6 +31,7 @@ Page({
     })
     this.setData({
       action: option.action,
+      id: option.id || '',
       title: `${this.data.actionObj[option.action]}${this.data.title}`
     })
     if (myApp.globalData.hasLogin) {
@@ -42,6 +46,35 @@ Page({
     this.setData({
       pageUser: myApp.globalData.userInfo
     })
+    if (this.data.action === 'edit') {
+      this.getDetailData()
+    }
+  },
+  getDetailData() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    querySingleOne({
+      id: this.data.id
+    })
+      .then((res) => {
+        const json = res.data
+        this.setData({
+          single: json.type,
+          history: {
+            title: json.title,
+            description: json.description
+          }
+        })
+        if (json.content) {
+          wx.setStorageSync('editorTxt', json.content)
+        }
+        wx.hideLoading()
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
   },
   bindPickerChange(e) {
     this.setData({
@@ -83,11 +116,20 @@ Page({
     const reqData = {
       ...formData,
       type: this.data.singleArray[this.data.single].value,
-      content: contents,
-      createdId: this.data.pageUser.id,
-      createdName: this.data.pageUser.realName
+      content: contents
     }
-    addSinglePage(reqData)
+    let reqFuc = addSinglePage
+    if (this.data.action === 'edit') {
+      reqFuc = editSinglePage
+      reqData.id = this.data.id
+      reqData.lastModify = formatTime(new Date())
+      reqData.updateId = this.data.pageUser.id
+      reqData.updateName = this.data.pageUser.realName
+    } else {
+      reqData.createdId = this.data.pageUser.id
+      reqData.createdName = this.data.pageUser.realName
+    }
+    reqFuc(reqData)
       .then(res => {
         wx.hideLoading()
         if (res.code === 1) {
