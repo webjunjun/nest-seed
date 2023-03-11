@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { queryVisitorList } from '../../api/api'
+import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 
 Page({
@@ -57,7 +57,29 @@ Page({
   },
   initPage() {
     this.initData()
-    this.getVisitorList()
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    Promise.all([queryTomorrowBooking(), queryMineTwoDays({
+      eaterId: this.data.pageUser.id
+    }), queryVisitorList({
+      pageSize: this.data.pageSize,
+      currentPage: this.data.currentPage
+    })])
+      .then((res) => {
+        // 可预约时间
+        const json1 = res[0].data
+        // 本人这两天的预约数据
+        const json2 = res[1].data
+        // 来客就餐列表
+        const json3 = res[2].data
+        wx.hideLoading()
+        console.log(res)
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
   },
   initData() {
     const curUser = myApp.globalData.userInfo

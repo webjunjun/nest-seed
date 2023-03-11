@@ -10,9 +10,8 @@ export class DinerEntity {
   @PrimaryGeneratedColumn('increment', {comment: '就餐预约ID'})
   id: number;
 
-  // 创建日的第二天 YYYY-MM-dd
   @Column({name: 'eat_date', comment: '就餐日期', type: 'date', nullable: true})
-  eatDate: string;
+  eatDate: Date;
 
   @Column({name: 'morning_start', comment: '早餐开始时间', length: 16, nullable: true})
   morningStart: string;
@@ -35,11 +34,11 @@ export class DinerEntity {
   @Column({comment: '就餐类型 来客/三餐', length: 8, nullable: true})
   type: string;
 
-  @Column({name: 'booking_start', comment: '预约开始时间', length: 24, nullable: true})
-  bookingStart: string;
+  @Column({name: 'booking_start', type: 'datetime', comment: '预约开始时间', nullable: true})
+  bookingStart: Date;
 
-  @Column({name: 'booking_end', comment: '预约结束时间', length: 24, nullable: true})
-  bookingEnd: string;
+  @Column({name: 'booking_end', type: 'datetime', comment: '预约结束时间', nullable: true})
+  bookingEnd: Date;
 
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})
   created: Date;

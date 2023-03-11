@@ -99,8 +99,10 @@ const getDateStr = (AddDayCount) => {
   dd.setDate(dd.getDate()+AddDayCount); // 获取AddDayCount天后的日期
   const y = dd.getFullYear();
   const m = dd.getMonth()+1; // 获取当前月份的日期
+  const _m = (m.toString())[1] ? m : `0${m}`;
   const d = dd.getDate();
-  return y + '-' + m + '-' + d;
+  const _d = (d.toString())[1] ? d : `0${d}`;
+  return y + '-' + _m + '-' + _d;
 }
 
 module.exports = {

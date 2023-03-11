@@ -13,6 +13,12 @@ export class DinerItemEntity {
   @Column({name: 'diner_id', comment: '就餐预约ID', nullable: true})
   dinerId: number;
 
+  @Column({name: 'diner_date', type: 'date', comment: '就餐日期', nullable: true})
+  dinerDate: Date;
+
+  @Column({name: 'diner_type', comment: '就餐类型', length: 8, nullable: true})
+  dinerType: string;
+
   @Column({name: 'eater_id', comment: '就餐人ID', length: 36, nullable: true})
   eaterId: string;
 

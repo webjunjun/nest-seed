@@ -8,7 +8,7 @@ export class DinerEditDto {
 
   @ApiProperty({description: '就餐日期'})
   @IsNotEmpty({message: '就餐日期不能为空'})
-  readonly eatDate: string;
+  readonly eatDate: Date;
 
   @ApiProperty({description: '早餐开始时间'})
   @IsNotEmpty({message: '早餐开始时间不能为空'})
@@ -40,11 +40,11 @@ export class DinerEditDto {
 
   @ApiProperty({description: '预约开始时间'})
   @IsNotEmpty({message: '预约开始时间不能为空'})
-  readonly bookingStart: string;
+  readonly bookingStart: Date;
 
   @ApiProperty({description: '预约结束时间'})
   @IsNotEmpty({message: '类型不能为空'})
-  readonly bookingEnd: string;
+  readonly bookingEnd: Date;
 
   @ApiProperty({description: '最后修改时间'})
   @IsNotEmpty({message: '最后修改时间不能为空'})

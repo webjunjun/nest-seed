@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DinerItemEntity } from 'src/entity/diner-item.entity';
+import { getDateStr } from 'src/utils/utils';
 import { InsertResult, Repository } from 'typeorm';
 import { DinerItemAddDto } from './dto/diner-item-add.dto';
 import { DinerItemDeleteDto } from './dto/diner-item-delete.dto';
@@ -35,14 +36,6 @@ export class DinerItemService {
     return true;
   }
 
-  async queryOne(singleObject: DinerItemQueryDto): Promise<DinerItemEntity> {
-    return await this.dinerItemRepository
-      .createQueryBuilder()
-      .select()
-      .where("id = :id", { id: singleObject.id })
-      .getOne();
-  }
-
   async queryList(singleObject: DinerItemQueryDto): Promise<Array<DinerItemEntity>> {
     const pageSize = singleObject.pageSize ? singleObject.pageSize : 10;
     const currentPage = singleObject.currentPage ? singleObject.currentPage : 1;
@@ -60,5 +53,18 @@ export class DinerItemService {
       .offset(pageSize * (currentPage - 1))
       .orderBy('diner_item.created', 'DESC')
       .getRawMany();
+  }
+
+  async queryTwodays(id: string): Promise<Array<DinerItemEntity>> {
+    const searchTomorrow = getDateStr(1)
+    const searchToday = getDateStr(0)
+    return await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'eater_id = :id and (diner_date = :searchToday or diner_date = :searchTomorrow)',
+        {id, searchTomorrow, searchToday}
+      )
+      .execute();
   }
 }

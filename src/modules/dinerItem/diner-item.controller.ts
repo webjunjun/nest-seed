@@ -15,8 +15,11 @@ export class DinerItemController {
   @ApiOperation({summary: '查询今日/明日三餐'})
   @UseGuards(JwtAuthGuard)
   @Post('twoDays')
-  async queryTodayDiner(@Body() singleObject: DinerItemQueryDto): Promise<Array<DinerItemEntity>> {
-    const pageData = await this.dinerItemService.queryList(singleObject).catch(() => {
+  async queryTodayDiner(@Body() eaterObj: {
+    eaterId: string
+  }): Promise<Array<DinerItemEntity>> {
+    const pageData = await this.dinerItemService.queryTwodays(eaterObj.eaterId).catch((e) => {
+      console.log(e);
       throw new HttpException('查询我的今日三餐列表失败', HttpStatus.BAD_REQUEST);
     });
     return pageData;

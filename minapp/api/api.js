@@ -241,7 +241,15 @@ export const modifyDinerBooking = (data) => {
   })
 }
 
-// 今日/明日三餐状态
+// 查询明日最新预约时间
+export const queryTomorrowBooking = (data) => {
+  return request({
+    url: '/diner/tomorrow',
+    method: 'POST',
+    data
+  })
+}
+
 // 查询到就是已预约，未查询到就是未预约
 export const queryMineTwoDays = (data) => {
   return request({
@@ -287,7 +295,7 @@ export const queryMineTodayList = (data) => {
   })
 }
 
-// 查询单页面
+// 查询单页面列表
 export const querySingleList = (data) => {
   return request({
     url: '/single/list',
@@ -296,6 +304,7 @@ export const querySingleList = (data) => {
   })
 }
 
+// 增加单页面
 export const addSinglePage = (data) => {
   return request({
     url: '/single/add',
@@ -304,6 +313,7 @@ export const addSinglePage = (data) => {
   })
 }
 
+// 编辑单页面
 export const editSinglePage = (data) => {
   return request({
     url: '/single/update',
@@ -312,6 +322,7 @@ export const editSinglePage = (data) => {
   })
 }
 
+// 删除单页面
 export const deleteSinglePage = (data) => {
   return request({
     url: '/single/delete',
@@ -320,6 +331,7 @@ export const deleteSinglePage = (data) => {
   })
 }
 
+// 查询单页面记录
 export const querySingleOne = (data) => {
   return request({
     url: '/single/query',

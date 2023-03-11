@@ -4,7 +4,7 @@ import { IsNotEmpty } from "class-validator";
 export class DinerAddDto {
   @ApiProperty({description: '就餐日期'})
   @IsNotEmpty({message: '就餐日期不能为空'})
-  readonly eatDate: string;
+  readonly eatDate: Date;
 
   @ApiProperty({description: '早餐开始时间'})
   @IsNotEmpty({message: '早餐开始时间不能为空'})
@@ -36,11 +36,11 @@ export class DinerAddDto {
 
   @ApiProperty({description: '预约开始时间'})
   @IsNotEmpty({message: '预约开始时间不能为空'})
-  readonly bookingStart: string;
+  readonly bookingStart: Date;
 
   @ApiProperty({description: '预约结束时间'})
   @IsNotEmpty({message: '预约结束时间不能为空'})
-  readonly bookingEnd: string;
+  readonly bookingEnd: Date;
 
   @ApiProperty({description: '创建人ID'})
   @IsNotEmpty({message: '创建人ID不能为空'})

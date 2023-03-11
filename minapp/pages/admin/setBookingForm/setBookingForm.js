@@ -13,6 +13,7 @@ Page({
       edit: '修改'
     },
     pageUser: {},
+    eatDate: '',
     bookingStart: '',
     bookingEnd: '',
     morningStart: '',
@@ -42,18 +43,12 @@ Page({
     }
   },
   initPage() {
-    if (this.data.type === '三餐') {
-      this.setData({
-        pageUser: myApp.globalData.userInfo
-      })
-    } else {
-      const currentDatetime = formatTime(new Date())
-      this.setData({
-        bookingStart: currentDatetime,
-        bookingEnd: currentDatetime,
-        pageUser: myApp.globalData.userInfo
-      })
-    }
+    const currentDatetime = formatTime(new Date())
+    this.setData({
+      bookingStart: currentDatetime,
+      bookingEnd: currentDatetime,
+      pageUser: myApp.globalData.userInfo
+    })
     if (this.data.action === 'edit') {
       this.getDetailData()
     }
@@ -201,6 +196,11 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
+  },
+  bindEatDate(e) {
+    this.setData({
+      eatDate: e.detail.value
+    })
   },
   bindBookingStart(e) {
     this.setData({

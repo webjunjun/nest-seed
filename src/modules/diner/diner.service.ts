@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DinerEntity } from 'src/entity/diner.entity';
+import { getDateStr } from 'src/utils/utils';
 import { InsertResult, Repository } from 'typeorm';
 import { DinerAddDto } from './dto/diner-add.dto';
 import { DinerDeleteDto } from './dto/diner-delete.dto';
@@ -15,13 +16,6 @@ export class DinerService {
   ) {}
 
   async addOne(singleObject: DinerAddDto): Promise<InsertResult> {
-    console.log(singleObject)
-    console.log(this.dinerRepository
-      .createQueryBuilder()
-      .insert()
-      .into(DinerEntity)
-      .values(singleObject)
-      .getSql())
     return await this.dinerRepository
       .createQueryBuilder()
       .insert()
@@ -86,5 +80,29 @@ export class DinerService {
       .offset(pageSize * (currentPage - 1))
       .orderBy('diner.created', 'DESC')
       .getRawMany();
+  }
+
+  async queryLate(): Promise<Array<DinerEntity>> {
+    const searchDate = getDateStr(1)
+    const dataOne = await this.dinerRepository
+      .createQueryBuilder()
+      .select()
+      .where("eat_date = :searchDate and type = '来客'", { searchDate })
+      .orderBy('created', 'DESC')
+      .getOne();
+    const dataTwo = await this.dinerRepository
+      .createQueryBuilder()
+      .select()
+      .where("eat_date = :searchDate and type = '三餐'", { searchDate })
+      .orderBy('created', 'DESC')
+      .getOne();
+    const arr = [];
+    if (dataOne) {
+      arr.push(dataOne)
+    }
+    if (dataTwo) {
+      arr.push(dataTwo)
+    }
+    return arr;
   }
 }
