@@ -9,18 +9,23 @@
   >
     <view class="weui-form-preview__hd">
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">预约时间段类型</view>
-        <view class="weui-form-preview__value_in-hd">{{item.type}}</view>
+        <view class="weui-form-preview__label">预约类型</view>
+        <view class="weui-form-preview__value_in-hd" wx:if="{{item.type === '三餐'}}">明日三餐预约</view>
+        <view class="weui-form-preview__value_in-hd" wx:if="{{item.type === '来客'}}">明日来客就餐预约</view>
       </view>
     </view>
     <view class="weui-form-preview__bd">
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">可预约时间</view>
-        <view class="weui-form-preview__value">{{item.bookingDate}}</view>
+        <view class="weui-form-preview__label">预约开始时间</view>
+        <view class="weui-form-preview__value">{{item.bookingStart}}</view>
       </view>
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">三餐吃饭时间段</view>
-        <view class="weui-form-preview__value">早餐: {{item.morningTime}}; 中餐: {{item.middayTime}}; 晚餐: {{item.eveningTime}} </view>
+        <view class="weui-form-preview__label">预约结束时间</view>
+        <view class="weui-form-preview__value">{{item.bookingEnd}}</view>
+      </view>
+      <view class="weui-form-preview__item" wx:if="{{item.type === '三餐'}}">
+        <view class="weui-form-preview__label">三餐吃饭时间</view>
+        <view class="weui-form-preview__value">早餐: {{item.morningStart}} - {{item.morningEnd}}; 中餐: {{item.middayStart}} - {{item.middayEnd}}; 晚餐: {{item.eveningStart}} - {{item.eveningEnd}}</view>
       </view>
     </view>
     <view class="weui-form-preview__ft">

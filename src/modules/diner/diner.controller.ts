@@ -17,7 +17,8 @@ export class DinerController {
   @UseGuards(JwtAuthGuard)
   @Post('booking')
   async settingBookingDate(@Body() singleObject: DinerAddDto): Promise<string> {
-    await this.dinerService.addOne(singleObject).catch(() => {
+    await this.dinerService.addOne(singleObject).catch((e) => {
+      console.log(e)
       throw new HttpException('设置失败', HttpStatus.BAD_REQUEST);
     });
     return '设置成功';

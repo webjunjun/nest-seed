@@ -1,5 +1,5 @@
 import { addDinerBooking, modifyDinerBooking, queryDinerOne } from '../../../api/api'
-import { formatTime } from '../../../utils/util'
+import { formatTime, getDateStr } from '../../../utils/util'
 const myApp = getApp()
 
 Page({
@@ -30,7 +30,8 @@ Page({
       action: option.action,
       id: option.id || '',
       type: option.type,
-      title: `${this.data.actionObj[option.action]}${option.type}${this.data.title}`
+      title: `${this.data.actionObj[option.action]}${option.type}${this.data.title}`,
+      eatDate: getDateStr(1)
     })
     if (myApp.globalData.hasLogin) {
       // 登录完成
@@ -41,9 +42,18 @@ Page({
     }
   },
   initPage() {
-    this.setData({
-      pageUser: myApp.globalData.userInfo
-    })
+    if (this.data.type === '三餐') {
+      this.setData({
+        pageUser: myApp.globalData.userInfo
+      })
+    } else {
+      const currentDatetime = formatTime(new Date())
+      this.setData({
+        bookingStart: currentDatetime,
+        bookingEnd: currentDatetime,
+        pageUser: myApp.globalData.userInfo
+      })
+    }
     if (this.data.action === 'edit') {
       this.getDetailData()
     }
@@ -58,30 +68,86 @@ Page({
     })
       .then((res) => {
         const json = res.data
-        this.setData({
-          history: {
-            title: json.title,
-            description: json.description
-          }
-        })
+        if (this.data.type === '三餐') {
+          this.setData({
+            bookingStart: json.bookingStart,
+            bookingEnd: json.bookingEnd,
+            morningStart: json.morningStart,
+            morningEnd: json.morningEnd,
+            middayStart: json.middayStart,
+            middayEnd: json.middayEnd,
+            eveningStart: json.eveningStart,
+            eveningEnd: json.eveningEnd,
+            eatDate: json.eatDate
+          })
+        } else {
+          this.setData({
+            bookingStart: json.bookingStart,
+            bookingEnd: json.bookingEnd,
+            eatDate: json.eatDate
+          })
+        }
         wx.hideLoading()
       })
       .catch(() => {
         wx.hideLoading()
       })
   },
-  submitSingle(e) {
-    const formData = e.detail.value
-    const contents = wx.getStorageSync('editorTxt')
+  submitSingle() {
+    const curType = this.data.type
+    let sonReqData = null
+    if (curType === '三餐') {
+      sonReqData = {
+        morningStart: this.data.morningStart,
+        morningEnd: this.data.morningEnd,
+        middayStart: this.data.middayStart,
+        middayEnd: this.data.middayEnd,
+        eveningStart: this.data.eveningStart,
+        eveningEnd: this.data.eveningEnd
+      }
+    } else {
+      sonReqData = {
+        morningStart: '-',
+        morningEnd: '-',
+        middayStart: '-',
+        middayEnd: '-',
+        eveningStart: '-',
+        eveningEnd: '-'
+      }
+    }
+    const reqData = {
+      bookingStart: this.data.bookingStart,
+      bookingEnd: this.data.bookingEnd,
+      ...sonReqData,
+      eatDate: this.data.eatDate,
+      type: this.data.type
+    }
     let msg = ''
-    if (formData.title === '') {
-      msg = '请输入标题'
+    if (reqData.bookingStart === '') {
+      msg = '请选择预约开始时间'
     }
-    if (!msg && formData.description === '') {
-      msg = '请输入简述'
+    if (!msg && reqData.bookingEnd === '') {
+      msg = '请选择预约结束时间'
     }
-    if (!msg && !contents) {
-      msg = '请输入内容'
+    if (this.data.type === '三餐') {
+      if (!msg && reqData.morningStart === '') {
+        msg = '请选择早餐开始时间'
+      }
+      if (!msg && reqData.morningEnd === '') {
+        msg = '请选择早餐结束时间'
+      }
+      if (!msg && reqData.middayStart === '') {
+        msg = '请选择午餐开始时间'
+      }
+      if (!msg && reqData.middayEnd === '') {
+        msg = '请选择午餐结束时间'
+      }
+      if (!msg && reqData.eveningStart === '') {
+        msg = '请选择晚餐开始时间'
+      }
+      if (!msg && reqData.eveningEnd === '') {
+        msg = '请选择晚餐结束时间'
+      }
     }
     if (msg) {
       wx.showToast({
@@ -97,11 +163,6 @@ Page({
       title: '加载中',
       mask: true
     })
-    const reqData = {
-      ...formData,
-      type: this.data.singleArray[this.data.single].value,
-      content: contents
-    }
     let reqFuc = addDinerBooking
     if (this.data.action === 'edit') {
       reqFuc = modifyDinerBooking
@@ -121,10 +182,7 @@ Page({
             title: res.data,
             icon: 'success',
             duration: 2000,
-            mask: true,
-            success: () => {
-              
-            }
+            mask: true
           })
           setTimeout(() => {
             wx.navigateBack({
@@ -146,12 +204,12 @@ Page({
   },
   bindBookingStart(e) {
     this.setData({
-      bookingStart: e.detail.value
+      bookingStart: e.detail.value || e.detail.dateString
     })
   },
   bindBookingEnd(e) {
     this.setData({
-      bookingEnd: e.detail.value
+      bookingEnd: e.detail.value || e.detail.dateString
     })
   },
   bindMorningStart(e) {
@@ -183,5 +241,5 @@ Page({
     this.setData({
       eveningEnd: e.detail.value
     })
-  },
+  }
 })

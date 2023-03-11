@@ -137,10 +137,7 @@ Page({
             title: res.data,
             icon: 'success',
             duration: 2000,
-            mask: true,
-            success: () => {
-              
-            }
+            mask: true
           })
           setTimeout(() => {
             wx.navigateBack({

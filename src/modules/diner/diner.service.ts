@@ -15,14 +15,18 @@ export class DinerService {
   ) {}
 
   async addOne(singleObject: DinerAddDto): Promise<InsertResult> {
+    console.log(singleObject)
+    console.log(this.dinerRepository
+      .createQueryBuilder()
+      .insert()
+      .into(DinerEntity)
+      .values(singleObject)
+      .getSql())
     return await this.dinerRepository
       .createQueryBuilder()
       .insert()
       .into(DinerEntity)
-      .values({
-        ...singleObject,
-        created: new Date()
-      })
+      .values(singleObject)
       .execute();
   }
 

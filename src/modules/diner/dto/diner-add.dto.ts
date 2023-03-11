@@ -39,7 +39,7 @@ export class DinerAddDto {
   readonly bookingStart: string;
 
   @ApiProperty({description: '预约结束时间'})
-  @IsNotEmpty({message: '类型不能为空'})
+  @IsNotEmpty({message: '预约结束时间不能为空'})
   readonly bookingEnd: string;
 
   @ApiProperty({description: '创建人ID'})

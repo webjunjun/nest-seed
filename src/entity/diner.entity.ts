@@ -26,19 +26,19 @@ export class DinerEntity {
   @Column({name: 'midday_end', comment: '午餐结束时间', length: 16, nullable: true})
   middayEnd: string;
 
-  @Column({name: 'evening_start', comment: '晚餐开始时间', length: 8, nullable: true})
+  @Column({name: 'evening_start', comment: '晚餐开始时间', length: 16, nullable: true})
   eveningStart: string;
 
-  @Column({name: 'evening_end', comment: '晚餐结束时间', length: 8, nullable: true})
+  @Column({name: 'evening_end', comment: '晚餐结束时间', length: 16, nullable: true})
   eveningEnd: string;
 
   @Column({comment: '就餐类型 来客/三餐', length: 8, nullable: true})
   type: string;
 
-  @Column({name: 'booking_start', comment: '预约开始时间', length: 16, nullable: true})
+  @Column({name: 'booking_start', comment: '预约开始时间', length: 24, nullable: true})
   bookingStart: string;
 
-  @Column({name: 'booking_end', comment: '预约结束时间', length: 16, nullable: true})
+  @Column({name: 'booking_end', comment: '预约结束时间', length: 24, nullable: true})
   bookingEnd: string;
 
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})

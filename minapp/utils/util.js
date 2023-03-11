@@ -24,6 +24,14 @@ const formatDate = date => {
   return `${month}月${day}日 ${[hour, minute].map(formatNumber).join(':')}`
 }
 
+const formatDate2 = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+
+  return `${[year, month, day].map(formatNumber).join('-')}`
+}
+
 //版本号比较
 const versionStringCompare = (preVersion='', lastVersion='') => {
   const sources = preVersion.split('.');
@@ -85,11 +93,23 @@ const isVehicleNumber = (vehicleNumber) => {
   }
 }
 
+// 获取前天、昨天、今天、明天、后天
+const getDateStr = (AddDayCount) => {
+  const dd = new Date();
+  dd.setDate(dd.getDate()+AddDayCount); // 获取AddDayCount天后的日期
+  const y = dd.getFullYear();
+  const m = dd.getMonth()+1; // 获取当前月份的日期
+  const d = dd.getDate();
+  return y + '-' + m + '-' + d;
+}
+
 module.exports = {
   formatTime,
   formatDate,
+  formatDate2,
   versionStringCompare,
   checkModbile,
   isChinese,
-  isVehicleNumber
+  isVehicleNumber,
+  getDateStr
 }

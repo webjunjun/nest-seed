@@ -87,7 +87,7 @@ Page({
       mask: true
     })
     deleteCommuteOne({
-      id: obj.id
+      commuteId: obj.id
     })
       .then((res) => {
         wx.hideLoading()

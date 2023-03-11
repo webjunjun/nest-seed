@@ -43,7 +43,7 @@ Page({
   modifyItem(e) {
     const paramsObj = e.currentTarget.dataset
     wx.navigateTo({
-      url: `/pages/admin/setBookingForm/setBookingForm?type=${paramsObj.type}&action=add&id=${paramsObj.id}`,
+      url: `/pages/admin/setBookingForm/setBookingForm?type=${paramsObj.type}&action=edit&id=${paramsObj.id}`,
     })
     this.setData({
       showDialog: false

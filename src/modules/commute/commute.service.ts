@@ -104,6 +104,7 @@ export class CommuteService {
       .delete()
       .from(CommuteItemEntity)
       .where('commute_id = :commuteId', { commuteId })
+      .execute();
     return true;
   }
 
