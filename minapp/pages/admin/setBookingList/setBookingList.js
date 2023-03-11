@@ -1,4 +1,4 @@
-import { querySingleList, deleteSinglePage } from '../../../api/api'
+import { queryDinerList, deleteDinerOne } from '../../../api/api'
 
 const myApp = getApp()
 Page({
@@ -7,7 +7,11 @@ Page({
     noMore: false,
     pageSize: 20,
     currentPage: 1,
-    typeName: ['本周食谱', '帮助', '关于我们']
+    groups: [
+      { text: '明日三餐预约时间设置', value: '三餐' },
+      { text: '来客就餐预约时间设置', value: '来客' }
+    ],
+    showDialog: false,
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -22,12 +26,72 @@ Page({
   initPage() {
     this.getPageList()
   },
+  addItem() {
+    this.setData({
+      showDialog: true
+    })
+  },
+  btnClick(e) {
+    const type = e.detail.value
+    wx.navigateTo({
+      url: `/pages/admin/setBookingForm/setBookingForm?type=${type}&action=add`,
+    })
+    this.setData({
+      showDialog: false
+    })
+  },
+  modifyItem(e) {
+    const paramsObj = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/admin/setBookingForm/setBookingForm?type=${paramsObj.type}&action=add&id=${paramsObj.id}`,
+    })
+    this.setData({
+      showDialog: false
+    })
+  },
+  deleteItem(e) {
+    const paramsObj = e.currentTarget.dataset
+    wx.showModal({
+      title: '提示',
+      content: '确认删除嘛',
+      success: (res) => {
+        if (res.confirm) {
+          this.deleteConfirm(paramsObj)
+        }
+      }
+    })
+  },
+  deleteConfirm(obj) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    deleteDinerOne({
+      id: obj.id
+    })
+      .then((res) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.data,
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+        this.data.list.splice(obj.num, 1)
+        this.setData({
+          list: this.data.list
+        })
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
   getPageList() {
     wx.showLoading({
       title: '加载中',
       mask: true
     })
-    querySingleList({
+    queryDinerList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })
@@ -51,20 +115,6 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
-  },
-  goSingle() {
-    wx.navigateTo({
-      url: `/pages/admin/singleForm/singleForm?action=add`,
-    })
-  },
-  viewDetail() {
-    // 
-  },
-  deleteItem() {
-    // 
-  },
-  modifyItem() {
-    // 
   },
   onReachBottom() {
     if (this.data.noMore) {

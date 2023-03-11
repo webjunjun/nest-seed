@@ -52,4 +52,22 @@ export class DinerController {
     });
     return data;
   }
+
+  @ApiOperation({summary: '查询设置的预约时间段列表'})
+  @UseGuards(JwtAuthGuard)
+  @Post('list')
+  async queryTodayList(@Body() singleObject: DinerQueryDto): Promise<{
+    pageSize: number,
+    currentPage: number
+    list: Array<DinerEntity>
+  }> {
+    const pageData = await this.dinerService.queryList(singleObject).catch(() => {
+      throw new HttpException('查询预约时间段列表失败', HttpStatus.BAD_REQUEST);
+    });
+    return {
+      pageSize: Number(singleObject.pageSize) || 10,
+      currentPage: Number(singleObject.currentPage) || 1,
+      list: pageData
+    }
+  }
 }

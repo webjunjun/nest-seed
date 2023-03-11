@@ -1,0 +1,6 @@
+.weui-cells__group_form .weui-label {
+  max-width: 6em;
+}
+.picker-unselect {
+  color: #999;
+}

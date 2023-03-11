@@ -5,19 +5,16 @@ export class DinerQueryDto {
   readonly id: number;
 
   @ApiProperty({description: '就餐日期'})
-  readonly eatDate: Date;
-
-  @ApiProperty({description: '就餐时间段'})
-  readonly eatTime: string;
+  readonly eatDate: string;
 
   @ApiProperty({description: '就餐类型'})
-  readonly eatType: string;
-
-  @ApiProperty({description: '可预约时间段'})
-  readonly bookingDate: string;
-
-  @ApiProperty({description: '类型'})
   readonly type: string;
+
+  @ApiProperty({description: '预约开始时间'})
+  readonly bookingStart: string;
+
+  @ApiProperty({description: '预约结束时间'})
+  readonly bookingEnd: string;
 
   @ApiProperty({description: '创建人名字'})
   readonly createdName: string;

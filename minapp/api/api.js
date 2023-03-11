@@ -35,6 +35,7 @@ export const queryUserList = (data) => {
   })
 }
 
+// 删除用户
 export const deleteUser = (data) => {
   return request({
     url: '/user/delete',
@@ -43,6 +44,7 @@ export const deleteUser = (data) => {
   })
 }
 
+// 更新用户角色
 export const updateUserRole = (data) => {
   return request({
     url: '/user/role',
@@ -180,6 +182,51 @@ export const queryVisitorDiner = (data) => {
 export const queryVisitorList = (data) => {
   return request({
     url: '/visitor/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询预约时间段列表
+export const queryDinerList = (data) => {
+  return request({
+    url: '/diner/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询单条预约时间段
+export const queryDinerOne = (data) => {
+  return request({
+    url: '/diner/query',
+    method: 'POST',
+    data
+  })
+}
+
+// 删除单条预约时间段
+export const deleteDinerOne = (data) => {
+  return request({
+    url: '/diner/delete',
+    method: 'POST',
+    data
+  })
+}
+
+// 设置预约时间段
+export const addDinerBooking = (data) => {
+  return request({
+    url: '/diner/booking',
+    method: 'POST',
+    data
+  })
+}
+
+// 修改预约时间段
+export const modifyDinerBooking = (data) => {
+  return request({
+    url: '/diner/update',
     method: 'POST',
     data
   })

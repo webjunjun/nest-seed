@@ -8,17 +8,11 @@
       <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
     </view>
   </mp-cell>
-  <mp-cell>
+  <mp-cell link url="/pages/admin/visitorList/visitorList">
     <view>来客就餐预约管理</view>
-    <view slot="footer">
-      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
-    </view>
   </mp-cell>
-  <mp-cell>
+  <mp-cell link url="/pages/admin/setBookingList/setBookingList">
     <view>预约时间段管理</view>
-    <view slot="footer">
-      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
-    </view>
   </mp-cell>
   <mp-cell link url="/pages/admin/singleList/singleList">
     <view>单页面管理</view>

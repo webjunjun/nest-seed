@@ -18,6 +18,7 @@
     "pages/admin/visitorList/visitorList",
     "pages/admin/userList/userList",
     "pages/admin/setBookingList/setBookingList",
+    "pages/admin/setBookingForm/setBookingForm",
     "pages/admin/commuteList/commuteList",
     "pages/admin/editor/editor"
   ],

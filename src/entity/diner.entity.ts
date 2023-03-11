@@ -10,20 +10,36 @@ export class DinerEntity {
   @PrimaryGeneratedColumn('increment', {comment: '就餐预约ID'})
   id: number;
 
+  // 创建日的第二天 YYYY-MM-dd
   @Column({name: 'eat_date', comment: '就餐日期', type: 'date', nullable: true})
-  eatDate: Date;
+  eatDate: string;
 
-  @Column({name: 'eat_time', comment: '就餐时间段', length: 16, nullable: true})
-  eatTime: string;
+  @Column({name: 'morning_start', comment: '早餐开始时间', length: 16, nullable: true})
+  morningStart: string;
 
-  @Column({name: 'eat_type', comment: '就餐类型 早餐/中餐/晚餐', length: 8, nullable: true})
-  eatType: string;
+  @Column({name: 'morning_end', comment: '早餐结束时间', length: 16, nullable: true})
+  morningEnd: string;
 
-  @Column({name: 'booking_date', comment: '可预约时间段', length: 16, nullable: true})
-  bookingDate: string;
+  @Column({name: 'midday_start', comment: '午餐开始时间', length: 16, nullable: true})
+  middayStart: string;
 
-  @Column({comment: '类型 来客/三餐', length: 8, nullable: true})
+  @Column({name: 'midday_end', comment: '午餐结束时间', length: 16, nullable: true})
+  middayEnd: string;
+
+  @Column({name: 'evening_start', comment: '晚餐开始时间', length: 8, nullable: true})
+  eveningStart: string;
+
+  @Column({name: 'evening_end', comment: '晚餐结束时间', length: 8, nullable: true})
+  eveningEnd: string;
+
+  @Column({comment: '就餐类型 来客/三餐', length: 8, nullable: true})
   type: string;
+
+  @Column({name: 'booking_start', comment: '预约开始时间', length: 16, nullable: true})
+  bookingStart: string;
+
+  @Column({name: 'booking_end', comment: '预约结束时间', length: 16, nullable: true})
+  bookingEnd: string;
 
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})
   created: Date;
