@@ -2,11 +2,8 @@
   <mp-cell link url="/pages/admin/userList/userList">
     <view>用户管理</view>
   </mp-cell>
-  <mp-cell>
+  <mp-cell link url="/pages/admin/commuteList/commuteList">
     <view>出行管理</view>
-    <view slot="footer">
-      <mp-icon icon="arrow" color="#c9c9c9" size="{{12}}"></mp-icon>
-    </view>
   </mp-cell>
   <mp-cell link url="/pages/admin/visitorList/visitorList">
     <view>来客就餐预约管理</view>

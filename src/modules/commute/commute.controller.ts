@@ -1,5 +1,6 @@
 import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CommuteItemEntity } from 'src/entity/commute-item.entity';
 import { CommuteEntity } from 'src/entity/commute.entity';
 import { ModifyUserLicensePlate } from 'src/type/nestSeed';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -7,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { CommuteService } from './commute.service';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
+import { CommuteItemQueryDto } from './dto/commute-item-query.dto';
 import { CommuteItemDto } from './dto/commute-item.dto';
 import { CommuteOneDto } from './dto/commute-one.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
@@ -131,5 +133,15 @@ export class CommuteController {
       throw new HttpException('取消拼车出行失败', HttpStatus.BAD_REQUEST);
     });
     return '取消拼车出行成功';
+  }
+
+  @ApiOperation({summary: '查询预约出行的拼车信息'})
+  @UseGuards(JwtAuthGuard)
+  @Post('item')
+  async queryItemList(@Body() commuteItem: CommuteItemQueryDto): Promise<Array<CommuteItemEntity>> {
+    const pageData = await this.commuteService.queryItemList(commuteItem).catch(() => {
+      throw new HttpException('查询预约出行失败', HttpStatus.BAD_REQUEST);
+    });
+    return pageData
   }
 }

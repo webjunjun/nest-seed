@@ -1,4 +1,4 @@
-import { querySingleList, deleteSinglePage } from '../../../api/api'
+import { postCommuteList, deleteCommuteOne, getCommuteBooking } from '../../../api/api'
 
 const myApp = getApp()
 Page({
@@ -7,7 +7,10 @@ Page({
     noMore: false,
     pageSize: 20,
     currentPage: 1,
-    typeName: ['本周食谱', '帮助', '关于我们']
+    pageUser: {},
+    dialogShow: false,
+    buttons: [{ text: '确定' }],
+    bookingList: []
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -20,6 +23,9 @@ Page({
   },
   // 初始化页面方法
   initPage() {
+    this.setData({
+      pageUser: myApp.globalData.userInfo
+    })
     this.getPageList()
   },
   getPageList() {
@@ -27,7 +33,7 @@ Page({
       title: '加载中',
       mask: true
     })
-    querySingleList({
+    postCommuteList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })
@@ -52,19 +58,78 @@ Page({
         wx.hideLoading()
       })
   },
-  goSingle() {
+  addItem() {
     wx.navigateTo({
-      url: `/pages/admin/singleForm/singleForm?action=add`,
+      url: '/pages/publishCommute/publishCommute?type=add',
     })
   },
-  viewDetail() {
-    // 
+  deleteItem(e) {
+    const paramsObj = e.currentTarget.dataset
+    wx.showModal({
+      title: '提示',
+      content: '确认删除嘛',
+      success: (res) => {
+        if (res.confirm) {
+          this.deleteConfirm(paramsObj)
+        }
+      }
+    })
   },
-  deleteItem() {
-    // 
+  modifyItem(e) {
+    const paramsObj = e.currentTarget.dataset
+    wx.navigateTo({
+      url: '/pages/publishCommute/publishCommute?type=edit&id=' + paramsObj.id,
+    })
   },
-  modifyItem() {
-    // 
+  deleteConfirm(obj) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    deleteCommuteOne({
+      id: obj.id
+    })
+      .then((res) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.data,
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+        this.data.list.splice(obj.num, 1)
+        this.setData({
+          list: this.data.list
+        })
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  viewDetail(e) {
+    const paramsObj = e.currentTarget.dataset
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    getCommuteBooking({
+      commuteId: paramsObj.id
+    })
+      .then((res) => {
+        wx.hideLoading()
+        this.setData({
+          bookingList: res.data,
+          dialogShow: true
+        })
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  tapDialogButton(e) {
+    this.setData({
+      dialogShow: false
+    })
   },
   onReachBottom() {
     if (this.data.noMore) {

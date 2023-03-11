@@ -105,7 +105,7 @@ export const postCommuteOne = (data) => {
 // 删除单条出行
 export const deleteCommuteOne = (data) => {
   return request({
-    url: '/commute/one',
+    url: '/commute/delete',
     method: 'POST',
     data
   })
@@ -133,6 +133,15 @@ export const postCommuteBooking = (data) => {
 export const rejectCommuteBooking = (data) => {
   return request({
     url: '/commute/cnacelBooking',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询参与该出行的预约信息
+export const getCommuteBooking = (data) => {
+  return request({
+    url: '/commute/item',
     method: 'POST',
     data
   })

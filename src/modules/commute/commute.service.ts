@@ -142,4 +142,24 @@ export class CommuteService {
       .execute();
     return true;
   }
+
+  // 查询是否有拼车出行记录
+  async queryItemList(commuteItemObj: {commuteId: number}): Promise<Array<CommuteItemEntity>> {
+    return await this.commuteItemRepository
+      .createQueryBuilder('commute_item')
+      .select(`
+        commute_item.id as id,
+        commute_item.commute_id as commuteId,
+        commute_item.traveler_id as travelerId,
+        commute_item.traveler as traveler,
+        commute_item.type as type,
+        commute_item.commute_date as commuteDate,
+        commute_item.created as created
+      `)
+      .where(
+        'commute_id = :commuteId',
+        commuteItemObj
+      )
+      .execute();
+  }
 }

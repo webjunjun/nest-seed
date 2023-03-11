@@ -7,36 +7,65 @@
     wx:key="index"
     class="weui-form-preview"
   >
-    <view class="weui-form-preview__hd" data-id="{{item.id}}" bindtap="viewDetail">
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">标题</view>
-        <view class="weui-form-preview__value_in-hd">{{item.title}}</view>
+    <view data-id="{{item.id}}" bindtap="viewDetail">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">出行序号</view>
+          <view class="weui-form-preview__value_in-hd">{{item.id}}</view>
+        </view>
       </view>
-    </view>
-    <view class="weui-form-preview__bd">
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">类型</view>
-        <view class="weui-form-preview__value">{{typeName[item.type]}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">简介</view>
-        <view class="weui-form-preview__value">{{item.desc}}</view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">发布人</view>
+          <view class="weui-form-preview__value">{{item.createdName}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">车牌号</view>
+          <view class="weui-form-preview__value">{{item.licensePlate}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">出行时间</view>
+          <view class="weui-form-preview__value">{{item.commuteDate}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">出发地</view>
+          <view class="weui-form-preview__value">{{item.startAddr}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">目的地</view>
+          <view class="weui-form-preview__value">{{item.endAddr}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">途径地</view>
+          <view class="weui-form-preview__value">{{item.passAddr}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">座位数</view>
+          <view class="weui-form-preview__value">还有{{item.restSeat}}个空位</view>
+        </view>
       </view>
     </view>
     <view class="weui-form-preview__ft">
       <view
         class="weui-form-preview__btn weui-form-preview__btn_default"
         data-id="{{item.id}}"
+        data-num="{{index}}"
         bindtap="deleteItem"
       >删除</view>
       <view
         class="weui-form-preview__btn weui-form-preview__btn_primary"
         data-id="{{item.id}}"
+        data-num="{{index}}"
         bindtap="modifyItem"
       >编辑</view>
     </view>
   </view>
 </view>
 <view class="fixed-bottom">
-  <button class="weui-btn" type="primary" bindtap="goSingle">新增</button>
+  <button class="weui-btn" type="primary" bindtap="addItem">新增</button>
 </view>
+<mp-dialog title="出行预约记录" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view class="dialog-box">
+    <view wx:for="{{bookingList}}" wx:key="index">乘车人: {{item.traveler}}</view>
+  </view>
+</mp-dialog>
