@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays } from '../../api/api'
+import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 
 Page({
@@ -33,7 +33,11 @@ Page({
     noMore: false,
     list: [],
     currentPage: 1,
-    pageSize: 20
+    pageSize: 20,
+    todayAll: null,
+    tomorrowAll: null,
+    todayData: {},
+    tomorrowData: {}
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -68,14 +72,62 @@ Page({
       currentPage: this.data.currentPage
     })])
       .then((res) => {
-        // 可预约时间
+        // 三餐可预约时间 默认当天12:00-00:00
+        // 来客就餐可预约时间 默认当天12:00-第二天10:30
         const json1 = res[0].data
-        // 本人这两天的预约数据
+        if (json1.today) {
+          const eatDateArr = json1.today.eatDate.split('-')
+          json1.today.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
+        }
+        if (json1.meal) {
+          const eatDateArr = json1.meal.eatDate.split('-')
+          json1.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
+        }
         const json2 = res[1].data
-        // 来客就餐列表
+        let tomorrowData = {}
+        if (json2.tomorrow && json2.tomorrow.dinerId === json1.meal.id) {
+          tomorrowData = {
+            bookingId: json2.tomorrow.id,
+            status1: json2.tomorrow.morning,
+            status2: json2.tomorrow.midday,
+            status3: json2.tomorrow.evening
+          }
+        } else {
+          tomorrowData = {
+            bookingId: '',
+            status1: -1,
+            status2: -1,
+            status3: -1
+          }
+        }
+        // todayData.status1
+        // tomorrowData.status1 = true
+        // tomorrowData.status2 = true
+        // tomorrowData.status3 = true
         const json3 = res[2].data
+        json3.list.forEach(ele => {
+          ele.dinerDate = ele.dinerDate.slice(0, 16)
+        });
+        if (json3.list.length < this.data.pageSize) {
+          // 显示到底 禁止触底加载了
+          this.setData({
+            list: this.data.list.concat(json3.list),
+            noMore: true,
+            todayAll: json1.today,
+            tomorrowAll: json1.meal,
+            tomorrowData
+          })
+        } else {
+          this.setData({
+            list: this.data.list.concat(json3.list),
+            currentPage: this.data.currentPage + 1,
+            noMore: false,
+            todayAll: json1.today,
+            tomorrowAll: json1.meal,
+            tomorrowData
+          })
+        }
         wx.hideLoading()
-        console.log(res)
       })
       .catch(() => {
         wx.hideLoading()
@@ -171,6 +223,57 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
+  },
+  bookingMeal(e) {
+    const paramsObj = e.currentTarget.dataset
+    const reqData = {
+      dinerId: paramsObj.id,
+      dinerDate: paramsObj.date,
+      [paramsObj.type]: paramsObj.diner,
+      type: paramsObj.type,
+      eaterId: this.data.pageUser.id,
+      eater: this.data.pageUser.realName
+    }
+    if (paramsObj.booking) {
+      reqData.id = paramsObj.booking
+    }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    bookMineTomorrow(reqData)
+    .then((res) => {
+      wx.hideLoading()
+      wx.showToast({
+        title: paramsObj.diner == 1 ? '明日就餐预约成功' : '取消明日就餐成功',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      const json = res.data
+        let tomorrowData = {}
+        if (json.tomorrow && json.tomorrow.dinerId === this.data.tomorrowAll.id) {
+          tomorrowData = {
+            bookingId: json.tomorrow.id,
+            status1: json.tomorrow.morning,
+            status2: json.tomorrow.midday,
+            status3: json.tomorrow.evening
+          }
+        } else {
+          tomorrowData = {
+            bookingId: '',
+            status1: -1,
+            status2: -1,
+            status3: -1
+          }
+        }
+        this.setData({
+          tomorrowData
+        })
+    })
+    .catch(() => {
+      wx.hideLoading()
+    })
   },
   onReachBottom() {
     if (this.data.noMore) {

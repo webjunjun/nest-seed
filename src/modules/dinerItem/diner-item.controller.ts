@@ -17,9 +17,11 @@ export class DinerItemController {
   @Post('twoDays')
   async queryTodayDiner(@Body() eaterObj: {
     eaterId: string
-  }): Promise<Array<DinerItemEntity>> {
-    const pageData = await this.dinerItemService.queryTwodays(eaterObj.eaterId).catch((e) => {
-      console.log(e);
+  }): Promise<{
+    today: DinerItemEntity,
+    tomorrow: DinerItemEntity
+  }> {
+    const pageData = await this.dinerItemService.queryTwodays(eaterObj.eaterId).catch(() => {
       throw new HttpException('查询我的今日三餐列表失败', HttpStatus.BAD_REQUEST);
     });
     return pageData;
@@ -28,21 +30,27 @@ export class DinerItemController {
   @ApiOperation({summary: '预约明日三餐'})
   @UseGuards(JwtAuthGuard)
   @Post('booking')
-  async bookingTomorrowDiner(@Body() singleObject: DinerItemAddDto): Promise<string> {
-    await this.dinerItemService.addOne(singleObject).catch(() => {
-      throw new HttpException('明日就餐预约失败', HttpStatus.BAD_REQUEST);
-    });
-    return '明日就餐预约成功';
-  }
-
-  @ApiOperation({summary: '取消明日三餐'})
-  @UseGuards(JwtAuthGuard)
-  @Post('cancel')
-  async deleteTomorrowDiner(@Body() singleObject: DinerItemDeleteDto): Promise<string> {
-    await this.dinerItemService.deleteOne(singleObject).catch(() => {
-      throw new HttpException('取消明日就餐预约失败', HttpStatus.BAD_REQUEST);
-    });
-    return '取消明日就餐预约成功';
+  async bookingTomorrowDiner(@Body() singleObject: DinerItemAddDto): Promise<{
+    today: DinerItemEntity,
+    tomorrow: DinerItemEntity
+  }> {
+    if (!singleObject.morning && !singleObject.midday && !singleObject.evening) {
+      throw new HttpException('预约类型不能为空', HttpStatus.BAD_REQUEST);
+    }
+    let pageData = null
+    if (singleObject.id) {
+      pageData = await this.dinerItemService.modifyOne(singleObject).catch(() => {
+        if (singleObject.morning == -1 || singleObject.midday == -1 || singleObject.evening == -1) {
+          throw new HttpException('取消明日就餐失败', HttpStatus.BAD_REQUEST);
+        }
+        throw new HttpException('明日就餐预约失败', HttpStatus.BAD_REQUEST);
+      });
+    } else {
+      pageData = await this.dinerItemService.addOne(singleObject).catch(() => {
+        throw new HttpException('明日就餐预约失败', HttpStatus.BAD_REQUEST);
+      });
+    }
+    return pageData;
   }
 
   @ApiOperation({summary: '查询所有人的今日三餐列表'})

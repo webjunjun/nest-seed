@@ -34,10 +34,10 @@ export class DinerEntity {
   @Column({comment: '就餐类型 来客/三餐', length: 8, nullable: true})
   type: string;
 
-  @Column({name: 'booking_start', type: 'datetime', comment: '预约开始时间', nullable: true})
+  @Column({name: 'booking_start', type: 'timestamp', comment: '预约开始时间', nullable: true})
   bookingStart: Date;
 
-  @Column({name: 'booking_end', type: 'datetime', comment: '预约结束时间', nullable: true})
+  @Column({name: 'booking_end', type: 'timestamp', comment: '预约结束时间', nullable: true})
   bookingEnd: Date;
 
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})

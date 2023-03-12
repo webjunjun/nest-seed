@@ -16,8 +16,14 @@ export class DinerItemEntity {
   @Column({name: 'diner_date', type: 'date', comment: '就餐日期', nullable: true})
   dinerDate: Date;
 
-  @Column({name: 'diner_type', comment: '就餐类型', length: 8, nullable: true})
-  dinerType: string;
+  @Column({comment: '是否早餐 -1否/1是', type: 'tinyint', nullable: true, default: -1})
+  morning: number;
+  
+  @Column({comment: '是否中餐 -1否/1是', type: 'tinyint', nullable: true, default: -1})
+  midday: number;
+
+  @Column({comment: '是否晚餐 -1否/1是', type: 'tinyint', nullable: true, default: -1})
+  evening: number;
 
   @Column({name: 'eater_id', comment: '就餐人ID', length: 36, nullable: true})
   eaterId: string;

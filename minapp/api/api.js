@@ -259,19 +259,10 @@ export const queryMineTwoDays = (data) => {
   })
 }
 
-// 预约明日三餐
+// 预约/取消明日三餐
 export const bookMineTomorrow = (data) => {
   return request({
     url: '/dinerItem/booking',
-    method: 'POST',
-    data
-  })
-}
-
-// 取消预约明日三餐
-export const cancelMineTomorrow = (data) => {
-  return request({
-    url: '/dinerItem/cancel',
     method: 'POST',
     data
   })

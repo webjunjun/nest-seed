@@ -75,7 +75,11 @@ export class DinerController {
   @ApiOperation({summary: '查询最新设置的单条明日三餐和来客记录'})
   @UseGuards(JwtAuthGuard)
   @Post('tomorrow')
-  async querLateBooking(): Promise<Array<DinerEntity>> {
+  async querLateBooking(): Promise<{
+    today: DinerEntity,
+    visit: DinerEntity,
+    meal: DinerEntity
+  }> {
     const data = await this.dinerService.queryLate().catch(() => {
       throw new HttpException('查询失败', HttpStatus.BAD_REQUEST);
     });

@@ -10,8 +10,14 @@ export class DinerItemQueryDto {
   @ApiProperty({description: '就餐日期'})
   readonly dinerDate: string;
 
-  @ApiProperty({description: '就餐类型'})
-  readonly dinerType: string;
+  @ApiProperty({description: '是否早餐'})
+  readonly morning: number;
+
+  @ApiProperty({description: '是否中餐'})
+  readonly midday: number;
+
+  @ApiProperty({description: '是否晚餐'})
+  readonly evening: number;
 
   @ApiProperty({description: '就餐人ID'})
   readonly eaterId: string;

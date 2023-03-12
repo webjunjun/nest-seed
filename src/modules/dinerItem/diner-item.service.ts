@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DinerItemEntity } from 'src/entity/diner-item.entity';
 import { getDateStr } from 'src/utils/utils';
-import { InsertResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { DinerItemAddDto } from './dto/diner-item-add.dto';
 import { DinerItemDeleteDto } from './dto/diner-item-delete.dto';
 import { DinerItemQueryDto } from './dto/diner-item-query.dto';
@@ -14,8 +14,11 @@ export class DinerItemService {
     private readonly dinerItemRepository: Repository<DinerItemEntity>
   ) {}
 
-  async addOne(singleObject: DinerItemAddDto): Promise<InsertResult> {
-    return await this.dinerItemRepository
+  async addOne(singleObject: DinerItemAddDto): Promise<{
+    today: DinerItemEntity,
+    tomorrow: DinerItemEntity
+  }> {
+    await this.dinerItemRepository
       .createQueryBuilder()
       .insert()
       .into(DinerItemEntity)
@@ -24,6 +27,35 @@ export class DinerItemService {
         created: new Date()
       })
       .execute();
+    return await this.queryTwodays(singleObject.eaterId);
+  }
+
+  async modifyOne(singleObject: DinerItemAddDto): Promise<{
+    today: DinerItemEntity,
+    tomorrow: DinerItemEntity
+  }> {
+    const result = await this.dinerItemRepository
+      .createQueryBuilder()
+      .update(DinerItemEntity)
+      .set(singleObject)
+      .where('id = :id', {id: singleObject.id})
+      .execute();
+    if (result) {
+      // 查看是否全是-1
+      const lateResult = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'id = :id',
+        {id: singleObject.id}
+      )
+      .orderBy('created', 'DESC')
+      .getOne();
+      if (lateResult.morning === -1 && lateResult.midday === -1 && lateResult.evening === -1) {
+        await this.deleteOne(singleObject);
+      }
+    }
+    return await this.queryTwodays(singleObject.eaterId);
   }
 
   async deleteOne(singleObject: DinerItemDeleteDto): Promise<Boolean> {
@@ -55,16 +87,33 @@ export class DinerItemService {
       .getRawMany();
   }
 
-  async queryTwodays(id: string): Promise<Array<DinerItemEntity>> {
+  async queryTwodays(id: string): Promise<{
+    today: DinerItemEntity,
+    tomorrow: DinerItemEntity
+  }> {
     const searchTomorrow = getDateStr(1)
     const searchToday = getDateStr(0)
-    return await this.dinerItemRepository
+    const result1 = await this.dinerItemRepository
       .createQueryBuilder()
       .select()
       .where(
-        'eater_id = :id and (diner_date = :searchToday or diner_date = :searchTomorrow)',
-        {id, searchTomorrow, searchToday}
+        'eater_id = :id and diner_date = :searchToday',
+        {id, searchToday}
       )
-      .execute();
+      .orderBy('created', 'DESC')
+      .getOne();
+    const result2 = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'eater_id = :id and diner_date = :searchTomorrow',
+        {id, searchTomorrow}
+      )
+      .orderBy('created', 'DESC')
+      .getOne();
+    return {
+      today: result1,
+      tomorrow: result2
+    }
   }
 }
