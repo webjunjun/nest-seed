@@ -76,6 +76,10 @@ export class DinerItemService {
       .select(`
         diner_item.id as id,
         diner_item.diner_id as dinerId,
+        diner_item.diner_date as dinerDate,
+        diner_item.morning as morning,
+        diner_item.midday as midday,
+        diner_item.evening as evening,
         diner_item.eater_id as eaterId,
         diner_item.eater as eater,
         diner_item.type as type,
@@ -84,6 +88,7 @@ export class DinerItemService {
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
       .orderBy('diner_item.created', 'DESC')
+      .where('eater_id = :eaterId', {eaterId: singleObject.eaterId})
       .getRawMany();
   }
 

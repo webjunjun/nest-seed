@@ -202,5 +202,14 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
+  },
+  navDinerStat(e) {
+    const curItem = e.currentTarget.dataset.item
+    if (curItem.urlQuery === 'none') {
+      return false
+    }
+    wx.navigateTo({
+      url: '/pages/dinerStats/dinerStats?type=' + curItem.urlQuery
+    })
   }
 })

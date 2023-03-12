@@ -26,7 +26,7 @@
             </view>
           </block>
           <block wx:else>
-            <view wx:for="{{commonArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+            <view wx:for="{{commonArr}}" wx:key="index" class="stats-item">
               <view class="stats-cell">
                 <view class="stats-num">{{item.num}}</view>
                 <view>{{item.unit}}</view>

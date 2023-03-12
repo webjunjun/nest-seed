@@ -287,8 +287,10 @@ Page({
       .then((res) => {
         wx.hideLoading()
         const json = res.data
+        const curUserId = this.data.pageUser.id
         json.list.forEach(ele => {
           ele.dinerDate = ele.dinerDate.slice(0, 16)
+          ele.curUserId = curUserId
         });
         if (json.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了

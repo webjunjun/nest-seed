@@ -16,24 +16,13 @@
     <view class="common-content">
       <view class="common-stats-box">
         <view class="common-stats-list">
-          <block wx:if="{{pageUser.role === 1 || pageUser.role === 2}}">
-            <view wx:for="{{adminArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
-              <view class="stats-cell">
-                <view class="stats-num">{{item.num}}</view>
-                <view>{{item.unit}}</view>
-              </view>
-              <view class="stats-type">{{item.type}}</view>
+          <view wx:for="{{adminArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+            <view class="stats-cell">
+              <view class="stats-num">{{item.num}}</view>
+              <view>{{item.unit}}</view>
             </view>
-          </block>
-          <block wx:else>
-            <view wx:for="{{commonArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
-              <view class="stats-cell">
-                <view class="stats-num">{{item.num}}</view>
-                <view>{{item.unit}}</view>
-              </view>
-              <view class="stats-type">{{item.type}}</view>
-            </view>
-          </block>
+            <view class="stats-type">{{item.type}}</view>
+          </view>
         </view>
       </view>
       <view class="diner-stats-wrap">

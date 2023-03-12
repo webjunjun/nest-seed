@@ -12,29 +12,16 @@
       <view class="mine-diner-inner">
         <view class="mdi-title">我的就餐记录</view>
         <view class="mdi-list">
-          <view class="mdi-item mdi-today">
+          <view wx:for="{{list}}" wx:key="index" class="mdi-item mdi-today">
             <view class="mdi-left">
               <image src="{{avatarUrl}}"></image>
             </view>
             <view class="mdi-right">
-              <view class="mdi-date">2023年2月27日 就餐记录</view>
+              <view class="mdi-date">{{item.newDinerDate}} 就餐记录</view>
               <view>
-                <view class="mdi-badge mdi-zao">早餐</view>
-                <view class="mdi-badge mdi-zhong">中餐</view>
-                <view class="mdi-badge mdi-wan">晚餐</view>
-              </view>
-            </view>
-          </view>
-          <view class="mdi-item">
-            <view class="mdi-left">
-              <image src="{{avatarUrl}}"></image>
-            </view>
-            <view class="mdi-right">
-              <view class="mdi-date">2023年2月27日 就餐记录</view>
-              <view>
-                <view class="mdi-badge mdi-zao">早餐</view>
-                <view class="mdi-badge mdi-zhong">中餐</view>
-                <view class="mdi-badge mdi-wan">晚餐</view>
+                <view class="mdi-badge mdi-zao" wx:if="{{item.morning === 1}}">早餐</view>
+                <view class="mdi-badge mdi-zhong" wx:if="{{item.midday === 1}}">中餐</view>
+                <view class="mdi-badge mdi-wan" wx:if="{{item.evening === 1}}">晚餐</view>
               </view>
             </view>
           </view>

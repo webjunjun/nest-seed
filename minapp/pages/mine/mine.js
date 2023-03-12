@@ -10,9 +10,9 @@ Page({
     mineIcon1: `${baseImageUrl}/mine/modify_mine.png`,
     mineIcon2: `${baseImageUrl}/mine/push_mine.png`,
     mineIcon3: `${baseImageUrl}/mine/help_mine.png`,
-    role: 1,
     realName: '',
     cellphone: '',
+    pageUser: {}
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -43,6 +43,7 @@ Page({
     // 每次显示都执行的
     const pageUser = myApp.globalData.userInfo
     this.setData({
+      pageUser,
       realName: pageUser.realName,
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + pageUser.avatar

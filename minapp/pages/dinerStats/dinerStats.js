@@ -28,22 +28,6 @@ Page({
       type: '来客就餐',
       urlQuery: 'visit'
     }],
-    commonArr: [{
-      num: 0,
-      unit: '次',
-      type: '早餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '次',
-      type: '中餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '次',
-      type: '晚餐',
-      urlQuery: 'today'
-    }],
     curTitle: '',
     curType: '',
     pageUser: {}

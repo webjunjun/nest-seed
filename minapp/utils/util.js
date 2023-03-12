@@ -32,6 +32,14 @@ const formatDate2 = date => {
   return `${[year, month, day].map(formatNumber).join('-')}`
 }
 
+const formatDate3 = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+
+  return `${year}年${month}月${day}日}`
+}
+
 //版本号比较
 const versionStringCompare = (preVersion='', lastVersion='') => {
   const sources = preVersion.split('.');
@@ -129,6 +137,7 @@ module.exports = {
   formatTime,
   formatDate,
   formatDate2,
+  formatDate3,
   versionStringCompare,
   checkModbile,
   isChinese,
