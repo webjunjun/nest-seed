@@ -54,9 +54,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   addItem() {
     wx.navigateTo({
@@ -102,9 +99,6 @@ Page({
           list: this.data.list
         })
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   viewDetail(e) {
     const paramsObj = e.currentTarget.dataset
@@ -121,9 +115,6 @@ Page({
           bookingList: res.data,
           dialogShow: true
         })
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   tapDialogButton(e) {

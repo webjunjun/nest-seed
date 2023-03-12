@@ -120,9 +120,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   getVisitorList() {
     wx.showLoading({
@@ -154,9 +151,6 @@ Page({
             noMore: false
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onReachBottom() {

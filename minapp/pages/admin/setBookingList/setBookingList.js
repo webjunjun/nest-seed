@@ -82,9 +82,6 @@ Page({
           list: this.data.list
         })
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   getPageList() {
     wx.showLoading({
@@ -111,9 +108,6 @@ Page({
             noMore: false
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onReachBottom() {

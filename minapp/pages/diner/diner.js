@@ -198,9 +198,6 @@ Page({
         }
         wx.hideLoading()
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   initData() {
     const curUser = myApp.globalData.userInfo
@@ -255,9 +252,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   bindClosePopup() {
     this.setData({
@@ -306,9 +300,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   bookingMeal(e) {
     const paramsObj = e.currentTarget.dataset
@@ -356,9 +347,6 @@ Page({
         this.setData({
           tomorrowData
         })
-    })
-    .catch(() => {
-      wx.hideLoading()
     })
   },
   onReachBottom() {

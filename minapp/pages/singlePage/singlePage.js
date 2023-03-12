@@ -73,8 +73,5 @@ Page({
         })
         wx.hideLoading()
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   }
 })

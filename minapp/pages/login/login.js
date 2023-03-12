@@ -82,9 +82,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   loginSystem(obj) {
     myApp.initPage(obj.phone)

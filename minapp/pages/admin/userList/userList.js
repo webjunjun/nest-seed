@@ -58,9 +58,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   deleteItem(e) {
     const paramsObj = e.currentTarget.dataset
@@ -120,9 +117,6 @@ Page({
           list: this.data.list
         })
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   btnClick(e) {
     const roleId = e.detail.value
@@ -153,9 +147,6 @@ Page({
           showDialog: false,
           list: this.data.list
         })
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onReachBottom() {

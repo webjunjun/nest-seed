@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   // 请求需要登录才能访问的接口，校验token成功走这里
   async validate(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, payload: any) {
-    const tokenKey = `${payload.phone}&${payload.id}`;
+    const tokenKey = `WWZBOOKING:${payload.phone}&${payload.id}`;
     let cacheToken = await this.redisCacheService.cacheGet(tokenKey);
     if (!cacheToken) {
       // 非小程序直接提示失效

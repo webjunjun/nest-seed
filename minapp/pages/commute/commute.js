@@ -136,9 +136,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   bindCallphone() {
     wx.makePhoneCall({
@@ -198,9 +195,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   cancelBooking(obj) {
     wx.showLoading({
@@ -219,9 +213,6 @@ Page({
           duration: 2000,
           mask: true
         })
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   getCommuteList() {
@@ -258,9 +249,6 @@ Page({
             noMore: false
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onReachBottom() {

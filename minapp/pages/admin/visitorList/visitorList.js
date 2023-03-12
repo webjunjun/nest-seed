@@ -51,9 +51,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   addItem() {
     wx.navigateTo({
@@ -98,9 +95,6 @@ Page({
         this.setData({
           list: this.data.list
         })
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onReachBottom() {

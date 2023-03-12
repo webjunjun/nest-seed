@@ -72,9 +72,6 @@ Page({
         }
         wx.hideLoading()
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   bindPickerChange(e) {
     this.setData({
@@ -152,9 +149,6 @@ Page({
             mask: true
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   onUnload() {

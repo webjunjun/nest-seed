@@ -84,9 +84,6 @@ Page({
         }
         wx.hideLoading()
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   submitSingle() {
     const curType = this.data.type
@@ -192,9 +189,6 @@ Page({
             mask: true
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   bindEatDate(e) {

@@ -76,9 +76,6 @@ Page({
             hasItem: res.data.passAddr.length
           })
         })
-        .catch(() => {
-          wx.hideLoading()
-        })
     }
   },
   initData() {
@@ -227,9 +224,6 @@ Page({
             mask: true
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   }
 })

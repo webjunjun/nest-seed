@@ -66,9 +66,6 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   },
   onReachBottom() {
     if (this.data.noMore) {

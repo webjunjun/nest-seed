@@ -106,9 +106,6 @@ Page({
             dinerDate: res.data.dinerDate
           })
         })
-        .catch(() => {
-          wx.hideLoading()
-        })
     }
   },
   handleChange(e) {
@@ -198,9 +195,6 @@ Page({
             mask: true
           })
         }
-      })
-      .catch(() => {
-        wx.hideLoading()
       })
   },
   navDinerStat(e) {

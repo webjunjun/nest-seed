@@ -136,8 +136,5 @@ Page({
           })
         }
       })
-      .catch(() => {
-        wx.hideLoading()
-      })
   }
 })
