@@ -105,6 +105,26 @@ const getDateStr = (AddDayCount) => {
   return y + '-' + _m + '-' + _d;
 }
 
+const timeIsBetween = (date, start, end) => {
+  let dateNow = new Date(date); // 获取当前时间
+  let dateBegin = new Date(start); // 将-转化为/，使用new Date
+  let dateEnd = new Date(end); // 将-转化为/，使用new Date
+  let beginDiff = dateNow.getTime() - dateBegin.getTime(); // 时间差的毫秒数
+  let beginDayDiff = Math.floor(beginDiff / (24 * 3600 * 1000)); // 计算出相差天数
+  let endDiff = dateEnd.getTime() - dateNow.getTime(); // 时间差的毫秒数
+  let endDayDiff = Math.floor(endDiff / (24 * 3600 * 1000)); // 计算出相差天数
+  if(endDayDiff < 0){
+    // 已过期
+    return 'right'
+  }
+  if(beginDayDiff < 0){
+    // 还没到时间
+    return 'left';
+  }
+  // 两者之间
+  return 'center';
+}
+
 module.exports = {
   formatTime,
   formatDate,
@@ -113,5 +133,6 @@ module.exports = {
   checkModbile,
   isChinese,
   isVehicleNumber,
-  getDateStr
+  getDateStr,
+  timeIsBetween
 }

@@ -8,19 +8,19 @@ Page({
     realName: '',
     cellphone: '',
     statsArr: [{
-      num: 18,
+      num: 0,
       type: '今日早餐',
       urlQuery: 'today'
     }, {
-      num: 5,
+      num: 0,
       type: '今日中餐',
       urlQuery: 'today'
     }, {
-      num: 350,
+      num: 0,
       type: '今日晚餐',
       urlQuery: 'today'
     }, {
-      num: 350,
+      num: 0,
       type: '来客就餐',
       urlQuery: 'visit'
     }],

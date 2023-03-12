@@ -37,21 +37,30 @@
             <view class="booking-box today-one">
               <view class="booking-info">
                 <view class="booking-type">早餐</view>
-                <view class="booking-done">已就餐</view>
+                <view class="booking-done" wx:if="{{todayData.status1 === -1}}">未预约</view>
+                <view class="booking-done" wx:if="{{todayData.status1 == 1}}">已预约</view>
+                <view class="booking-done" wx:if="{{todayData.status1 == 2}}">就餐中</view>
+                <view class="booking-done" wx:if="{{todayData.status1 == 3}}">已就餐</view>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.morningStart}}-{{todayAll.morningEnd}}</view>
             </view>
             <view class="booking-box today-two">
               <view class="booking-info">
                 <view class="booking-type">中餐</view>
-                <view class="booking-done">已预约</view>
+                <view class="booking-done" wx:if="{{todayData.status2 === -1}}">未预约</view>
+                <view class="booking-done" wx:if="{{todayData.status2 == 1}}">已预约</view>
+                <view class="booking-done" wx:if="{{todayData.status2 == 2}}">就餐中</view>
+                <view class="booking-done" wx:if="{{todayData.status2 == 3}}">已就餐</view>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.middayStart}}-{{todayAll.middayEnd}}</view>
             </view>
             <view class="booking-box today-three">
               <view class="booking-info">
                 <view class="booking-type">晚餐</view>
-                <view class="booking-done">未预约</view>
+                <view class="booking-done" wx:if="{{todayData.status3 === -1}}">未预约</view>
+                <view class="booking-done" wx:if="{{todayData.status3 == 1}}">已预约</view>
+                <view class="booking-done" wx:if="{{todayData.status3 == 2}}">就餐中</view>
+                <view class="booking-done" wx:if="{{todayData.status3 == 3}}">已就餐</view>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.eveningStart}}-{{todayAll.eveningEnd}}</view>
             </view>
@@ -76,7 +85,7 @@
               data-type="{{tomorrowAll.type}}"
               data-diner="{{tomorrowData.status1 == -1 ? 1 : -1}}"
               data-booking="{{tomorrowData.bookingId}}"
-              data-type="morning"
+              data-today="morning"
               bindtap="bookingMeal"
             >
               <view class="booking-info">
@@ -93,7 +102,7 @@
               data-type="{{tomorrowAll.type}}"
               data-diner="{{tomorrowData.status2 == -1 ? 1 : -1}}"
               data-booking="{{tomorrowData.bookingId}}"
-              data-type="midday"
+              data-today="midday"
               bindtap="bookingMeal"
             >
               <view class="booking-info">
@@ -110,7 +119,7 @@
               data-type="{{tomorrowAll.type}}"
               data-diner="{{tomorrowData.status3 == -1 ? 1 : -1}}"
               data-booking="{{tomorrowData.bookingId}}"
-              data-type="evening"
+              data-today="evening"
               bindtap="bookingMeal"
             >
               <view class="booking-info">

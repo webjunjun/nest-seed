@@ -1,6 +1,7 @@
 const myApp = getApp()
 import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
+import { timeIsBetween } from '../../utils/util'
 
 Page({
   data: {
@@ -11,19 +12,19 @@ Page({
     realName: '',
     cellphone: '',
     statsArr: [{
-      num: 18,
+      num: 0,
       type: '今日早餐',
       urlQuery: 'today'
     }, {
-      num: 5,
+      num: 0,
       type: '今日中餐',
       urlQuery: 'today'
     }, {
-      num: 350,
+      num: 0,
       type: '今日晚餐',
       urlQuery: 'today'
     }, {
-      num: 350,
+      num: 0,
       type: '来客就餐',
       urlQuery: 'visit'
     }],
@@ -84,6 +85,55 @@ Page({
           json1.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
         }
         const json2 = res[1].data
+        let todayData = {}
+        if (json2.today) {
+          todayData = {
+            status1: json2.today.morning,
+            status2: json2.today.midday,
+            status3: json2.today.evening,
+          }
+          if (json1.today) {
+            // 比较时间
+            const totalDate = json1.today
+            const dateNow = new Date()
+            if (todayData.status1 !== -1) {
+              const between1 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.morningStart}:00`, `${totalDate.eatDate} ${totalDate.morningEnd}:00`)
+              if (between1 === 'right') {
+                todayData.status1 = 3
+              } else if (between1 === 'left') {
+                todayData.status1 = 1
+              } else {
+                todayData.status1 = 2
+              }
+            }
+            if (todayData.status2 !== -1) {
+              const between2 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.middayStart}:00`, `${totalDate.eatDate} ${totalDate.middayEnd}:00`)
+              if (between2 === 'right') {
+                todayData.status2 = 3
+              } else if (between2 === 'left') {
+                todayData.status2 = 1
+              } else {
+                todayData.status2 = 2
+              }
+            }
+            if (todayData.status3 !== -1) {
+              const between3 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.eveningStart}:00`, `${totalDate.eatDate} ${totalDate.eveningEnd}:00`)
+              if (between3 === 'right') {
+                todayData.status3 = 3
+              } else if (between3 === 'left') {
+                todayData.status3 = 1
+              } else {
+                todayData.status3 = 2
+              }
+            }
+          }
+        } else {
+          todayData = {
+            status1: -1,
+            status2: -1,
+            status3: -1
+          }
+        }
         let tomorrowData = {}
         if (json2.tomorrow && json2.tomorrow.dinerId === json1.meal.id) {
           tomorrowData = {
@@ -100,10 +150,6 @@ Page({
             status3: -1
           }
         }
-        // todayData.status1
-        // tomorrowData.status1 = true
-        // tomorrowData.status2 = true
-        // tomorrowData.status3 = true
         const json3 = res[2].data
         json3.list.forEach(ele => {
           ele.dinerDate = ele.dinerDate.slice(0, 16)
@@ -115,7 +161,8 @@ Page({
             noMore: true,
             todayAll: json1.today,
             tomorrowAll: json1.meal,
-            tomorrowData
+            tomorrowData,
+            todayData
           })
         } else {
           this.setData({
@@ -124,7 +171,8 @@ Page({
             noMore: false,
             todayAll: json1.today,
             tomorrowAll: json1.meal,
-            tomorrowData
+            tomorrowData,
+            todayData
           })
         }
         wx.hideLoading()
@@ -229,7 +277,7 @@ Page({
     const reqData = {
       dinerId: paramsObj.id,
       dinerDate: paramsObj.date,
-      [paramsObj.type]: paramsObj.diner,
+      [paramsObj.today]: paramsObj.diner,
       type: paramsObj.type,
       eaterId: this.data.pageUser.id,
       eater: this.data.pageUser.realName

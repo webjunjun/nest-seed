@@ -11,13 +11,13 @@ Page({
     cellphone: '',
     pageUser: {},
     statsArr: [{
-      num: 18,
+      num: 0,
       type: '已发布'
     }, {
-      num: 5,
+      num: 0,
       type: '已拼车'
     }, {
-      num: 350,
+      num: 0,
       type: '总出行'
     }],
     isShow: false,
