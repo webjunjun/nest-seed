@@ -71,9 +71,6 @@ Page({
         this.setData({
           pageData: json
         })
-        if (json.content) {
-          wx.setStorageSync('editorTxt', json.content)
-        }
         wx.hideLoading()
       })
       .catch(() => {

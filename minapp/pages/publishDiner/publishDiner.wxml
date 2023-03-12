@@ -7,8 +7,8 @@
       <view class="cu-left">
         <image class="avatar" src="{{avatarUrl}}"></image>
         <view class="cu-info">
-          <view>小包子9036</view>
-          <view class="cellphone">186-8881-0955</view>
+          <view>{{realName}}</view>
+          <view class="cellphone">{{cellphone}}</view>
         </view>
       </view>
       <view class="cu-right"></view>
@@ -16,13 +16,24 @@
     <view class="common-content">
       <view class="common-stats-box">
         <view class="common-stats-list">
-          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item">
-            <view class="stats-cell">
-              <view class="stats-num">{{item.num}}</view>
-              <view>次</view>
+          <block wx:if="{{pageUser.role === 1 || pageUser.role === 2}}">
+            <view wx:for="{{adminArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+              <view class="stats-cell">
+                <view class="stats-num">{{item.num}}</view>
+                <view>{{item.unit}}</view>
+              </view>
+              <view class="stats-type">{{item.type}}</view>
             </view>
-            <view class="stats-type">{{item.type}}</view>
-          </view>
+          </block>
+          <block wx:else>
+            <view wx:for="{{commonArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+              <view class="stats-cell">
+                <view class="stats-num">{{item.num}}</view>
+                <view>{{item.unit}}</view>
+              </view>
+              <view class="stats-type">{{item.type}}</view>
+            </view>
+          </block>
         </view>
       </view>
       <view class="diner-wrap">

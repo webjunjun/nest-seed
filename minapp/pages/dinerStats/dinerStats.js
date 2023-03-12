@@ -7,25 +7,46 @@ Page({
     avatarUrl: '../../static/default_avatar.png',
     realName: '',
     cellphone: '',
-    statsArr: [{
+    adminArr: [{
       num: 0,
+      unit: '人',
       type: '今日早餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '今日中餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '今日晚餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '来客就餐',
       urlQuery: 'visit'
     }],
+    commonArr: [{
+      num: 0,
+      unit: '次',
+      type: '早餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '中餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '晚餐',
+      urlQuery: 'today'
+    }],
     curTitle: '',
-    curType: ''
+    curType: '',
+    pageUser: {}
   },
   onLoad(option) {
     let curTitle = ''
@@ -54,6 +75,7 @@ Page({
   initPage() {
     const pageUser = myApp.globalData.userInfo
     this.setData({
+      pageUser,
       realName: pageUser.realName,
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + pageUser.avatar

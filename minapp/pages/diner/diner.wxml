@@ -18,13 +18,24 @@
     <view class="common-content">
       <view class="common-stats-box">
         <view class="common-stats-list">
-          <view wx:for="{{statsArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
-            <view class="stats-cell">
-              <view class="stats-num">{{item.num}}</view>
-              <view>次</view>
+          <block wx:if="{{pageUser.role === 1 || pageUser.role === 2}}">
+            <view wx:for="{{adminArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+              <view class="stats-cell">
+                <view class="stats-num">{{item.num}}</view>
+                <view>{{item.unit}}</view>
+              </view>
+              <view class="stats-type">{{item.type}}</view>
             </view>
-            <view class="stats-type">{{item.type}}</view>
-          </view>
+          </block>
+          <block wx:else>
+            <view wx:for="{{commonArr}}" wx:key="index" class="stats-item" data-item="{{item}}" bindtap="navDinerStat">
+              <view class="stats-cell">
+                <view class="stats-num">{{item.num}}</view>
+                <view>{{item.unit}}</view>
+              </view>
+              <view class="stats-type">{{item.type}}</view>
+            </view>
+          </block>
         </view>
       </view>
       <view class="diner-tab-wrap">
@@ -189,7 +200,6 @@
                 </view>
               </view>
             </view>
-
           </view>
         </view>
       </view>
@@ -208,12 +218,10 @@
     <view class="recipe-body">
       <scroll-view class="scroll-recipe" scroll-y="true">
         <view class="sr-item">
-          <view class="sr-title">菜谱图文内容</view>
-          <view class="sr-desc">菜谱图文内容</view>
-        </view>
-        <view class="sr-item">
-          <view class="sr-title">菜谱图文内容</view>
-          <view class="sr-desc">菜谱图文内容</view>
+          <view class="sr-title">{{weekMenu.title}}</view>
+          <view class="sr-desc">
+            <rich-text nodes="{{weekMenu.content}}"></rich-text>
+          </view>
         </view>
       </scroll-view>
     </view>

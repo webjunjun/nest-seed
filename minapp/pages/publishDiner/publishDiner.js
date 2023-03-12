@@ -9,15 +9,42 @@ Page({
     avatarUrl: '../../static/default_avatar.png',
     realName: '',
     cellphone: '',
-    statsArr: [{
-      num: 18,
-      type: '早餐'
+    adminArr: [{
+      num: 0,
+      unit: '人',
+      type: '今日早餐',
+      urlQuery: 'today'
     }, {
-      num: 5,
-      type: '中餐'
+      num: 0,
+      unit: '人',
+      type: '今日中餐',
+      urlQuery: 'today'
     }, {
-      num: 350,
-      type: '晚餐'
+      num: 0,
+      unit: '人',
+      type: '今日晚餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '人',
+      type: '来客就餐',
+      urlQuery: 'visit'
+    }],
+    commonArr: [{
+      num: 0,
+      unit: '次',
+      type: '早餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '中餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '晚餐',
+      urlQuery: 'today'
     }],
     dinerDate: '',
     curTitle: '',

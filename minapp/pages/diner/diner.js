@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow } from '../../api/api'
+import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow, querySingleOne } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { timeIsBetween } from '../../utils/util'
 
@@ -11,22 +11,42 @@ Page({
     dialogUrl: `${baseImageUrl}/diner/recipe_top.png`,
     realName: '',
     cellphone: '',
-    statsArr: [{
+    adminArr: [{
       num: 0,
+      unit: '人',
       type: '今日早餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '今日中餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '今日晚餐',
       urlQuery: 'today'
     }, {
       num: 0,
+      unit: '人',
       type: '来客就餐',
       urlQuery: 'visit'
+    }],
+    commonArr: [{
+      num: 0,
+      unit: '次',
+      type: '早餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '中餐',
+      urlQuery: 'today'
+    }, {
+      num: 0,
+      unit: '次',
+      type: '晚餐',
+      urlQuery: 'today'
     }],
     isShow: false,
     loading: true,
@@ -38,7 +58,8 @@ Page({
     todayAll: null,
     tomorrowAll: null,
     todayData: {},
-    tomorrowData: {}
+    tomorrowData: {},
+    weekMenu: {}
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -213,15 +234,30 @@ Page({
     })
   },
   openPopup() {
-    this.setData({
-      isShow: true
+    wx.showLoading({
+      title: '加载中',
+      mask: true
     })
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 0,
-        isShowTabBar: false
+    querySingleOne({
+      type: 0
+    })
+      .then((res) => {
+        const json = res.data
+        wx.hideLoading()
+        this.setData({
+          weekMenu: json,
+          isShow: true
+        })
+        if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+          this.getTabBar().setData({
+            selected: 0,
+            isShowTabBar: false
+          })
+        }
       })
-    }
+      .catch(() => {
+        wx.hideLoading()
+      })
   },
   bindClosePopup() {
     this.setData({
