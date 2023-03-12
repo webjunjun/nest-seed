@@ -78,6 +78,16 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
+  onShow() {
+    const dinerStats = wx.getStorageSync('dinerStats')
+    if (dinerStats) {
+      const dinerObj = JSON.parse(dinerStats)
+      this.setData({
+        adminArr: dinerObj.fourArr,
+        commonArr: dinerObj.threeArr
+      })
+    }
+  },
   // 初始化页面方法
   initPage() {
     const pageUser = myApp.globalData.userInfo

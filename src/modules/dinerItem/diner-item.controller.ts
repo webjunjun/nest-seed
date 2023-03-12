@@ -88,4 +88,26 @@ export class DinerItemController {
       list: pageData
     }
   }
+
+  @ApiOperation({summary: '查询三餐统计数据以及来客数据'})
+  @UseGuards(JwtAuthGuard)
+  @Post('stats')
+  async queryDinerStats(@Body() singleObject: DinerItemQueryDto): Promise<{
+    morning: number,
+    midday: number,
+    evening: number,
+    visit?: number
+  }> {
+    let pageData = null;
+    if (singleObject.eaterId) {
+      pageData = await this.dinerItemService.queryStatsPeron(singleObject).catch(() => {
+        throw new HttpException('查询就餐统计数据失败', HttpStatus.BAD_REQUEST);
+      });
+    } else {
+      pageData = await this.dinerItemService.queryStatsAll().catch(() => {
+        throw new HttpException('查询就餐统计数据失败', HttpStatus.BAD_REQUEST);
+      });
+    }
+    return pageData;
+  }
 }

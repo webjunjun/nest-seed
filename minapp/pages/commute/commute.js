@@ -1,5 +1,8 @@
 const myApp = getApp()
-import { postCommuteList, resultCommuteBooking, postCommuteBooking, rejectCommuteBooking } from '../../api/api'
+import {
+  postCommuteList, resultCommuteBooking, postCommuteBooking, rejectCommuteBooking,
+  queryCommuteStats
+} from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatDate } from '../../utils/util'
 
@@ -63,6 +66,8 @@ Page({
   // 初始化页面方法
   initPage() {
     this.initData()
+    // 获取出行统计信息
+    this.getStatsInfo()
     // 获取出行列表
     this.getCommuteList()
   },
@@ -259,6 +264,26 @@ Page({
             noMore: false
           })
         }
+      })
+  },
+  getStatsInfo() {
+    queryCommuteStats({
+      id: this.data.pageUser.id
+    })
+      .then((res) => {
+        this.setData({
+          statsArr: [{
+            num: res.data.publish,
+            type: '已发布'
+          }, {
+            num: res.data.ping,
+            type: '已拼车'
+          }, {
+            num: res.data.travel,
+            type: '总出行'
+          }]
+        })
+        wx.setStorageSync('commuteStats', JSON.stringify(this.data.statsArr))
       })
   },
   onReachBottom() {

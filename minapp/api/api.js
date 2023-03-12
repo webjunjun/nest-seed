@@ -330,3 +330,21 @@ export const querySingleOne = (data) => {
     data
   })
 }
+
+// 查询出行统计数据
+export const queryCommuteStats = (data) => {
+  return request({
+    url: '/commute/stats',
+    method: 'POST',
+    data
+  })
+}
+
+// 查询就餐统计数据
+export const queryDinerStats = (data) => {
+  return request({
+    url: '/dinerItem/stats',
+    method: 'POST',
+    data
+  })
+}

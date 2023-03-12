@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DinerItemEntity } from 'src/entity/diner-item.entity';
 import { UserEntity } from 'src/entity/user.entity';
+import { VisitorDinerEntity } from 'src/entity/visitor-diner.entity';
 import { getDateStr } from 'src/utils/utils';
 import { Repository } from 'typeorm';
 import { DinerItemAddDto } from './dto/diner-item-add.dto';
@@ -12,7 +13,9 @@ import { DinerItemQueryDto } from './dto/diner-item-query.dto';
 export class DinerItemService {
   constructor(
     @InjectRepository(DinerItemEntity)
-    private readonly dinerItemRepository: Repository<DinerItemEntity>
+    private readonly dinerItemRepository: Repository<DinerItemEntity>,
+    @InjectRepository(VisitorDinerEntity)
+    private readonly visitorDinerRepository: Repository<VisitorDinerEntity>
   ) {}
 
   async addOne(singleObject: DinerItemAddDto): Promise<{
@@ -147,5 +150,88 @@ export class DinerItemService {
       today: result1,
       tomorrow: result2
     }
+  }
+
+  async queryStatsPeron(singleObject: DinerItemQueryDto): Promise<{
+    morning: number,
+    midday: number,
+    evening: number
+  }> {
+    const zaoNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'eater_id = :id AND morning = 1',
+        {id: singleObject.eaterId}
+      )
+      .getCount();
+    const zhongNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'eater_id = :id AND midday = 1',
+        {id: singleObject.eaterId}
+      )
+      .getCount();
+    const wanNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'eater_id = :id AND evening = 1',
+        {id: singleObject.eaterId}
+      )
+      .getCount();
+      return {
+        morning: zaoNum,
+        midday: zhongNum,
+        evening: wanNum
+      }
+  }
+
+  async queryStatsAll(): Promise<{
+    morning: number,
+    midday: number,
+    evening: number,
+    visit: number
+  }> {
+    const todayDate = getDateStr(0)
+    const zaoNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'diner_date = :todayDate AND morning = 1',
+        {todayDate}
+      )
+      .getCount();
+    const zhongNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'diner_date = :todayDate AND midday = 1',
+        {todayDate}
+      )
+      .getCount();
+    const wanNum = await this.dinerItemRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'diner_date = :todayDate AND evening = 1',
+        {todayDate}
+      )
+      .getCount();
+    const visitNum = await this.visitorDinerRepository
+      .createQueryBuilder()
+      .select()
+      .where(
+        'diner_date < :end AND diner_date > :start',
+        {start: `${todayDate} 00:00:00`, end: `${todayDate} 23:59:59`}
+      )
+      .getCount();
+      return {
+        morning: zaoNum,
+        midday: zhongNum,
+        evening: wanNum,
+        visit: visitNum
+      }
   }
 }

@@ -53,6 +53,14 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
+  onShow() {
+    const comuteStats = wx.getStorageSync('commuteStats')
+    if (comuteStats) {
+      this.setData({
+        statsArr: JSON.parse(comuteStats)
+      })
+    }
+  },
   // 初始化页面方法
   initPage() {
     this.initData()

@@ -7,6 +7,7 @@ import { InsertResult, Repository } from 'typeorm';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
+import { CommuteStatsDto } from './dto/commute-stats.dto';
 import { CommuteUpdateDto } from './dto/commute-update.dto';
 
 @Injectable()
@@ -162,5 +163,41 @@ export class CommuteService {
         commuteItemObj
       )
       .execute();
+  }
+
+  async queryStats(commuteItemObj: CommuteStatsDto): Promise<{
+    publish: number,
+    ping: number,
+    travel: number
+  }> {
+    const pubNum = await this.commuteItemRepository
+      .createQueryBuilder('commute_item')
+      .select()
+      .where(
+        'traveler_id = :id AND type = "发布"',
+        {id: commuteItemObj.id}
+      )
+      .getCount();
+    const pingNum = await this.commuteItemRepository
+      .createQueryBuilder('commute_item')
+      .select()
+      .where(
+        'traveler_id = :id AND type = "拼车"',
+        {id: commuteItemObj.id}
+      )
+      .getCount();
+    const totalNum = await this.commuteItemRepository
+      .createQueryBuilder('commute_item')
+      .select()
+      .where(
+        'traveler_id = :id',
+        {id: commuteItemObj.id}
+      )
+      .getCount();
+    return {
+      publish: pubNum,
+      ping: pingNum,
+      travel: totalNum
+    }
   }
 }

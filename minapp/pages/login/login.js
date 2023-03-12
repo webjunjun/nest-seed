@@ -30,8 +30,14 @@ Page({
         })
         wx.hideLoading()
       },
-      fail: () => {
+      fail: (e) => {
         wx.hideLoading()
+        wx.showToast({
+          title: JSON.stringify(e),
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
       }
     })
   },

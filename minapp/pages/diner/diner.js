@@ -1,5 +1,8 @@
 const myApp = getApp()
-import { queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow, querySingleOne } from '../../api/api'
+import {
+  queryVisitorList, queryTomorrowBooking, queryMineTwoDays, bookMineTomorrow, querySingleOne,
+  queryDinerStats
+} from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { timeIsBetween } from '../../utils/util'
 
@@ -11,43 +14,8 @@ Page({
     dialogUrl: `${baseImageUrl}/diner/recipe_top.png`,
     realName: '',
     cellphone: '',
-    adminArr: [{
-      num: 0,
-      unit: '人',
-      type: '今日早餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '人',
-      type: '今日中餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '人',
-      type: '今日晚餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '人',
-      type: '来客就餐',
-      urlQuery: 'visit'
-    }],
-    commonArr: [{
-      num: 0,
-      unit: '次',
-      type: '早餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '次',
-      type: '中餐',
-      urlQuery: 'today'
-    }, {
-      num: 0,
-      unit: '次',
-      type: '晚餐',
-      urlQuery: 'today'
-    }],
+    adminArr: [],
+    commonArr: [],
     isShow: false,
     loading: true,
     pageUser: {},
@@ -97,12 +65,18 @@ Page({
       title: '加载中',
       mask: true
     })
+    let statsReq = {}
+    if (this.data.pageUser.role === 3) {
+      statsReq = {
+        eaterId: this.data.pageUser.id
+      }
+    }
     Promise.all([queryTomorrowBooking(), queryMineTwoDays({
       eaterId: this.data.pageUser.id
     }), queryVisitorList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
-    })])
+    }), queryDinerStats(statsReq)])
       .then((res) => {
         // 三餐可预约时间 默认当天12:00-00:00
         // 来客就餐可预约时间 默认当天12:00-第二天10:30
@@ -185,6 +159,53 @@ Page({
         json3.list.forEach(ele => {
           ele.dinerDate = ele.dinerDate.slice(0, 16)
         });
+        const json4 = res[3].data
+        let threeArr = []
+        let fourArr = []
+        if (this.data.pageUser.role === 3) {
+          threeArr = [{
+            num: json4.morning,
+            unit: '次',
+            type: '早餐',
+            urlQuery: 'today'
+          }, {
+            num: json4.midday,
+            unit: '次',
+            type: '中餐',
+            urlQuery: 'today'
+          }, {
+            num: json4.evening,
+            unit: '次',
+            type: '晚餐',
+            urlQuery: 'today'
+          }]
+        } else {
+          fourArr = [{
+            num: json4.morning,
+            unit: '人',
+            type: '今日早餐',
+            urlQuery: 'today'
+          }, {
+            num: json4.midday,
+            unit: '人',
+            type: '今日中餐',
+            urlQuery: 'today'
+          }, {
+            num: json4.evening,
+            unit: '人',
+            type: '今日晚餐',
+            urlQuery: 'today'
+          }, {
+            num: json4.visit,
+            unit: '人',
+            type: '来客就餐',
+            urlQuery: 'visit'
+          }]
+        }
+        wx.setStorageSync('dinerStats', JSON.stringify({
+          fourArr,
+          threeArr
+        }))
         if (json3.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了
           this.setData({
@@ -193,7 +214,9 @@ Page({
             todayAll: json1.today,
             tomorrowAll: json1.meal,
             tomorrowData,
-            todayData
+            todayData,
+            adminArr: fourArr,
+            commonArr: threeArr
           })
         } else {
           this.setData({
@@ -203,7 +226,9 @@ Page({
             todayAll: json1.today,
             tomorrowAll: json1.meal,
             tomorrowData,
-            todayData
+            todayData,
+            adminArr: fourArr,
+            commonArr: threeArr
           })
         }
         wx.hideLoading()

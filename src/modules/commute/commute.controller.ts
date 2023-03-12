@@ -12,6 +12,7 @@ import { CommuteItemQueryDto } from './dto/commute-item-query.dto';
 import { CommuteItemDto } from './dto/commute-item.dto';
 import { CommuteOneDto } from './dto/commute-one.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
+import { CommuteStatsDto } from './dto/commute-stats.dto';
 import { CommuteUpdateDto } from './dto/commute-update.dto';
 
 @ApiTags('出行')
@@ -141,6 +142,20 @@ export class CommuteController {
   async queryItemList(@Body() commuteItem: CommuteItemQueryDto): Promise<Array<CommuteItemEntity>> {
     const pageData = await this.commuteService.queryItemList(commuteItem).catch(() => {
       throw new HttpException('查询预约出行失败', HttpStatus.BAD_REQUEST);
+    });
+    return pageData
+  }
+
+  @ApiOperation({summary: '统计个人出行的已发布、已拼车、总出行次数'})
+  @UseGuards(JwtAuthGuard)
+  @Post('stats')
+  async queryPersonStats(@Body() commuteItem: CommuteStatsDto): Promise<{
+    publish: number,
+    ping: number,
+    travel: number
+  }> {
+    const pageData = await this.commuteService.queryStats(commuteItem).catch(() => {
+      throw new HttpException('查询出行统计失败', HttpStatus.BAD_REQUEST);
     });
     return pageData
   }
