@@ -35,6 +35,9 @@ export class VisitorDinerService {
         visitor_dinner.update_id as updateId,
         visitor_dinner.update_name as updateName
       `)
+      .where({
+        ...(pageObject?.dinerDate && { dinerDate: pageObject.dinerDate })
+      })
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
       .orderBy('visitor_dinner.created', 'DESC')

@@ -1,5 +1,6 @@
 const myApp = getApp()
 import { baseImageUrl, publicUrl } from '../../utils/config'
+import { queryTodayStatList, queryVisitorList } from '../../api/api'
 
 Page({
   data: {
@@ -30,7 +31,11 @@ Page({
     }],
     curTitle: '',
     curType: '',
-    pageUser: {}
+    pageUser: {},
+    noMore: false,
+    list: [],
+    currentPage: 1,
+    pageSize: 20
   },
   onLoad(option) {
     let curTitle = ''
@@ -64,6 +69,12 @@ Page({
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + pageUser.avatar
     })
+    if (this.data.curType === 'today') {
+      this.getInitData()
+    }
+    if (this.data.curType === 'visit') {
+      this.getVisitorList()
+    }
   },
   goMinePage() {
     wx.navigateTo({
@@ -78,5 +89,86 @@ Page({
     wx.navigateTo({
       url: '/pages/dinerStats/dinerStats?type=' + curItem.urlQuery
     })
+  },
+  getInitData() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    queryTodayStatList({
+      pageSize: this.data.pageSize,
+      currentPage: this.data.currentPage
+    })
+      .then((res) => {
+        wx.hideLoading()
+        const json = res.data
+        json.list.forEach(ele => {
+          ele.phone = ele.phone.replace(/(?=(\d{4})+$)/g, '-')
+          ele.avatar = `${publicUrl}${ele.avatar}`
+        })
+        if (json.list.length < this.data.pageSize) {
+          // 显示到底 禁止触底加载了
+          this.setData({
+            list: this.data.list.concat(json.list),
+            noMore: true
+          })
+        } else {
+          this.setData({
+            list: this.data.list.concat(json.list),
+            currentPage: this.data.currentPage + 1,
+            noMore: false
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  getVisitorList() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    queryVisitorList({
+      pageSize: this.data.pageSize,
+      currentPage: this.data.currentPage
+    })
+      .then((res) => {
+        wx.hideLoading()
+        const json = res.data
+        const curUserId = this.data.pageUser.id
+        json.list.forEach(ele => {
+          ele.dinerDate = ele.dinerDate.slice(0, 16)
+          ele.curUserId = curUserId
+        });
+        if (json.list.length < this.data.pageSize) {
+          // 显示到底 禁止触底加载了
+          this.setData({
+            list: this.data.list.concat(json.list),
+            noMore: true
+          })
+        } else {
+          this.setData({
+            list: this.data.list.concat(json.list),
+            currentPage: this.data.currentPage + 1,
+            noMore: false
+          })
+        }
+      })
+      .catch(() => {
+        wx.hideLoading()
+      })
+  },
+  onReachBottom() {
+    if (this.data.noMore) {
+      return false
+    } else {
+      if (this.data.curType === 'today') {
+        this.getInitData()
+      }
+      if (this.data.curType === 'visit') {
+        this.getVisitorList()
+      }
+    }
   }
 })

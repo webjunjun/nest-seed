@@ -12,7 +12,7 @@
       <view class="mine-diner-inner">
         <view class="mdi-title">我的就餐记录</view>
         <view class="mdi-list">
-          <view wx:for="{{list}}" wx:key="index" class="mdi-item mdi-today">
+          <view wx:for="{{list}}" wx:key="index" class="mdi-item {{item.dinerDate === todayDate ? 'mdi-today' : ''}}">
             <view class="mdi-left">
               <image src="{{avatarUrl}}"></image>
             </view>

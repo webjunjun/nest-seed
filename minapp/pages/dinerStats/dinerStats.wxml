@@ -29,104 +29,72 @@
         <view class="diner-stats-inner">
           <view class="dsi-title">{{curTitle}}</view>
           <view wx:if="{{curType === 'today'}}" class="dsi-list">
-            <view class="dsi-item">
+            <view  wx:for="{{list}}" wx:key="index" class="dsi-item">
               <view class="dsi-left">
-                <image src="{{avatarUrl}}"></image>
+                <image src="{{item.avatar}}"></image>
               </view>
               <view class="dsi-right">
                 <view class="dsi-date">
-                  <view>小包子9036</view>
-                  <view>186-1008-8750</view>
+                  <view>{{item.eater}}</view>
+                  <view>{{item.phone}}</view>
                 </view>
                 <view>
                   <view class="dsi-booking">已预约: </view>
-                  <view class="dsi-badge dsi-zao">早餐</view>
-                  <view class="dsi-badge dsi-zhong">中餐</view>
-                  <view class="dsi-badge dsi-wan">晚餐</view>
+                  <view class="dsi-badge dsi-zao" wx:if="{{item.morning === 1}}">早餐</view>
+                  <view class="dsi-badge dsi-zhong" wx:if="{{item.midday === 1}}">中餐</view>
+                  <view class="dsi-badge dsi-wan" wx:if="{{item.evening === 1}}">晚餐</view>
                 </view>
               </view>
             </view>
           </view>
           <view wx:if="{{curType === 'visit'}}" class="visit-list">
-            <view class="visit-item visit-edit">
-              <view class="visit-btn">
+            <view
+              wx:for="{{list}}"
+              wx:key="index"
+              class="visit-item visit-edit"
+            >
+              <view
+                wx:if="{{item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2}}"
+                class="visit-btn"
+                data-visitor="{{item.id}}"
+                catchtap="bindEdit"
+              >
                 <text>编辑</text>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">预约编号: </view>
-                  <view class="visit-txt">0018</view>
+                  <view class="visit-txt">{{item.id}}</view>
                 </view>
                 <view class="visit-info">
                   <view class="visit-title">预约人: </view>
-                  <view class="visit-txt">张三五</view>
+                  <view class="visit-txt">{{item.bookerName}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐人数: </view>
-                  <view class="visit-txt">20人</view>
+                  <view class="visit-txt">{{item.dinerNum}}人</view>
                 </view>
                 <view class="visit-info visit-red">
                   <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023-03-18 12:18</view>
+                  <view class="visit-txt">{{item.dinerDate}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">来客单位: </view>
-                  <view class="visit-txt">某某高新集团</view>
+                  <view class="visit-txt">{{item.visitorCompany}}</view>
                 </view>
                 <view class="visit-info">
                   <view class="visit-title">来客级别: </view>
-                  <view class="visit-txt">正科级</view>
+                  <view class="visit-txt">{{item.visitorLevel}}</view>
                 </view>
               </view>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">就餐备注: </view>
-                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
-                </view>
-              </view>
-            </view>
-            <view class="visit-item">
-              <view class="visit-btn">
-                <text>编辑</text>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">预约编号: </view>
-                  <view class="visit-txt">0018</view>
-                </view>
-                <view class="visit-info">
-                  <view class="visit-title">预约人: </view>
-                  <view class="visit-txt">张三五</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info visit-red">
-                  <view class="visit-title">就餐人数: </view>
-                  <view class="visit-txt">20人</view>
-                </view>
-                <view class="visit-info visit-red">
-                  <view class="visit-title">就餐时间: </view>
-                  <view class="visit-txt">2023-03-18 12:18</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">来客单位: </view>
-                  <view class="visit-txt">某某高新集团</view>
-                </view>
-                <view class="visit-info">
-                  <view class="visit-title">来客级别: </view>
-                  <view class="visit-txt">正科级</view>
-                </view>
-              </view>
-              <view class="visit-cell">
-                <view class="visit-info">
-                  <view class="visit-title">就餐备注: </view>
-                  <view class="visit-txt">川菜就好，加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼加个黄河大鲤鱼</view>
+                  <view class="visit-txt">{{item.remark}}</view>
                 </view>
               </view>
             </view>

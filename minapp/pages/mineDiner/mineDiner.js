@@ -1,7 +1,7 @@
 const myApp = getApp()
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { queryMineTodayList } from '../../api/api'
-import { formatDate3 } from '../../utils/util'
+import { formatDate3, getDateStr } from '../../utils/util'
 
 Page({
   data: {
@@ -31,7 +31,8 @@ Page({
       pageUser,
       realName: pageUser.realName,
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + pageUser.avatar
+      avatarUrl: publicUrl + pageUser.avatar,
+      todayDate: getDateStr(0)
     })
     this.getInitData()
   },
@@ -50,7 +51,7 @@ Page({
         const json = res.data
         json.list.forEach(ele => {
           ele.newDinerDate = formatDate3(new Date(ele.dinerDate))
-        });
+        })
         if (json.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了
           this.setData({
@@ -68,5 +69,12 @@ Page({
       .catch(() => {
         wx.hideLoading()
       })
+  },
+  onReachBottom() {
+    if (this.data.noMore) {
+      return false
+    } else {
+      this.getInitData()
+    }
   }
 })

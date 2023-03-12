@@ -74,7 +74,6 @@ Page({
   format(e) {
     let { name, value } = e.target.dataset
     if (!name) return
-    // console.log('format', name, value)
     this.editorCtx.format(name, value)
     this.setData({
       showFont: false,
@@ -110,7 +109,7 @@ Page({
   clear() {
     this.editorCtx.clear({
       success: function (res) {
-        console.log("clear success")
+        console.log('clear success')
       }
     })
   },
@@ -130,7 +129,7 @@ Page({
   bindUndo() {
     this.editorCtx.undo({
       success: function (res) {
-        console.log("undo success")
+        console.log('undo success')
       }
     })
   },
@@ -138,7 +137,7 @@ Page({
   bindRedo() {
     this.editorCtx.redo({
       success: function (res) {
-        console.log("redo success")
+        console.log('redo success')
       }
     })
   },

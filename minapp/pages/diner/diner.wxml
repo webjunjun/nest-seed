@@ -160,7 +160,12 @@
               wx:key="index"
               class="visit-item visit-edit"
             >
-              <view wx:if="{{item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2}}" class="visit-btn" data-visitor="{{item.id}}" catchtap="bindEdit">
+              <view
+                wx:if="{{item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2}}"
+                class="visit-btn"
+                data-visitor="{{item.id}}"
+                catchtap="bindEdit"
+              >
                 <text>编辑</text>
               </view>
               <view class="visit-cell">

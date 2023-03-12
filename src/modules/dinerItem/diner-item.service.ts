@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DinerItemEntity } from 'src/entity/diner-item.entity';
+import { UserEntity } from 'src/entity/user.entity';
 import { getDateStr } from 'src/utils/utils';
 import { Repository } from 'typeorm';
 import { DinerItemAddDto } from './dto/diner-item-add.dto';
@@ -89,6 +90,32 @@ export class DinerItemService {
       .offset(pageSize * (currentPage - 1))
       .orderBy('diner_item.created', 'DESC')
       .where('eater_id = :eaterId', {eaterId: singleObject.eaterId})
+      .getRawMany();
+  }
+
+  async queryAllList(singleObject: DinerItemQueryDto): Promise<Array<DinerItemEntity>> {
+    const pageSize = singleObject.pageSize ? singleObject.pageSize : 10;
+    const currentPage = singleObject.currentPage ? singleObject.currentPage : 1;
+    return await this.dinerItemRepository
+      .createQueryBuilder('diner_item')
+      .leftJoinAndSelect(UserEntity, 'user', 'user.id = diner_item.eaterId')
+      .select(`
+        diner_item.id as id,
+        diner_item.diner_id as dinerId,
+        diner_item.diner_date as dinerDate,
+        diner_item.morning as morning,
+        diner_item.midday as midday,
+        diner_item.evening as evening,
+        diner_item.eater_id as eaterId,
+        diner_item.eater as eater,
+        diner_item.type as type,
+        diner_item.created as created,
+        user.avatar as avatar,
+        user.phone as phone
+      `)
+      .limit(pageSize)
+      .offset(pageSize * (currentPage - 1))
+      .orderBy('diner_item.created', 'DESC')
       .getRawMany();
   }
 

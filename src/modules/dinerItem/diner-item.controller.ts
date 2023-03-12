@@ -61,7 +61,7 @@ export class DinerItemController {
     currentPage: number
     list: Array<DinerItemEntity>
   }> {
-    const pageData = await this.dinerItemService.queryList(singleObject).catch(() => {
+    const pageData = await this.dinerItemService.queryAllList(singleObject).catch(() => {
       throw new HttpException('查询三餐列表失败', HttpStatus.BAD_REQUEST);
     });
     return {
