@@ -80,6 +80,16 @@ Page({
     if (myApp.globalData.hasLogin) {
       this.initData()
     }
+    if (myApp.globalData.refreshPage) {
+      myApp.globalData.refreshPage = false
+      this.setData({
+        noMore: false,
+        list: [],
+        currentPage: 1,
+        pageSize: 20
+      })
+      this.getVisitorList()
+    }
   },
   initPage() {
     this.initData()
@@ -303,6 +313,18 @@ Page({
   },
   bookingMeal(e) {
     const paramsObj = e.currentTarget.dataset
+    wx.showModal({
+      title: '提示',
+      content: paramsObj.diner == 1 ? '确定预约吗' : '确定取消吗',
+      success: (res) => {
+        if (res.confirm) {
+          this.confirmBooking(e)
+        }
+      }
+    })
+  },
+  confirmBooking(e) {
+    const paramsObj = e.currentTarget.dataset
     const reqData = {
       dinerId: paramsObj.id,
       dinerDate: paramsObj.date,
@@ -322,8 +344,8 @@ Page({
     .then((res) => {
       wx.hideLoading()
       wx.showToast({
-        title: paramsObj.diner == 1 ? '明日就餐预约成功' : '取消明日就餐成功',
-        icon: 'none',
+        title: paramsObj.diner == 1 ? '预约成功' : '取消成功',
+        icon: 'success',
         duration: 2000,
         mask: true
       })

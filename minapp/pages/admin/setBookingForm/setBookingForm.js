@@ -177,6 +177,7 @@ Page({
             mask: true
           })
           setTimeout(() => {
+            myApp.globalData.refreshPage = true
             wx.navigateBack({
               delta: 1,
             })

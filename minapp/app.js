@@ -7,6 +7,7 @@ App({
     navBarHeight: 0, // 顶部导航栏高度
     hasLogin: false, // 默认未登录
     userInfo: null, // 用户信息
+    refreshPage: false,
   },
   watchLoginStatus(callback) {
     const globalObj = this.globalData;

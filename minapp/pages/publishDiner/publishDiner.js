@@ -180,13 +180,14 @@ Page({
             title: res.data,
             icon: 'success',
             duration: 2000,
-            mask: true,
-            success: () => {
-              wx.navigateBack({
-                delta: 1,
-              })
-            }
+            mask: true
           })
+          setTimeout(() => {
+            myApp.globalData.refreshPage = true
+            wx.navigateBack({
+              delta: 1,
+            })
+          }, 1500)
         } else {
           wx.showToast({
             title: res.msg,

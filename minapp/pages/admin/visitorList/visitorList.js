@@ -18,6 +18,18 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
+  onShow() {
+    if (myApp.globalData.refreshPage) {
+      myApp.globalData.refreshPage = false
+      this.setData({
+        noMore: false,
+        list: [],
+        currentPage: 1,
+        pageSize: 20
+      })
+      this.getPageList()
+    }
+  },
   // 初始化页面方法
   initPage() {
     this.setData({

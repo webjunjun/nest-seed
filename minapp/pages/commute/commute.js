@@ -49,6 +49,16 @@ Page({
     if (myApp.globalData.hasLogin) {
       this.initData()
     }
+    if (myApp.globalData.refreshPage) {
+      myApp.globalData.refreshPage = false
+      this.setData({
+        noMore: false,
+        list: [],
+        currentPage: 1,
+        pageSize: 20
+      })
+      this.getCommuteList()
+    }
   },
   // 初始化页面方法
   initPage() {
