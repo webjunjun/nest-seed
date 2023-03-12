@@ -40,6 +40,35 @@ const formatDate3 = date => {
   return `${year}年${month}月${day}日}`
 }
 
+const formatDate4 = (start, end) => {
+  const taotalTime = Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / 1000)
+  const hh = Math.floor(taotalTime / 3600)
+  const mm = Math.floor((taotalTime - (3600 * hh)) / 60)
+  const ss = Math.ceil(taotalTime - (3600 * hh) - (60 * mm))
+  const _hh = (hh.toString())[1] ? hh : `0${hh}`
+  const _mm = (mm.toString())[1] ? mm : `0${mm}`
+  const _ss = (ss.toString())[1] ? ss : `0${ss}`
+  const restTime = taotalTime - 1
+  let str = ''
+  if (hh > 0) {
+    str = `${_hh}时`
+  }
+  if (mm > 0) {
+    str += `${_mm}分`
+  }
+  if (ss > 0) {
+    str += `${_ss}秒`
+  }
+  return { formatTime: str, restTime }
+}
+
+const formatDate5 = date => {
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+
+  return `${[hour, minute].map(formatNumber).join(':')}`
+}
+
 //版本号比较
 const versionStringCompare = (preVersion='', lastVersion='') => {
   const sources = preVersion.split('.');
@@ -138,6 +167,8 @@ module.exports = {
   formatDate,
   formatDate2,
   formatDate3,
+  formatDate4,
+  formatDate5,
   versionStringCompare,
   checkModbile,
   isChinese,

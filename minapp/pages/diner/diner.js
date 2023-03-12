@@ -4,7 +4,7 @@ import {
   queryDinerStats
 } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
-import { timeIsBetween } from '../../utils/util'
+import { formatDate4, timeIsBetween, formatDate5 } from '../../utils/util'
 
 Page({
   data: {
@@ -27,7 +27,17 @@ Page({
     tomorrowAll: null,
     todayData: {},
     tomorrowData: {},
-    weekMenu: {}
+    weekMenu: {},
+    visitAll: null,
+    visitCountdown: {
+      formatTime: '',
+      restTime: 0
+    },
+    tomorrowCountdown: {
+      formatTime: '',
+      restTime: 0
+    },
+    timer: null
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -85,9 +95,38 @@ Page({
           const eatDateArr = json1.today.eatDate.split('-')
           json1.today.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
         }
+        let calcTime = {
+          formatTime: '',
+          restTime: 0
+        }
+        if (json1.visit) {
+          // 首先算开始时间是否大于当前时间
+          const betweens = timeIsBetween(new Date(), json1.visit.bookingStart, json1.visit.bookingEnd)
+          if (betweens === 'left') {
+            calcTime = {
+              formatTime: formatDate5(new Date(json1.visit.bookingStart)),
+              restTime: -1
+            }
+          } else {
+            calcTime = formatDate4(new Date(), json1.visit.bookingEnd)
+          }
+        }
+        let calcTime2 = {
+          formatTime: '',
+          restTime: -1
+        }
         if (json1.meal) {
           const eatDateArr = json1.meal.eatDate.split('-')
           json1.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
+          const betweens = timeIsBetween(new Date(), json1.meal.bookingStart, json1.meal.bookingEnd)
+          if (betweens === 'left') {
+            calcTime2 = {
+              formatTime: formatDate5(new Date(json1.meal.bookingStart)),
+              restTime: -1
+            }
+          } else {
+            calcTime2 = formatDate4(new Date(), json1.meal.bookingEnd)
+          }
         }
         const json2 = res[1].data
         let todayData = {}
@@ -206,29 +245,33 @@ Page({
           fourArr,
           threeArr
         }))
+        const sonData = {
+          todayAll: json1.today,
+          visitAll: json1.visit,
+          tomorrowAll: json1.meal,
+          tomorrowData,
+          todayData,
+          adminArr: fourArr,
+          commonArr: threeArr,
+          visitCountdown: calcTime,
+          tomorrowCountdown: calcTime2,
+          timer: setTimeout(() => {
+            this.countdownFuc()
+          }, 1000)
+        }
         if (json3.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了
           this.setData({
             list: this.data.list.concat(json3.list),
             noMore: true,
-            todayAll: json1.today,
-            tomorrowAll: json1.meal,
-            tomorrowData,
-            todayData,
-            adminArr: fourArr,
-            commonArr: threeArr
+            ...sonData
           })
         } else {
           this.setData({
             list: this.data.list.concat(json3.list),
             currentPage: this.data.currentPage + 1,
             noMore: false,
-            todayAll: json1.today,
-            tomorrowAll: json1.meal,
-            tomorrowData,
-            todayData,
-            adminArr: fourArr,
-            commonArr: threeArr
+            ...sonData
           })
         }
         wx.hideLoading()
@@ -245,6 +288,12 @@ Page({
         loading: false
       })
     }
+    clearTimeout(this.data.timer)
+    this.setData({
+      timer: setTimeout(() => {
+        this.countdownFuc()
+      }, 1000)
+    })
   },
   goMinePage() {
     wx.navigateTo({
@@ -396,11 +445,61 @@ Page({
         })
     })
   },
+  countdownFuc() {
+    const mealsData = this.data.tomorrowAll
+    const visitData = this.data.visitAll
+    let calcTime2 = {
+      formatTime: '',
+      restTime: 0
+    }
+    let calcTime = {
+      formatTime: '',
+      restTime: 0
+    }
+    if (mealsData) {
+      const betweens = timeIsBetween(new Date(), mealsData.bookingStart, mealsData.bookingEnd)
+      if (betweens === 'left') {
+        calcTime = {
+          formatTime: formatDate5(new Date(mealsData.bookingStart)),
+          restTime: -1
+        }
+      } else {
+        calcTime = formatDate4(new Date(), mealsData.bookingEnd)
+      }
+    }
+    if (visitData) {
+      const betweens = timeIsBetween(new Date(), visitData.bookingStart, visitData.bookingEnd)
+      if (betweens === 'left') {
+        calcTime2 = {
+          formatTime: formatDate5(new Date(visitData.bookingStart)),
+          restTime: -1
+        }
+      } else {
+        calcTime2 = formatDate4(new Date(), visitData.bookingEnd)
+      }
+    }
+    if (calcTime.restTime <= 0 && calcTime2.restTime <= 0) {
+      clearTimeout(this.data.timer)
+    }
+    this.setData({
+      tomorrowCountdown: calcTime,
+      visitCountdown: calcTime2,
+      timer: setTimeout(() => {
+        this.countdownFuc()
+      }, 1000)
+    })
+  },
   onReachBottom() {
     if (this.data.noMore) {
       return false
     } else {
       this.getVisitorList()
     }
+  },
+  onHide() {
+    clearTimeout(this.data.timer);
+  },
+  onUnload() {
+    clearTimeout(this.data.timer);
   }
 })
