@@ -1,5 +1,5 @@
 import { wechatLogin } from './api/api'
-import { versionStringCompare } from './utils/util'
+import { versionStringCompare, getCurrentPageUrl } from './utils/util'
 
 App({
   globalData: {
@@ -65,6 +65,15 @@ App({
                   wx.setStorageSync('userInfo', JSON.stringify(response.data))
                   this.globalData.userInfo = response.data
                   this.globalData.hasLogin = true
+                  const url = getCurrentPageUrl()
+                  if (url === 'pages/login/login') {
+                    wx.switchTab({
+                      url: '/pages/diner/diner',
+                      success: () => {
+                        wx.hideLoading()
+                      }
+                    })
+                  }
                 })
                 .catch(() => {
                   wx.hideLoading()

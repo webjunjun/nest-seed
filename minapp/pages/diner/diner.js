@@ -4,7 +4,7 @@ import {
   queryDinerStats
 } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
-import { formatDate4, timeIsBetween, formatDate5 } from '../../utils/util'
+import { formatDate4, timeIsBetween, formatDate } from '../../utils/util'
 
 Page({
   data: {
@@ -104,7 +104,7 @@ Page({
           const betweens = timeIsBetween(new Date(), json1.visit.bookingStart, json1.visit.bookingEnd)
           if (betweens === 'left') {
             calcTime = {
-              formatTime: formatDate5(new Date(json1.visit.bookingStart)),
+              formatTime: formatDate(new Date(json1.visit.bookingStart)),
               restTime: -1
             }
           } else {
@@ -121,7 +121,7 @@ Page({
           const betweens = timeIsBetween(new Date(), json1.meal.bookingStart, json1.meal.bookingEnd)
           if (betweens === 'left') {
             calcTime2 = {
-              formatTime: formatDate5(new Date(json1.meal.bookingStart)),
+              formatTime: formatDate(new Date(json1.meal.bookingStart)),
               restTime: -1
             }
           } else {
@@ -460,7 +460,7 @@ Page({
       const betweens = timeIsBetween(new Date(), mealsData.bookingStart, mealsData.bookingEnd)
       if (betweens === 'left') {
         calcTime = {
-          formatTime: formatDate5(new Date(mealsData.bookingStart)),
+          formatTime: formatDate(new Date(mealsData.bookingStart)),
           restTime: -1
         }
       } else {
@@ -471,7 +471,7 @@ Page({
       const betweens = timeIsBetween(new Date(), visitData.bookingStart, visitData.bookingEnd)
       if (betweens === 'left') {
         calcTime2 = {
-          formatTime: formatDate5(new Date(visitData.bookingStart)),
+          formatTime: formatDate(new Date(visitData.bookingStart)),
           restTime: -1
         }
       } else {

@@ -162,6 +162,13 @@ const timeIsBetween = (date, start, end) => {
   return 'center';
 }
 
+// 获取URL
+const getCurrentPageUrl = () => {
+  let pages = getCurrentPages() // 获取页面栈
+  let currentPage = pages[pages.length-1] // 获取当前页面对象
+  return currentPage.route // 获取URL
+}
+
 module.exports = {
   formatTime,
   formatDate,
@@ -174,5 +181,6 @@ module.exports = {
   isChinese,
   isVehicleNumber,
   getDateStr,
-  timeIsBetween
+  timeIsBetween,
+  getCurrentPageUrl
 }

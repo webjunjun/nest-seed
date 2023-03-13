@@ -87,7 +87,7 @@
             <view class="dti-title">预约明日三餐</view>
             <view class="dti-rest" wx:if="{{tomorrowCountdown.restTime > 0}}">预约剩余时间: {{tomorrowCountdown.formatTime}}</view>
             <view class="dti-rest" wx:if="{{tomorrowCountdown.restTime == 0}}">已截止预约/请于明日预约</view>
-            <view class="dti-rest" wx:if="{{tomorrowCountdown.restTime == -1}}">已截止预约/请于明日{{tomorrowCountdown.formatTime}}预约</view>
+            <view class="dti-rest" wx:if="{{tomorrowCountdown.restTime == -1}}">已截止预约/请于{{tomorrowCountdown.formatTime}}预约</view>
           </view>
           <view wx:if="{{tomorrowAll}}" class="booking-wrap">
             <view
@@ -154,7 +154,7 @@
             <view class="dti-title">来客就餐预约</view>
             <view class="dti-rest" wx:if="{{visitCountdown.restTime > 0}}">预约剩余时间: {{visitCountdown.formatTime}}</view>
             <view class="dti-rest" wx:if="{{visitCountdown.restTime == 0}}">已截止预约/请于明日预约</view>
-            <view class="dti-rest" wx:if="{{visitCountdown.restTime == -1}}">已截止预约/请于明日{{visitCountdown.formatTime}}预约</view>
+            <view class="dti-rest" wx:if="{{visitCountdown.restTime == -1}}">已截止预约/请于{{visitCountdown.formatTime}}预约</view>
           </view>
           <view class="visit-list">
             <view

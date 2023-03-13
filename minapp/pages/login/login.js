@@ -91,14 +91,14 @@ Page({
   },
   loginSystem(obj) {
     myApp.initPage(obj.phone)
-    myApp.watchLoginStatus(() => {
-      wx.switchTab({
-        url: '/pages/diner/diner',
-        success: () => {
-          wx.hideLoading()
-        }
-      })
-    })
+    // myApp.watchLoginStatus(() => {
+    //   wx.switchTab({
+    //     url: '/pages/diner/diner',
+    //     success: () => {
+    //       wx.hideLoading()
+    //     }
+    //   })
+    // })
   },
   // 初始化页面方法
   initPage() {
