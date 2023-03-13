@@ -301,6 +301,25 @@ Page({
     })
   },
   publishDiner() {
+    const mealsTomorrow = this.data.visitAll
+    const betweens = timeIsBetween(new Date(), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+    if (betweens === 'right') {
+      wx.showToast({
+        title: '来客就餐预约已截止',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      return false
+    } else if (betweens === 'left') {
+      wx.showToast({
+        title: '来客就餐预约未开始',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      return false
+    }
     wx.navigateTo({
       url: '/pages/publishDiner/publishDiner?type=add',
     })
@@ -364,9 +383,13 @@ Page({
     })
       .then((res) => {
         wx.hideLoading()
+        const mealsTomorrow = this.data.visitAll
+        let betweens = ''
         const json = res.data
         const curUserId = this.data.pageUser.id
         json.list.forEach(ele => {
+          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+          ele.canEdit = betweens === 'center' ? true : false
           ele.dinerDate = ele.dinerDate.slice(0, 16)
           ele.curUserId = curUserId
         });
@@ -386,6 +409,26 @@ Page({
       })
   },
   bookingMeal(e) {
+    // 判断是否到预约时间
+    const mealsTomorrow = this.data.tomorrowAll
+    const betweens = timeIsBetween(new Date(), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+    if (betweens === 'right') {
+      wx.showToast({
+        title: '预约已截止, 请等待下次',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      return false
+    } else if (betweens === 'left') {
+      wx.showToast({
+        title: '预约未开始, 请稍后再来',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      return false
+    }
     const paramsObj = e.currentTarget.dataset
     wx.showModal({
       title: '提示',
