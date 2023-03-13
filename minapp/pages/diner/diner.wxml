@@ -42,7 +42,7 @@
         <view class="diner-tab-inner">
           <view class="diner-tab-box">
             <view class="dti-title">我的今日三餐</view>
-            <view class="recipe-arrow" bindtap="openPopup">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{10}}"></mp-icon></view>
+            <view class="recipe-arrow" bindtap="openPopup">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{12}}"></mp-icon></view>
           </view>
           <view wx:if="{{todayAll}}" class="booking-wrap">
             <view class="booking-box today-one">
@@ -160,7 +160,7 @@
             <view
               wx:for="{{list}}"
               wx:key="index"
-              class="visit-item visit-edit"
+              class="visit-item {{item.canEdit && (item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2) ? 'visit-edit' : ''}}"
             >
               <block wx:if="{{item.canEdit}}">
                 <view

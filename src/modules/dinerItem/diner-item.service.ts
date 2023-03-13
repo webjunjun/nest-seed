@@ -219,14 +219,18 @@ export class DinerItemService {
         {todayDate}
       )
       .getCount();
-    const visitNum = await this.visitorDinerRepository
+    const visiArr = await this.visitorDinerRepository
       .createQueryBuilder()
-      .select()
+      .select(['VisitorDinerEntity.dinerNum'])
       .where(
         'diner_date < :end AND diner_date > :start',
         {start: `${todayDate} 00:00:00`, end: `${todayDate} 23:59:59`}
       )
-      .getCount();
+      .getMany();
+    let visitNum = 0;
+    visiArr.forEach(ele => {
+      visitNum += ele.dinerNum;
+    })
       return {
         morning: zaoNum,
         midday: zhongNum,

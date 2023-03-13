@@ -90,7 +90,7 @@
   background: linear-gradient(135deg, #75df6a, #ffdb13);
 }
 .recipe-arrow {
-  font-size: 20rpx;
+  font-size: 28rpx;
   color: #6d6d6d;
 }
 .recipe-arrow .maright {

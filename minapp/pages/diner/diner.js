@@ -259,6 +259,15 @@ Page({
             this.countdownFuc()
           }, 1000)
         }
+        const mealsTomorrow = json1.visit
+        let betweens = ''
+        const curUserId = this.data.pageUser.id
+        json3.list.forEach(ele => {
+          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+          ele.canEdit = betweens === 'center' ? true : false
+          ele.dinerDate = ele.dinerDate.slice(0, 16)
+          ele.curUserId = curUserId
+        });
         if (json3.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了
           this.setData({

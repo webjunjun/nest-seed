@@ -51,16 +51,18 @@
             <view
               wx:for="{{list}}"
               wx:key="index"
-              class="visit-item visit-edit"
+              class="visit-item {{item.canEdit && (item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2) ? 'visit-edit' : ''}}"
             >
-              <view
-                wx:if="{{item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2}}"
-                class="visit-btn"
-                data-visitor="{{item.id}}"
-                catchtap="bindEdit"
-              >
-                <text>编辑</text>
-              </view>
+              <block wx:if="{{item.canEdit}}">
+                <view
+                  wx:if="{{item.curUserId === item.createdId || pageUser.role == 1 || pageUser.role == 2}}"
+                  class="visit-btn"
+                  data-visitor="{{item.id}}"
+                  catchtap="bindEdit"
+                >
+                  <text>编辑</text>
+                </view>
+              </block>
               <view class="visit-cell">
                 <view class="visit-info">
                   <view class="visit-title">预约编号: </view>

@@ -1,6 +1,7 @@
 const myApp = getApp()
 import { baseImageUrl, publicUrl } from '../../utils/config'
-import { queryTodayStatList, queryVisitorList } from '../../api/api'
+import { queryTodayStatList, queryVisitorList, queryTomorrowBooking } from '../../api/api'
+import { timeIsBetween } from '../../utils/util'
 
 Page({
   data: {
@@ -35,7 +36,8 @@ Page({
     noMore: false,
     list: [],
     currentPage: 1,
-    pageSize: 20
+    pageSize: 20,
+    visitAll: null
   },
   onLoad(option) {
     let curTitle = ''
@@ -78,12 +80,22 @@ Page({
       cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + pageUser.avatar
     })
-    if (this.data.curType === 'today') {
-      this.getInitData()
-    }
-    if (this.data.curType === 'visit') {
-      this.getVisitorList()
-    }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    queryTomorrowBooking()
+      .then((res) => {
+        this.setData({
+          visitAll: res.data.visit
+        })
+        if (this.data.curType === 'today') {
+          this.getInitData()
+        }
+        if (this.data.curType === 'visit') {
+          this.getVisitorList()
+        }
+      })
   },
   goMinePage() {
     wx.navigateTo({
@@ -141,9 +153,13 @@ Page({
     })
       .then((res) => {
         wx.hideLoading()
+        const mealsTomorrow = this.data.visitAll
+        let betweens = ''
         const json = res.data
         const curUserId = this.data.pageUser.id
         json.list.forEach(ele => {
+          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+          ele.canEdit = betweens === 'center' ? true : false
           ele.dinerDate = ele.dinerDate.slice(0, 16)
           ele.curUserId = curUserId
         });
