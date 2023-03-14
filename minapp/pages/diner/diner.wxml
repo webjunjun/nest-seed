@@ -45,39 +45,57 @@
             <view class="recipe-arrow" bindtap="openPopup">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{12}}"></mp-icon></view>
           </view>
           <view wx:if="{{todayAll}}" class="booking-wrap">
-            <view class="booking-box today-one">
+            <view class="booking-box today{{todayData.status1}}">
               <view class="booking-info">
                 <view class="booking-type">早餐</view>
-                <view class="booking-done">
-                  <block wx:if="{{todayData.status1 === -1}}">未预约</block>
-                  <block wx:if="{{todayData.status1 === 1}}">已预约</block>
-                  <block wx:if="{{todayData.status1 === 2}}">就餐中</block>
-                  <block wx:if="{{todayData.status1 === 3}}">已就餐</block>
-                </view>
+                <block wx:if="{{todayData.status1 === -1}}">
+                  <view class="booking-done unbooking">未预约</view>
+                </block>
+                <block wx:if="{{todayData.status1 === 1}}">
+                  <view class="booking-done booked">已预约</view>
+                </block>
+                <block wx:if="{{todayData.status1 === 2}}">
+                  <view class="booking-done dinering">就餐中</view>
+                </block>
+                <block wx:if="{{todayData.status1 === 3}}">
+                  <view class="booking-done dinering">已就餐</view>
+                </block>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.morningStart}}-{{todayAll.morningEnd}}</view>
             </view>
-            <view class="booking-box today-two">
+            <view class="booking-box today{{todayData.status2}}">
               <view class="booking-info">
                 <view class="booking-type">中餐</view>
-                <view class="booking-done">
-                  <block wx:if="{{todayData.status2 === -1}}">未预约</block>
-                  <block wx:if="{{todayData.status2 === 1}}">已预约</block>
-                  <block wx:if="{{todayData.status2 === 2}}">就餐中</block>
-                  <block wx:if="{{todayData.status2 === 3}}">已就餐</block>
-                </view>
+                <block wx:if="{{todayData.status2 === -1}}">
+                  <view class="booking-done unbooking">未预约</view>
+                </block>
+                <block wx:if="{{todayData.status2 === 1}}">
+                  <view class="booking-done booked">已预约</view>
+                </block>
+                <block wx:if="{{todayData.status2 === 2}}">
+                  <view class="booking-done dinering">就餐中</view>
+                </block>
+                <block wx:if="{{todayData.status2 === 3}}">
+                  <view class="booking-done dinering">已就餐</view>
+                </block>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.middayStart}}-{{todayAll.middayEnd}}</view>
             </view>
-            <view class="booking-box today-three">
+            <view class="booking-box today{{todayData.status3}}">
               <view class="booking-info">
                 <view class="booking-type">晚餐</view>
-                <view class="booking-done">
-                  <block wx:if="{{todayData.status3 === -1}}">未预约</block>
-                  <block wx:if="{{todayData.status3 === 1}}">已预约</block>
-                  <block wx:if="{{todayData.status3 === 2}}">就餐中</block>
-                  <block wx:if="{{todayData.status3 === 3}}">已就餐</block>
-                </view>
+                <block wx:if="{{todayData.status3 === -1}}">
+                  <view class="booking-done unbooking">未预约</view>
+                </block>
+                <block wx:if="{{todayData.status3 === 1}}">
+                  <view class="booking-done booked">已预约</view>
+                </block>
+                <block wx:if="{{todayData.status3 === 2}}">
+                  <view class="booking-done dinering">就餐中</view>
+                </block>
+                <block wx:if="{{todayData.status3 === 3}}">
+                  <view class="booking-done dinering">已就餐</view>
+                </block>
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.eveningStart}}-{{todayAll.eveningEnd}}</view>
             </view>

@@ -43,7 +43,7 @@
   flex: 1;
   border-radius: 16rpx;
   box-sizing: border-box;
-  padding: 30rpx;
+  padding: 30rpx 20rpx;
   position: relative;
 }
 .booking-wrap .booking-box + .booking-box {
@@ -58,14 +58,14 @@
   border-top-left-radius: 30rpx;
   border-bottom-left-radius: 30rpx;
   background-color: #999;
-  font-size: 18rpx;
+  font-size: 20rpx;
   text-align: center;
   line-height: 30rpx;
   box-sizing: border-box;
   padding-left: 10rpx;
 }
 .booking-box .booking-date {
-  font-size: 18rpx;
+  font-size: 20rpx;
   margin-top: 16rpx;
 }
 .diner-tab-inner .booking-tips {
@@ -74,20 +74,32 @@
   text-align: justify;
   margin-top: 30rpx;
 }
-.today-one {
-  background: linear-gradient(135deg, #fd6991, #f91250);
+.today-1 {
+  background: linear-gradient(135deg, #52e599, #08c163);
 }
-.today-two {
+.today1 {
   background: linear-gradient(135deg, #ffca13, #ff6a03);
 }
-.today-three {
-  background: linear-gradient(135deg, #52e599, #08c163);
+.today2, .today3 {
+  background: linear-gradient(135deg, #fd6991, #f91250);
+}
+.booking-info .unbooking {
+  background-color: #999;
+}
+.booking-info .booked {
+  background-color: #ff6a03;
+}
+.booking-info .dinering {
+  background-color: #08c163;
 }
 .tomorrow-one {
   background: linear-gradient(135deg, #a59d9f, #3b3536);
 }
 .tomorrow-two {
   background: linear-gradient(135deg, #75df6a, #ffdb13);
+}
+.tomorrow-two .booking-done {
+  background-color: #08c163;
 }
 .recipe-arrow {
   font-size: 28rpx;
