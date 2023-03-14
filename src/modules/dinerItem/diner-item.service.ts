@@ -75,6 +75,7 @@ export class DinerItemService {
   async queryList(singleObject: DinerItemQueryDto): Promise<Array<DinerItemEntity>> {
     const pageSize = singleObject.pageSize ? singleObject.pageSize : 10;
     const currentPage = singleObject.currentPage ? singleObject.currentPage : 1;
+    const todayDate = getDateStr(0);
     return await this.dinerItemRepository
       .createQueryBuilder('diner_item')
       .select(`
@@ -92,7 +93,7 @@ export class DinerItemService {
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
       .orderBy('diner_item.created', 'DESC')
-      .where('eater_id = :eaterId', {eaterId: singleObject.eaterId})
+      .where('eater_id = :eaterId AND diner_date <= :todayDate', {eaterId: singleObject.eaterId, todayDate})
       .getRawMany();
   }
 
