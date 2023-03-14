@@ -50,12 +50,14 @@
   align-items: center;
 }
 .list-info .list-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 60rpx;
   height: 60rpx;
   background-color: #3275fd;
   border-radius: 100%;
   box-sizing: border-box;
-  padding: 10rpx;
   overflow: hidden;
   margin-right: 24rpx;
 }
@@ -74,7 +76,4 @@
   border-right: 1px solid #999;
   border-bottom: 1px solid #999;
   transform: rotate(-45deg);
-}
-.my-setting {
-  margin-top: -6rpx;
 }
