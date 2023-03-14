@@ -37,7 +37,7 @@ const formatDate3 = date => {
   const month = date.getMonth() + 1
   const day = date.getDate()
 
-  return `${year}年${month}月${day}日}`
+  return `${year}年${month}月${day}日`
 }
 
 const formatDate4 = (start, end) => {

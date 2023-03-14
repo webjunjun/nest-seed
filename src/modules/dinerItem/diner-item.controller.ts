@@ -71,7 +71,7 @@ export class DinerItemController {
     }
   }
 
-  @ApiOperation({summary: '查询自己的今日三餐列表'})
+  @ApiOperation({summary: '查询自己的所有就餐记录'})
   @UseGuards(JwtAuthGuard)
   @Post('mineList')
   async queryMyDinerList(@Body() singleObject: DinerItemQueryDto): Promise<{
@@ -80,7 +80,7 @@ export class DinerItemController {
     list: Array<DinerItemEntity>
   }> {
     const pageData = await this.dinerItemService.queryList(singleObject).catch(() => {
-      throw new HttpException('查询我的今日三餐列表失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('查询我的就餐列表失败', HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(singleObject.pageSize) || 10,
