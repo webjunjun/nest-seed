@@ -54,6 +54,7 @@ Page({
     }
   },
   onShow() {
+    this.initData()
     const comuteStats = wx.getStorageSync('commuteStats')
     if (comuteStats) {
       this.setData({

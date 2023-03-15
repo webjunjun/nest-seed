@@ -79,6 +79,7 @@ Page({
     }
   },
   onShow() {
+    this.initData()
     const dinerStats = wx.getStorageSync('dinerStats')
     if (dinerStats) {
       const dinerObj = JSON.parse(dinerStats)
@@ -90,17 +91,7 @@ Page({
   },
   // 初始化页面方法
   initPage() {
-    const pageUser = myApp.globalData.userInfo
-    this.setData({
-      pageUser,
-      realName: pageUser.realName,
-      cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
-      avatarUrl: publicUrl + pageUser.avatar,
-      history: {
-        bookerId: pageUser.id,
-        bookerName: pageUser.realName
-      }
-    })
+    this.initData()
     if (this.data.actionType === 'edit') {
       wx.showLoading({
         title: '加载中',
@@ -116,6 +107,21 @@ Page({
             dinerDate: res.data.dinerDate
           })
         })
+    }
+  },
+  initData() {
+    const pageUser = myApp.globalData.userInfo
+    if (pageUser) {
+      this.setData({
+        pageUser,
+        realName: pageUser.realName,
+        cellphone: pageUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
+        avatarUrl: publicUrl + pageUser.avatar,
+        history: {
+          bookerId: pageUser.id,
+          bookerName: pageUser.realName
+        }
+      })
     }
   },
   handleChange(e) {
