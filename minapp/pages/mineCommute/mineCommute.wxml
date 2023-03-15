@@ -24,9 +24,8 @@
               </view>
             </block>
             <view class="mci-left">
-              <image src="{{item.avatar}}"></image>
-              <view class="mci-name">{{item.createdName}}</view>
-              <view class="mci-name">发布人</view>
+              <image src="{{avatarUrl}}"></image>
+              <view class="mci-name">{{realName}}</view>
             </view>
             <view class="mci-right">
               <view class="mci-date">

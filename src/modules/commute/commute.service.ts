@@ -208,7 +208,7 @@ export class CommuteService {
     return await this.commuteItemRepository
       .createQueryBuilder('commute_item')
       .leftJoinAndSelect(CommuteEntity, 'commute', 'commute.id = commute_item.commuteId')
-      .leftJoinAndSelect(UserEntity, 'user', 'user.id = commute_item.travelerId')
+      .leftJoinAndSelect(UserEntity, 'user', 'user.id = commute.createdId')
       .select(`
         commute_item.commute_id as commuteId,
         commute_item.traveler_id as travelerId,
@@ -228,8 +228,7 @@ export class CommuteService {
         commute.last_modify as lastModify,
         commute.update_id as updateId,
         commute.update_name as updateName,
-        user.avatar as avatar,
-        user.phone as phone
+        user.avatar as avatar
       `)
       .where({
         ...(pageObject?.travelerId && { travelerId: pageObject.travelerId })
