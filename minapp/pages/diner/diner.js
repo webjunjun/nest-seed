@@ -22,7 +22,7 @@ Page({
     noMore: false,
     list: [],
     currentPage: 1,
-    pageSize: 20,
+    pageSize: 10,
     todayAll: null,
     tomorrowAll: null,
     todayData: {},
@@ -64,7 +64,7 @@ Page({
         noMore: false,
         list: [],
         currentPage: 1,
-        pageSize: 20
+        pageSize: 10
       })
       this.getVisitorList()
     }

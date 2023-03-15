@@ -6,6 +6,7 @@ import { UserEntity } from 'src/entity/user.entity';
 import { InsertResult, Repository } from 'typeorm';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
+import { CommuteItemSearchDto } from './dto/commute-item-search.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
 import { CommuteStatsDto } from './dto/commute-stats.dto';
 import { CommuteUpdateDto } from './dto/commute-update.dto';
@@ -199,5 +200,43 @@ export class CommuteService {
       ping: pingNum,
       travel: totalNum
     }
+  }
+
+  async getAllTypeCommuteList(pageObject: CommuteItemSearchDto): Promise<Array<CommuteEntity>> {
+    const pageSize = pageObject.pageSize ? pageObject.pageSize : 10;
+    const currentPage = pageObject.currentPage ? pageObject.currentPage : 1;
+    return await this.commuteItemRepository
+      .createQueryBuilder('commute_item')
+      .leftJoinAndSelect(CommuteEntity, 'commute', 'commute.id = commute_item.commuteId')
+      .leftJoinAndSelect(UserEntity, 'user', 'user.id = commute_item.travelerId')
+      .select(`
+        commute_item.commute_id as commuteId,
+        commute_item.traveler_id as travelerId,
+        commute_item.traveler as traveler,
+        commute_item.type as type,
+        commute.id as id,
+        commute.license_plate as licensePlate,
+        commute.start_addr as startAddr,
+        commute.end_addr as endAddr,
+        commute.pass_addr as passAddr,
+        commute.seat as seat,
+        commute.rest_seat as restSeat,
+        commute.commute_date as commuteDate,
+        commute.created as created,
+        commute.created_id as createdId,
+        commute.created_name as createdName,
+        commute.last_modify as lastModify,
+        commute.update_id as updateId,
+        commute.update_name as updateName,
+        user.avatar as avatar,
+        user.phone as phone
+      `)
+      .where({
+        ...(pageObject?.travelerId && { travelerId: pageObject.travelerId })
+      })
+      .limit(pageSize)
+      .offset(pageSize * (currentPage - 1))
+      .orderBy('commute.commuteDate', 'DESC')
+      .getRawMany();
   }
 }

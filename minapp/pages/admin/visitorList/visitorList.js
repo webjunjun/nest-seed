@@ -5,7 +5,7 @@ Page({
   data: {
     list: [],
     noMore: false,
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     pageUser: {}
   },
@@ -25,7 +25,7 @@ Page({
         noMore: false,
         list: [],
         currentPage: 1,
-        pageSize: 20
+        pageSize: 10
       })
       this.getPageList()
     }

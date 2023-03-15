@@ -19,13 +19,14 @@
             data-info="{{item}}"
           >
             <block wx:if="{{item.canBooking}}">
-              <view wx:if="{{item.curUserId === item.createdId}}" data-commute="{{item.id}}" class="mci-btn" catchtap="bindEdit">
+              <view wx:if="{{item.curUserId === item.createdId || pageUser.role == 1}}" data-commute="{{item.id}}" class="mci-btn" catchtap="bindEdit">
                 <text>编辑</text>
               </view>
             </block>
             <view class="mci-left">
               <image src="{{item.avatar}}"></image>
               <view class="mci-name">{{item.createdName}}</view>
+              <view class="mci-name">发布人</view>
             </view>
             <view class="mci-right">
               <view class="mci-date">
@@ -38,6 +39,7 @@
               <view class="mci-desciption">
                 <view>途径地: <view class="mci-cell-addr">{{item.passAddr}}</view></view>
                 <view>座位数: 还有{{item.restSeat}}个空位</view>
+                <view>出行类型: {{item.type}}</view>
               </view>
             </view>
           </view>

@@ -9,6 +9,7 @@ import { CommuteService } from './commute.service';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
 import { CommuteItemQueryDto } from './dto/commute-item-query.dto';
+import { CommuteItemSearchDto } from './dto/commute-item-search.dto';
 import { CommuteItemDto } from './dto/commute-item.dto';
 import { CommuteOneDto } from './dto/commute-one.dto';
 import { CommuteSearchDto } from './dto/commute-search.dto';
@@ -23,7 +24,7 @@ export class CommuteController {
     private readonly userService: UserService
   ) {}
 
-  @ApiOperation({summary: '分页查询出行'})
+  @ApiOperation({summary: '分页查询发布类型的出行记录'})
   @UseGuards(JwtAuthGuard)
   @Post('list')
   async queryCommuteList(@Body() commutePage: CommuteSearchDto): Promise<{
@@ -39,7 +40,7 @@ export class CommuteController {
     }
   }
 
-  @ApiOperation({summary: '查询单条出行记录'})
+  @ApiOperation({summary: '查询单条发布类型的出行记录'})
   @UseGuards(JwtAuthGuard)
   @Post('one')
   async queryCommuteOne(@Body() commuteInfo: CommuteOneDto): Promise<CommuteEntity> {
@@ -74,7 +75,7 @@ export class CommuteController {
         travelerId: commuteObject.createdId,
         traveler: commuteObject.createdName,
         type: '发布',
-        commuteDate: new Date()
+        commuteDate: commuteObject.commuteDate
       }).catch(async () => {
         await this.commuteService.deleteCommuteOne(commuteInfo.generatedMaps[0].id);
         throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
@@ -158,5 +159,21 @@ export class CommuteController {
       throw new HttpException('查询出行统计失败', HttpStatus.BAD_REQUEST);
     });
     return pageData
+  }
+
+  @ApiOperation({summary: '分页查询我的发布类型和拼车类型的出行列表'})
+  @UseGuards(JwtAuthGuard)
+  @Post('mineList')
+  async queryAllTypeCommuteList(@Body() commutePage: CommuteItemSearchDto): Promise<{
+    pageSize: number,
+    currentPage: number
+    list: Array<CommuteEntity>
+  }> {
+    const pageData = await this.commuteService.getAllTypeCommuteList(commutePage);
+    return {
+      pageSize: Number(commutePage.pageSize) || 10,
+      currentPage: Number(commutePage.currentPage) || 1,
+      list: pageData
+    }
   }
 }

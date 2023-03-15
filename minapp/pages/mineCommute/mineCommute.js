@@ -1,5 +1,5 @@
 const myApp = getApp()
-import { postCommuteList } from '../../api/api'
+import { queryAllCommuteList } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { formatDate } from '../../utils/util'
 
@@ -10,7 +10,7 @@ Page({
     realName: '',
     cellphone: '',
     pageUser: {},
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     list: [],
     noMore: false
@@ -54,8 +54,8 @@ Page({
       title: '加载中',
       mask: true
     })
-    postCommuteList({
-      createdId: this.data.pageUser.id,
+    queryAllCommuteList({
+      travelerId: this.data.pageUser.id,
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })

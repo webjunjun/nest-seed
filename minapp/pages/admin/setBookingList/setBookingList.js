@@ -5,7 +5,7 @@ Page({
   data: {
     list: [],
     noMore: false,
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     groups: [
       { text: '明日三餐预约时间设置', value: '三餐' },
@@ -29,7 +29,7 @@ Page({
         noMore: false,
         list: [],
         currentPage: 1,
-        pageSize: 20
+        pageSize: 10
       })
       this.getPageList()
     }

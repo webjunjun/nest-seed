@@ -348,3 +348,11 @@ export const queryDinerStats = (data) => {
     data
   })
 }
+
+export const queryAllCommuteList = (data) => {
+  return request({
+    url: '/commute/mineList',
+    method: 'POST',
+    data
+  })
+}

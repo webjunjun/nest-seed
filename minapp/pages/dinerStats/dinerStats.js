@@ -36,7 +36,7 @@ Page({
     noMore: false,
     list: [],
     currentPage: 1,
-    pageSize: 20,
+    pageSize: 10,
     visitAll: null
   },
   onLoad(option) {

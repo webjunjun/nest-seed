@@ -28,7 +28,7 @@ Page({
     }],
     isShow: false,
     bookingPhone: null,
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     list: [],
     noMore: false
@@ -58,7 +58,7 @@ Page({
         noMore: false,
         list: [],
         currentPage: 1,
-        pageSize: 20
+        pageSize: 10
       })
       this.getCommuteList()
     }

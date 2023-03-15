@@ -5,7 +5,7 @@ Page({
   data: {
     list: [],
     noMore: false,
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     typeName: ['本周食谱', '帮助', '关于我们']
   },
@@ -25,7 +25,7 @@ Page({
         noMore: false,
         list: [],
         currentPage: 1,
-        pageSize: 20
+        pageSize: 10
       })
       this.getPageList()
     }

@@ -5,7 +5,7 @@ Page({
   data: {
     list: [],
     noMore: false,
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     groups: [
       { text: '管理员', value: 1 },
