@@ -286,6 +286,16 @@ Page({
         wx.setStorageSync('commuteStats', JSON.stringify(this.data.statsArr))
       })
   },
+  async onPullDownRefresh() {
+    this.setData({
+      noMore: false,
+      list: [],
+      currentPage: 1,
+      pageSize: 10
+    })
+    await this.initPage()
+    wx.stopPullDownRefresh()
+  },
   onReachBottom() {
     if (this.data.noMore) {
       return false

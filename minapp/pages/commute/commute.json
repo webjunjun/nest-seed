@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "出行",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "popup": "../../components/popup/index"
   }

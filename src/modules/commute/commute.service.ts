@@ -55,7 +55,7 @@ export class CommuteService {
       })
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
-      .orderBy('commute.created', 'DESC')
+      .orderBy('commute.commuteDate', 'DESC')
       .getRawMany();
   }
 
