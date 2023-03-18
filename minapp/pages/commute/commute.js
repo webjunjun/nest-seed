@@ -42,7 +42,7 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
-  onShow() {
+  async onShow() {
     // 自定义菜单选中tab
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
@@ -51,25 +51,32 @@ Page({
     }
     if (myApp.globalData.hasLogin) {
       this.initData()
-    }
-    if (myApp.globalData.refreshPage) {
-      myApp.globalData.refreshPage = false
-      this.setData({
-        noMore: false,
-        list: [],
-        currentPage: 1,
-        pageSize: 10
-      })
-      this.getCommuteList()
+      if (myApp.globalData.refreshPage) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
+        this.setData({
+          currentPage: 1,
+          pageSize: 10
+        })
+        await this.getCommuteList()
+        wx.hideLoading()
+      }
     }
   },
   // 初始化页面方法
-  initPage() {
+  async initPage() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     this.initData()
-    // 获取出行统计信息
-    this.getStatsInfo()
     // 获取出行列表
-    this.getCommuteList()
+    await this.getCommuteList()
+    // 获取出行统计信息
+    await this.getStatsInfo()
+    wx.hideLoading()
   },
   initData() {
     // 每次显示都执行的
@@ -230,77 +237,85 @@ Page({
         })
       })
   },
-  getCommuteList() {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    postCommuteList({
+  async getCommuteList() {
+    const res = await postCommuteList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
-    })
-      .then((res) => {
-        wx.hideLoading()
-        const json = res.data
-        const curUserId = this.data.pageUser.id
-        const curTime = new Date(res.timestamp).getTime()
-        json.list.forEach(ele => {
-          ele.canBooking = new Date(ele.commuteDate).getTime() > curTime ? true : false
-          ele.passAddr = ele.passAddr.split('、')
-          ele.newCommuteDate = formatDate(new Date(ele.commuteDate))
-          ele.avatar = publicUrl + ele.avatar
-          ele.curUserId = curUserId
-        })
-        if (json.list.length < this.data.pageSize) {
-          // 显示到底 禁止触底加载了
-          this.setData({
-            list: this.data.list.concat(json.list),
-            noMore: true
-          })
-        } else {
-          this.setData({
-            list: this.data.list.concat(json.list),
-            currentPage: this.data.currentPage + 1,
-            noMore: false
-          })
-        }
+    }).catch(() => {})
+    if (!res) {
+      return false
+    }
+    if (myApp.globalData.refreshPage) {
+      this.setData({
+        noMore: false,
+        list: []
       })
+      myApp.globalData.refreshPage = false
+    }
+    const json = res.data
+    const curUserId = this.data.pageUser.id
+    const curTime = new Date(res.timestamp).getTime()
+    json.list.forEach(ele => {
+      ele.canBooking = new Date(ele.commuteDate).getTime() > curTime ? true : false
+      ele.passAddr = ele.passAddr.split('、')
+      ele.newCommuteDate = formatDate(new Date(ele.commuteDate))
+      ele.avatar = publicUrl + ele.avatar
+      ele.curUserId = curUserId
+    })
+    if (json.list.length < this.data.pageSize) {
+      // 显示到底 禁止触底加载了
+      this.setData({
+        list: this.data.list.concat(json.list),
+        noMore: true
+      })
+    } else {
+      this.setData({
+        list: this.data.list.concat(json.list),
+        currentPage: this.data.currentPage + 1,
+        noMore: false
+      })
+    }
   },
-  getStatsInfo() {
-    queryCommuteStats({
+  async getStatsInfo() {
+    const res = await queryCommuteStats({
       id: this.data.pageUser.id
+    }).catch(() => {})
+    if (!res) {
+      return false
+    }
+    this.setData({
+      statsArr: [{
+        num: res.data.publish,
+        type: '已发布'
+      }, {
+        num: res.data.ping,
+        type: '已拼车'
+      }, {
+        num: res.data.travel,
+        type: '总出行'
+      }]
     })
-      .then((res) => {
-        this.setData({
-          statsArr: [{
-            num: res.data.publish,
-            type: '已发布'
-          }, {
-            num: res.data.ping,
-            type: '已拼车'
-          }, {
-            num: res.data.travel,
-            type: '总出行'
-          }]
-        })
-        wx.setStorageSync('commuteStats', JSON.stringify(this.data.statsArr))
-      })
+    wx.setStorageSync('commuteStats', JSON.stringify(this.data.statsArr))
   },
   async onPullDownRefresh() {
     this.setData({
-      noMore: false,
-      list: [],
       currentPage: 1,
       pageSize: 10
     })
+    myApp.globalData.refreshPage = true
     await this.initPage()
     wx.stopPullDownRefresh()
   },
-  onReachBottom() {
+  async onReachBottom() {
     if (this.data.noMore) {
       return false
     } else {
-      this.getCommuteList()
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      await this.getCommuteList()
+      wx.hideLoading()
     }
   }
 })
