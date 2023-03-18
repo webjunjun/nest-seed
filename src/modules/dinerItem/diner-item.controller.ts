@@ -21,8 +21,8 @@ export class DinerItemController {
     today: DinerItemEntity,
     tomorrow: DinerItemEntity
   }> {
-    const pageData = await this.dinerItemService.queryTwodays(eaterObj.eaterId).catch(() => {
-      throw new HttpException('查询我的今日三餐列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.dinerItemService.queryTwodays(eaterObj.eaterId).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return pageData;
   }
@@ -46,8 +46,8 @@ export class DinerItemController {
         throw new HttpException('明日就餐预约失败', HttpStatus.BAD_REQUEST);
       });
     } else {
-      pageData = await this.dinerItemService.addOne(singleObject).catch(() => {
-        throw new HttpException('明日就餐预约失败', HttpStatus.BAD_REQUEST);
+      pageData = await this.dinerItemService.addOne(singleObject).catch((e) => {
+        throw new HttpException(e, HttpStatus.BAD_REQUEST);
       });
     }
     return pageData;
@@ -61,8 +61,8 @@ export class DinerItemController {
     currentPage: number
     list: Array<DinerItemEntity>
   }> {
-    const pageData = await this.dinerItemService.queryAllList(singleObject).catch(() => {
-      throw new HttpException('查询三餐列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.dinerItemService.queryAllList(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(singleObject.pageSize) || 10,
@@ -79,8 +79,8 @@ export class DinerItemController {
     currentPage: number
     list: Array<DinerItemEntity>
   }> {
-    const pageData = await this.dinerItemService.queryList(singleObject).catch(() => {
-      throw new HttpException('查询我的就餐列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.dinerItemService.queryList(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(singleObject.pageSize) || 10,
@@ -100,12 +100,12 @@ export class DinerItemController {
   }> {
     let pageData = null;
     if (singleObject.eaterId) {
-      pageData = await this.dinerItemService.queryStatsPeron(singleObject).catch(() => {
-        throw new HttpException('查询就餐统计数据失败', HttpStatus.BAD_REQUEST);
+      pageData = await this.dinerItemService.queryStatsPeron(singleObject).catch((e) => {
+        throw new HttpException(e, HttpStatus.BAD_REQUEST);
       });
     } else {
-      pageData = await this.dinerItemService.queryStatsAll().catch(() => {
-        throw new HttpException('查询就餐统计数据失败', HttpStatus.BAD_REQUEST);
+      pageData = await this.dinerItemService.queryStatsAll().catch((e) => {
+        throw new HttpException(e, HttpStatus.BAD_REQUEST);
       });
     }
     return pageData;

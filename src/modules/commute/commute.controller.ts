@@ -32,7 +32,9 @@ export class CommuteController {
     currentPage: number
     list: Array<CommuteEntity>
   }> {
-    const pageData = await this.commuteService.getCommuteList(commutePage);
+    const pageData = await this.commuteService.getCommuteList(commutePage).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
     return {
       pageSize: Number(commutePage.pageSize) || 10,
       currentPage: Number(commutePage.currentPage) || 1,
@@ -47,7 +49,9 @@ export class CommuteController {
     if (!commuteInfo.commuteId) {
       throw new HttpException('出行ID不能为空', HttpStatus.BAD_REQUEST);
     }
-    return await this.commuteService.getCommuteById(commuteInfo.commuteId);
+    return await this.commuteService.getCommuteById(commuteInfo.commuteId).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
   }
 
   @ApiOperation({summary: '发布出行'})

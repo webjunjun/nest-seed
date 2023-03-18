@@ -17,8 +17,8 @@ export class SingleController {
   @UseGuards(JwtAuthGuard)
   @Post('add')
   async addSinglePage(@Body() singleObject: SingleCreateDto): Promise<string> {
-    await this.singleService.addOne(singleObject).catch(() => {
-      throw new HttpException('新增单页面失败', HttpStatus.BAD_REQUEST);
+    await this.singleService.addOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '新增单页面成功';
   }
@@ -27,8 +27,8 @@ export class SingleController {
   @UseGuards(JwtAuthGuard)
   @Post('update')
   async updateSinglePage(@Body() singleObject: SingleUpdateDto): Promise<string> {
-    await this.singleService.modifyOne(singleObject).catch(() => {
-      throw new HttpException('修改单页面失败', HttpStatus.BAD_REQUEST);
+    await this.singleService.modifyOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '修改单页面成功';
   }
@@ -37,8 +37,8 @@ export class SingleController {
   @UseGuards(JwtAuthGuard)
   @Post('delete')
   async deleteSinglePage(@Body() singleObject: SingleDeleteDto): Promise<string> {
-    await this.singleService.deleteOne(singleObject).catch(() => {
-      throw new HttpException('删除单页面失败', HttpStatus.BAD_REQUEST);
+    await this.singleService.deleteOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '删除单页面成功';
   }
@@ -47,8 +47,8 @@ export class SingleController {
   @UseGuards(JwtAuthGuard)
   @Post('query')
   async querySinglePage(@Body() singleObject: SingleQueryDto): Promise<RichTextEntity> {
-    const data = await this.singleService.queryOne(singleObject).catch(() => {
-      throw new HttpException('查询单页面失败', HttpStatus.BAD_REQUEST);
+    const data = await this.singleService.queryOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return data;
   }
@@ -61,8 +61,8 @@ export class SingleController {
     currentPage: number
     list: Array<RichTextEntity>
   }> {
-    const pageData = await this.singleService.queryList(singleObject).catch(() => {
-      throw new HttpException('查询单页面列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.singleService.queryList(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(singleObject.pageSize) || 10,

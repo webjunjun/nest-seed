@@ -22,8 +22,8 @@ export class VisitorDinerController {
     currentPage: number
     list: Array<VisitorDinerEntity>
   }> {
-    const pageData = await this.visitorDinerService.queryVisitorList(visitorPage).catch(() => {
-      throw new HttpException('查询来客就餐预约列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.visitorDinerService.queryVisitorList(visitorPage).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(visitorPage.pageSize) || 10,
@@ -38,8 +38,8 @@ export class VisitorDinerController {
   async queryCommuteOne(@Body() visitorInfo: {
     visitorId: number
   }): Promise<VisitorDinerEntity> {
-    const data = await this.visitorDinerService.getVisitorDinerById(visitorInfo.visitorId).catch(() => {
-      throw new HttpException('查询来客就餐预约失败', HttpStatus.BAD_REQUEST);
+    const data = await this.visitorDinerService.getVisitorDinerById(visitorInfo.visitorId).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return data;
   }
@@ -48,8 +48,8 @@ export class VisitorDinerController {
   @UseGuards(JwtAuthGuard)
   @Post('publish')
   async createCommute(@Body() dinerObject: VisitorDinerCreateDto): Promise<string> {
-    await this.visitorDinerService.publishVisitorDiner(dinerObject).catch(() => {
-      throw new HttpException('发布来客就餐预约失败', HttpStatus.BAD_REQUEST);
+    await this.visitorDinerService.publishVisitorDiner(dinerObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '发布来客就餐预约成功';
   }
@@ -58,8 +58,8 @@ export class VisitorDinerController {
   @UseGuards(JwtAuthGuard)
   @Post('modify')
   async updateVisitorDiner(@Body() dinerObject: VisitorDinerUpdateDto): Promise<string> {
-    await this.visitorDinerService.modifyVisitorDiner(dinerObject).catch(() => {
-      throw new HttpException('修改来客就餐预约失败', HttpStatus.BAD_REQUEST);
+    await this.visitorDinerService.modifyVisitorDiner(dinerObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '修改来客就餐预约成功';
   }
@@ -70,8 +70,8 @@ export class VisitorDinerController {
   async deleteVisitorDiner(@Body() visitorInfo: {
     visitorId: number
   }): Promise<string> {
-    await this.visitorDinerService.deleteVisitorDiner(visitorInfo.visitorId).catch(() => {
-      throw new HttpException('删除来客就餐预约失败', HttpStatus.BAD_REQUEST);
+    await this.visitorDinerService.deleteVisitorDiner(visitorInfo.visitorId).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '删除来客就餐预约成功';
   }

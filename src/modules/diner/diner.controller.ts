@@ -17,8 +17,8 @@ export class DinerController {
   @UseGuards(JwtAuthGuard)
   @Post('booking')
   async settingBookingDate(@Body() singleObject: DinerAddDto): Promise<string> {
-    await this.dinerService.addOne(singleObject).catch(() => {
-      throw new HttpException('设置失败', HttpStatus.BAD_REQUEST);
+    await this.dinerService.addOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '设置成功';
   }
@@ -27,8 +27,8 @@ export class DinerController {
   @UseGuards(JwtAuthGuard)
   @Post('update')
   async updateBookingDate(@Body() singleObject: DinerEditDto): Promise<string> {
-    await this.dinerService.modifyOne(singleObject).catch(() => {
-      throw new HttpException('修改失败', HttpStatus.BAD_REQUEST);
+    await this.dinerService.modifyOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '修改成功';
   }
@@ -37,8 +37,8 @@ export class DinerController {
   @UseGuards(JwtAuthGuard)
   @Post('delete')
   async deleteBookingDate(@Body() singleObject: DinerDeleteDto): Promise<string> {
-    await this.dinerService.deleteOne(singleObject).catch(() => {
-      throw new HttpException('删除失败', HttpStatus.BAD_REQUEST);
+    await this.dinerService.deleteOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '删除成功';
   }
@@ -47,8 +47,8 @@ export class DinerController {
   @UseGuards(JwtAuthGuard)
   @Post('query')
   async querBookingDate(@Body() singleObject: DinerQueryDto): Promise<DinerEntity> {
-    const data = await this.dinerService.queryOne(singleObject).catch(() => {
-      throw new HttpException('查询失败', HttpStatus.BAD_REQUEST);
+    const data = await this.dinerService.queryOne(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return data;
   }
@@ -61,8 +61,8 @@ export class DinerController {
     currentPage: number
     list: Array<DinerEntity>
   }> {
-    const pageData = await this.dinerService.queryList(singleObject).catch(() => {
-      throw new HttpException('查询预约时间段列表失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.dinerService.queryList(singleObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return {
       pageSize: Number(singleObject.pageSize) || 10,
@@ -79,8 +79,8 @@ export class DinerController {
     visit: DinerEntity,
     meal: DinerEntity
   }> {
-    const data = await this.dinerService.queryLate().catch(() => {
-      throw new HttpException('查询失败', HttpStatus.BAD_REQUEST);
+    const data = await this.dinerService.queryLate().catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return data;
   }

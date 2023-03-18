@@ -17,6 +17,12 @@ export class VisitorDinerService {
   async queryVisitorList(pageObject: VisitorDinerSearchDto): Promise<Array<VisitorDinerEntity>> {
     const pageSize = pageObject.pageSize ? pageObject.pageSize : 10;
     const currentPage = pageObject.currentPage ? pageObject.currentPage : 1;
+    let preSql = '';
+    let sqlParams = {};
+    if (pageObject.dinerDate) {
+      preSql = 'diner_date >= :todayStart AND diner_date <= :todayEnd';
+      sqlParams = {todayStart: `${pageObject.dinerDate} 00:00:00`, todayEnd: `${pageObject.dinerDate} 23:59:59`};
+    }
     return await this.visitorDinerRepository
       .createQueryBuilder('visitor_dinner')
       .select(`
@@ -35,9 +41,7 @@ export class VisitorDinerService {
         visitor_dinner.update_id as updateId,
         visitor_dinner.update_name as updateName
       `)
-      .where({
-        ...(pageObject?.dinerDate && { dinerDate: pageObject.dinerDate })
-      })
+      .where(preSql, sqlParams)
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
       .orderBy('visitor_dinner.created', 'DESC')

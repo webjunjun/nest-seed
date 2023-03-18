@@ -1,7 +1,7 @@
 const myApp = getApp()
 import { baseImageUrl, publicUrl } from '../../utils/config'
 import { queryTodayStatList, queryVisitorList, queryTomorrowBooking } from '../../api/api'
-import { timeIsBetween } from '../../utils/util'
+import { getDateStr, timeIsBetween } from '../../utils/util'
 
 Page({
   data: {
@@ -148,6 +148,7 @@ Page({
       mask: true
     })
     queryVisitorList({
+      dinerDate: getDateStr(0),
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })
@@ -158,8 +159,10 @@ Page({
         const json = res.data
         const curUserId = this.data.pageUser.id
         json.list.forEach(ele => {
-          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
-          ele.canEdit = betweens === 'center' ? true : false
+          // betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+          betweens = new Date(ele.dinerDate).getTime() - new Date().getTime()
+          // ele.canEdit = betweens === 'center' ? true : false
+          ele.canEdit = betweens > 0 ? true : false
           ele.dinerDate = ele.dinerDate.slice(0, 16)
           ele.curUserId = curUserId
         });
