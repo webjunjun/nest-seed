@@ -23,19 +23,19 @@
 }
 .commute-title-box .commute-tag {
   display: flex;
-  font-size: 18rpx;
+  font-size: 24rpx;
   color: #fff;
 }
 .commute-tag .commute-fail {
   height: 30rpx;
-  padding: 0 16rpx;
+  padding: 8rpx 16rpx;
   line-height: 30rpx;
   border-radius: 8rpx;
   background-color: #08c163;
 }
 .commute-tag .commute-success {
   height: 30rpx;
-  padding: 0 16rpx;
+  padding: 8rpx 16rpx;
   line-height: 30rpx;
   border-radius: 8rpx;
   margin-left: 20rpx;

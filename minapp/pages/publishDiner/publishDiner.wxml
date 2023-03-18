@@ -40,7 +40,7 @@
         <view class="diner-inner">
           <view class="diner-title-box">
             <view class="diner-title">{{curTitle}}</view>
-            <view class="diner-rest">预约剩余时间: 08时30分25秒</view>
+            <!-- <view class="diner-rest">预约剩余时间: 08时30分25秒</view> -->
           </view>
           <form class="common-form" catchsubmit="bindSubmit">
             <view class="common-cell">

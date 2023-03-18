@@ -29,10 +29,10 @@
         <view class="commute-inner">
           <view class="commute-title-box">
             <view class="commute-title">{{curTitle}}信息</view>
-            <view class="commute-tag">
+            <!-- <view class="commute-tag">
               <view class="commute-fail">未出行</view>
               <view class="commute-success">已出行</view>
-            </view>
+            </view> -->
           </view>
           <form class="common-form" catchsubmit="bindSubmit">
             <view class="common-cell">

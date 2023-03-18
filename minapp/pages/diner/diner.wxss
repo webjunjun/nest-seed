@@ -43,7 +43,7 @@
   flex: 1;
   border-radius: 16rpx;
   box-sizing: border-box;
-  padding: 30rpx 20rpx;
+  padding: 30rpx 0 30rpx 20rpx;
   position: relative;
 }
 .booking-wrap .booking-box + .booking-box {
