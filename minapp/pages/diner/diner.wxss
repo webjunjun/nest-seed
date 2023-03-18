@@ -74,14 +74,14 @@
   text-align: justify;
   margin-top: 30rpx;
 }
-.today-1 {
-  background: linear-gradient(135deg, #52e599, #08c163);
+.today-one {
+  background: linear-gradient(135deg, #fd6991, #f91250);
 }
-.today1 {
+.today-two {
   background: linear-gradient(135deg, #ffca13, #ff6a03);
 }
-.today2, .today3 {
-  background: linear-gradient(135deg, #fd6991, #f91250);
+.today-three {
+  background: linear-gradient(135deg, #52e599, #08c163);
 }
 .booking-info .unbooking {
   background-color: #999;

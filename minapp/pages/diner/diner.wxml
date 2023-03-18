@@ -45,7 +45,7 @@
             <view class="recipe-arrow" bindtap="openPopup">本周菜谱<mp-icon extClass="maright" icon="arrow" color="#6d6d6d" size="{{12}}"></mp-icon></view>
           </view>
           <view wx:if="{{todayAll}}" class="booking-wrap">
-            <view class="booking-box today{{todayData.status1}}">
+            <view class="booking-box today-one">
               <view class="booking-info">
                 <view class="booking-type">早餐</view>
                 <block wx:if="{{todayData.status1 === -1}}">
@@ -63,7 +63,7 @@
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.morningStart}}-{{todayAll.morningEnd}}</view>
             </view>
-            <view class="booking-box today{{todayData.status2}}">
+            <view class="booking-box today-two">
               <view class="booking-info">
                 <view class="booking-type">中餐</view>
                 <block wx:if="{{todayData.status2 === -1}}">
@@ -81,7 +81,7 @@
               </view>
               <view class="booking-date">{{todayAll.newEatDate}} {{todayAll.middayStart}}-{{todayAll.middayEnd}}</view>
             </view>
-            <view class="booking-box today{{todayData.status3}}">
+            <view class="booking-box today-three">
               <view class="booking-info">
                 <view class="booking-type">晚餐</view>
                 <block wx:if="{{todayData.status3 === -1}}">

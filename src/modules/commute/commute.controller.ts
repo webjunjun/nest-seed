@@ -54,8 +54,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('create')
   async createCommute(@Body() commuteObject: CommuteCreateDto): Promise<string> {
-    const commuteInfo = await this.commuteService.publishCommuteOne(commuteObject).catch(() => {
-      throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
+    const commuteInfo = await this.commuteService.publishCommuteOne(commuteObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     if (commuteInfo.generatedMaps.length > 0) {
       if (commuteObject.modifyUserInfo) {
@@ -65,9 +65,9 @@ export class CommuteController {
           updateId: commuteObject.createdId,
           updateName: commuteObject.createdName
         }
-        await this.userService.updateLicensePlateById(userData).catch(async () => {
+        await this.userService.updateLicensePlateById(userData).catch(async (e) => {
           await this.commuteService.deleteCommuteOne(commuteInfo.generatedMaps[0].id);
-          throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
+          throw new HttpException(e, HttpStatus.BAD_REQUEST);
         });
       }
       await this.commuteService.addCommuteItem({
@@ -76,9 +76,9 @@ export class CommuteController {
         traveler: commuteObject.createdName,
         type: '发布',
         commuteDate: commuteObject.commuteDate
-      }).catch(async () => {
+      }).catch(async (e) => {
         await this.commuteService.deleteCommuteOne(commuteInfo.generatedMaps[0].id);
-        throw new HttpException('发布出行失败', HttpStatus.BAD_REQUEST);
+        throw new HttpException(e, HttpStatus.BAD_REQUEST);
       });
     }
     return '发布出行成功';
@@ -88,8 +88,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('update')
   async updateCommute(@Body() commuteObject: CommuteUpdateDto): Promise<string> {
-    await this.commuteService.modifyhCommuteOne(commuteObject).catch(() => {
-      throw new HttpException('修改出行失败', HttpStatus.BAD_REQUEST);
+    await this.commuteService.modifyhCommuteOne(commuteObject).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '修改出行成功';
   }
@@ -98,8 +98,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('delete')
   async deleteCommute(@Body()  commuteInfo: CommuteOneDto): Promise<string> {
-    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch(() => {
-      throw new HttpException('删除出行失败', HttpStatus.BAD_REQUEST);
+    await this.commuteService.deleteCommuteOne(commuteInfo.commuteId).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '删除出行成功';
   }
@@ -108,8 +108,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('resultBooking')
   async resultBooking(@Body() commuteItem: CommuteItemDto): Promise<Boolean> {
-    const result = await this.commuteService.queryCommuteItem(commuteItem).catch(() => {
-      throw new HttpException('查询预约拼车记录失败', HttpStatus.BAD_REQUEST);
+    const result = await this.commuteService.queryCommuteItem(commuteItem).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     if (result.length > 0) {
       return true;
@@ -121,8 +121,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('booking')
   async bookingCommute(@Body() commuteInfo: CommuteItemCreateDto): Promise<string> {
-    await this.commuteService.addCommuteItem(commuteInfo).catch(() => {
-      throw new HttpException('预约拼车出行失败', HttpStatus.BAD_REQUEST);
+    await this.commuteService.addCommuteItem(commuteInfo).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '预约拼车出行成功';
   }
@@ -131,8 +131,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('cnacelBooking')
   async cnacelBookingCommute(@Body() commuteInfo: CommuteItemDto): Promise<string> {
-    await this.commuteService.deleteCommuteItem(commuteInfo).catch(() => {
-      throw new HttpException('取消拼车出行失败', HttpStatus.BAD_REQUEST);
+    await this.commuteService.deleteCommuteItem(commuteInfo).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return '取消拼车出行成功';
   }
@@ -141,8 +141,8 @@ export class CommuteController {
   @UseGuards(JwtAuthGuard)
   @Post('item')
   async queryItemList(@Body() commuteItem: CommuteItemQueryDto): Promise<Array<CommuteItemEntity>> {
-    const pageData = await this.commuteService.queryItemList(commuteItem).catch(() => {
-      throw new HttpException('查询预约出行失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.commuteService.queryItemList(commuteItem).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return pageData
   }
@@ -155,8 +155,8 @@ export class CommuteController {
     ping: number,
     travel: number
   }> {
-    const pageData = await this.commuteService.queryStats(commuteItem).catch(() => {
-      throw new HttpException('查询出行统计失败', HttpStatus.BAD_REQUEST);
+    const pageData = await this.commuteService.queryStats(commuteItem).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     });
     return pageData
   }
@@ -169,7 +169,9 @@ export class CommuteController {
     currentPage: number
     list: Array<CommuteEntity>
   }> {
-    const pageData = await this.commuteService.getAllTypeCommuteList(commutePage);
+    const pageData = await this.commuteService.getAllTypeCommuteList(commutePage).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
     return {
       pageSize: Number(commutePage.pageSize) || 10,
       currentPage: Number(commutePage.currentPage) || 1,

@@ -61,6 +61,7 @@ Page({
           pageSize: 10
         })
         await this.getCommuteList()
+        await this.getStatsInfo()
         wx.hideLoading()
       }
     }

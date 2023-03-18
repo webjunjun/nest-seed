@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommuteItemEntity } from 'src/entity/commute-item.entity';
 import { CommuteEntity } from 'src/entity/commute.entity';
@@ -124,6 +124,41 @@ export class CommuteService {
 
   // 新增一条预约拼车出行记录
   async addCommuteItem(commuteItemInfo: CommuteItemCreateDto): Promise<InsertResult> {
+    if (commuteItemInfo.type === '发布') {
+      return await this.commuteItemRepository
+        .createQueryBuilder()
+        .insert()
+        .into(CommuteItemEntity)
+        .values(commuteItemInfo)
+        .execute();
+    }
+    const totalSeat =  await this.commuteRepository
+      .createQueryBuilder('commute')
+      .select(`
+        commute.seat as seat,
+        commute.restSeat as restSeat
+      `)
+      .where(
+        'id = :commuteId',
+        {commuteId: commuteItemInfo.commuteId}
+      )
+      .getRawOne();
+    const pageData = await this.queryItemList({commuteId: commuteItemInfo.commuteId});
+    if (totalSeat.seat <= pageData.length - 1) {
+      throw new HttpException('空座位数不足', HttpStatus.BAD_REQUEST);
+    }
+    await this.commuteRepository
+      .createQueryBuilder()
+      .update(CommuteEntity)
+      .set({
+        restSeat: totalSeat.restSeat - 1
+      })
+      .where(
+        'id = :commuteId',
+        {commuteId: commuteItemInfo.commuteId}
+      )
+      .execute();
+    // 增加一条预约记录
     return await this.commuteItemRepository
       .createQueryBuilder()
       .insert()
@@ -142,6 +177,27 @@ export class CommuteService {
       .delete()
       .from(CommuteItemEntity)
       .where('commute_id = :commuteId and traveler_id = :travelerId', commuteInfo)
+      .execute();
+    const totalSeat =  await this.commuteRepository
+      .createQueryBuilder('commute')
+      .select(`
+        commute.restSeat as restSeat
+      `)
+      .where(
+        'id = :commuteId',
+        {commuteId: commuteInfo.commuteId}
+      )
+      .getRawOne();
+    await this.commuteRepository
+      .createQueryBuilder()
+      .update(CommuteEntity)
+      .set({
+        restSeat: totalSeat.restSeat + 1
+      })
+      .where(
+        'id = :commuteId',
+        {commuteId: commuteInfo.commuteId}
+      )
       .execute();
     return true;
   }
