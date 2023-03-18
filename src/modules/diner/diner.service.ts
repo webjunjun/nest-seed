@@ -101,16 +101,15 @@ export class DinerService {
       .where("eat_date = :searchDate and type = '三餐'", { searchDate })
       .orderBy('created', 'DESC')
       .getOne();
-    const dataThree = await this.dinerRepository
+    let dataThree = await this.dinerRepository
       .createQueryBuilder()
       .select()
       .where("eat_date = :searchToday and type = '三餐'", { searchToday })
       .orderBy('created', 'DESC')
       .getOne();
     if (!dataTwo) {
-      // 创建
-      const newDiner = {
-        eatDate: new Date(getDateStr(1)),
+      dataTwo = this.dinerRepository.create({
+        eatDate: getDateStr(1),
         morningStart: '07:30',
         morningEnd: '09:00',
         middayStart: '11:45',
@@ -118,23 +117,16 @@ export class DinerService {
         eveningStart: '17:00',
         eveningEnd: '19:00',
         type: '三餐',
-        bookingStart: new Date(getDateStr(0) + ' 12:00:00'),
-        bookingEnd: new Date(getDateStr(0) + ' 23:59:59'),
+        bookingStart: getDateStr(0) + ' 12:00:00',
+        bookingEnd: getDateStr(0) + ' 23:59:59',
         createdId: 'system',
-        createdName: '系统'
-      }
-      await this.addOne(newDiner)
-      dataTwo = await this.dinerRepository
-      .createQueryBuilder()
-      .select()
-      .where("eat_date = :searchDate and type = '三餐'", { searchDate })
-      .orderBy('created', 'DESC')
-      .getOne();
+        createdName: '系统',
+        created: new Date()
+      })
     }
     if (!dataOne) {
-      // 创建
-      const newDiner = {
-        eatDate: new Date(getDateStr(1)),
+      dataOne = this.dinerRepository.create({
+        eatDate: getDateStr(1),
         morningStart: '-',
         morningEnd: '-',
         middayStart: '-',
@@ -142,18 +134,28 @@ export class DinerService {
         eveningStart: '-',
         eveningEnd: '-',
         type: '来客',
-        bookingStart: new Date(getDateStr(0) + ' 12:00:00'),
-        bookingEnd: new Date(getDateStr(1) + ' 10:30:00'),
+        bookingStart: getDateStr(0) + ' 12:00:00',
+        bookingEnd: getDateStr(1) + ' 10:30:00',
         createdId: 'system',
-        createdName: '系统'
-      }
-      await this.addOne(newDiner)
-      dataOne = await this.dinerRepository
-      .createQueryBuilder()
-      .select()
-      .where("eat_date = :searchDate and type = '来客'", { searchDate })
-      .orderBy('created', 'DESC')
-      .getOne();
+        createdName: '系统',
+      })
+    }
+    if (!dataThree) {
+      dataThree = this.dinerRepository.create({
+        eatDate: getDateStr(0),
+        morningStart: '07:30',
+        morningEnd: '09:00',
+        middayStart: '11:45',
+        middayEnd: '13:45',
+        eveningStart: '17:00',
+        eveningEnd: '19:00',
+        type: '三餐',
+        bookingStart: getDateStr(-1) + ' 12:00:00',
+        bookingEnd: getDateStr(-1) + ' 23:59:59',
+        createdId: 'system',
+        createdName: '系统',
+        created: new Date()
+      })
     }
     return {
       today: dataThree,

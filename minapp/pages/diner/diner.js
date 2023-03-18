@@ -399,7 +399,7 @@ Page({
   confirmBooking(e) {
     const paramsObj = e.currentTarget.dataset
     const reqData = {
-      dinerId: paramsObj.id,
+      // dinerId: paramsObj.id,
       dinerDate: paramsObj.date,
       [paramsObj.today]: paramsObj.diner,
       type: paramsObj.type,
@@ -424,7 +424,7 @@ Page({
       })
       const json = res.data
         let tomorrowData = {}
-        if (json.tomorrow && json.tomorrow.dinerId === this.data.tomorrowAll.id) {
+        if (json.tomorrow) {
           tomorrowData = {
             bookingId: json.tomorrow.id,
             status1: json.tomorrow.morning,

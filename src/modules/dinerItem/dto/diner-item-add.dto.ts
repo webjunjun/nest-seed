@@ -5,9 +5,9 @@ export class DinerItemAddDto {
   @ApiProperty({description: '就餐明细ID'})
   readonly id: number;
 
-  @ApiProperty({description: '就餐预约ID'})
-  @IsNotEmpty({message: '就餐预约ID不能为空'})
-  readonly dinerId: number;
+  // @ApiProperty({description: '就餐预约ID'})
+  // @IsNotEmpty({message: '就餐预约ID不能为空'})
+  // readonly dinerId: number;
 
   @ApiProperty({description: '就餐日期'})
   @IsNotEmpty({message: '就餐日期不能为空'})
