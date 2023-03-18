@@ -48,7 +48,7 @@ Page({
       myApp.watchLoginStatus(() => this.initPage())
     }
   },
-  onShow() {
+  async onShow() {
     // 自定义菜单选中tab
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
@@ -57,234 +57,31 @@ Page({
     }
     if (myApp.globalData.hasLogin) {
       this.initData()
-    }
-    if (myApp.globalData.refreshPage) {
-      myApp.globalData.refreshPage = false
-      this.setData({
-        noMore: false,
-        list: [],
-        currentPage: 1,
-        pageSize: 10
-      })
-      this.getVisitorList()
+      if (myApp.globalData.refreshPage) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
+        this.setData({
+          currentPage: 1,
+          pageSize: 10
+        })
+        await this.getVisitorList()
+        wx.hideLoading()
+      }
     }
   },
-  initPage() {
-    this.initData()
+  async initPage() {
     wx.showLoading({
       title: '加载中',
       mask: true
     })
-    let statsReq = {}
-    if (this.data.pageUser.role === 3) {
-      statsReq = {
-        eaterId: this.data.pageUser.id
-      }
-    }
-    Promise.all([queryTomorrowBooking(), queryMineTwoDays({
-      eaterId: this.data.pageUser.id
-    }), queryVisitorList({
-      pageSize: this.data.pageSize,
-      currentPage: this.data.currentPage
-    }), queryDinerStats(statsReq)])
-      .then((res) => {
-        // 三餐可预约时间 默认当天12:00-00:00
-        // 来客就餐可预约时间 默认当天12:00-第二天10:30
-        const json1 = res[0].data
-        if (json1.today) {
-          const eatDateArr = json1.today.eatDate.split('-')
-          json1.today.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
-        }
-        let calcTime = {
-          formatTime: '',
-          restTime: 0
-        }
-        if (json1.visit) {
-          // 首先算开始时间是否大于当前时间
-          const betweens = timeIsBetween(new Date(), json1.visit.bookingStart, json1.visit.bookingEnd)
-          if (betweens === 'left') {
-            calcTime = {
-              formatTime: formatDate(new Date(json1.visit.bookingStart)),
-              restTime: -1
-            }
-          } else {
-            calcTime = formatDate4(new Date(), json1.visit.bookingEnd)
-          }
-        }
-        let calcTime2 = {
-          formatTime: '',
-          restTime: -1
-        }
-        if (json1.meal) {
-          const eatDateArr = json1.meal.eatDate.split('-')
-          json1.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
-          const betweens = timeIsBetween(new Date(), json1.meal.bookingStart, json1.meal.bookingEnd)
-          if (betweens === 'left') {
-            calcTime2 = {
-              formatTime: formatDate(new Date(json1.meal.bookingStart)),
-              restTime: -1
-            }
-          } else {
-            calcTime2 = formatDate4(new Date(), json1.meal.bookingEnd)
-          }
-        }
-        const json2 = res[1].data
-        let todayData = {}
-        if (json2.today) {
-          todayData = {
-            status1: json2.today.morning,
-            status2: json2.today.midday,
-            status3: json2.today.evening,
-          }
-          if (json1.today) {
-            // 比较时间
-            const totalDate = json1.today
-            const dateNow = new Date()
-            if (todayData.status1 !== -1) {
-              const between1 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.morningStart}:00`, `${totalDate.eatDate} ${totalDate.morningEnd}:00`)
-              if (between1 === 'right') {
-                todayData.status1 = 3
-              } else if (between1 === 'left') {
-                todayData.status1 = 1
-              } else {
-                todayData.status1 = 2
-              }
-            }
-            if (todayData.status2 !== -1) {
-              const between2 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.middayStart}:00`, `${totalDate.eatDate} ${totalDate.middayEnd}:00`)
-              if (between2 === 'right') {
-                todayData.status2 = 3
-              } else if (between2 === 'left') {
-                todayData.status2 = 1
-              } else {
-                todayData.status2 = 2
-              }
-            }
-            if (todayData.status3 !== -1) {
-              const between3 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.eveningStart}:00`, `${totalDate.eatDate} ${totalDate.eveningEnd}:00`)
-              if (between3 === 'right') {
-                todayData.status3 = 3
-              } else if (between3 === 'left') {
-                todayData.status3 = 1
-              } else {
-                todayData.status3 = 2
-              }
-            }
-          }
-        } else {
-          todayData = {
-            status1: -1,
-            status2: -1,
-            status3: -1
-          }
-        }
-        let tomorrowData = {}
-        if (json2.tomorrow && json2.tomorrow.dinerId === json1.meal.id) {
-          tomorrowData = {
-            bookingId: json2.tomorrow.id,
-            status1: json2.tomorrow.morning,
-            status2: json2.tomorrow.midday,
-            status3: json2.tomorrow.evening
-          }
-        } else {
-          tomorrowData = {
-            bookingId: '',
-            status1: -1,
-            status2: -1,
-            status3: -1
-          }
-        }
-        const json3 = res[2].data
-        json3.list.forEach(ele => {
-          ele.dinerDate = ele.dinerDate.slice(0, 16)
-        });
-        const json4 = res[3].data
-        let threeArr = []
-        let fourArr = []
-        if (this.data.pageUser.role === 3) {
-          threeArr = [{
-            num: json4.morning,
-            unit: '次',
-            type: '早餐',
-            urlQuery: 'today'
-          }, {
-            num: json4.midday,
-            unit: '次',
-            type: '中餐',
-            urlQuery: 'today'
-          }, {
-            num: json4.evening,
-            unit: '次',
-            type: '晚餐',
-            urlQuery: 'today'
-          }]
-        } else {
-          fourArr = [{
-            num: json4.morning,
-            unit: '人',
-            type: '今日早餐',
-            urlQuery: 'today'
-          }, {
-            num: json4.midday,
-            unit: '人',
-            type: '今日中餐',
-            urlQuery: 'today'
-          }, {
-            num: json4.evening,
-            unit: '人',
-            type: '今日晚餐',
-            urlQuery: 'today'
-          }, {
-            num: json4.visit,
-            unit: '人',
-            type: '来客就餐',
-            urlQuery: 'visit'
-          }]
-        }
-        wx.setStorageSync('dinerStats', JSON.stringify({
-          fourArr,
-          threeArr
-        }))
-        const sonData = {
-          todayAll: json1.today,
-          visitAll: json1.visit,
-          tomorrowAll: json1.meal,
-          tomorrowData,
-          todayData,
-          adminArr: fourArr,
-          commonArr: threeArr,
-          visitCountdown: calcTime,
-          tomorrowCountdown: calcTime2,
-          timer: setTimeout(() => {
-            this.countdownFuc()
-          }, 1000)
-        }
-        const mealsTomorrow = json1.visit
-        let betweens = ''
-        const curUserId = this.data.pageUser.id
-        json3.list.forEach(ele => {
-          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
-          ele.canEdit = betweens === 'center' ? true : false
-          ele.dinerDate = ele.dinerDate.slice(0, 16)
-          ele.curUserId = curUserId
-        });
-        if (json3.list.length < this.data.pageSize) {
-          // 显示到底 禁止触底加载了
-          this.setData({
-            list: this.data.list.concat(json3.list),
-            noMore: true,
-            ...sonData
-          })
-        } else {
-          this.setData({
-            list: this.data.list.concat(json3.list),
-            currentPage: this.data.currentPage + 1,
-            noMore: false,
-            ...sonData
-          })
-        }
-        wx.hideLoading()
-      })
+    this.initData()
+    await this.getStatsInfo()
+    await this.bookingInfo()
+    await this.mineTwosInfo()
+    await this.getVisitorList()
+    wx.hideLoading()
   },
   initData() {
     const curUser = myApp.globalData.userInfo
@@ -381,41 +178,189 @@ Page({
       url: '/pages/publishDiner/publishDiner?type=edit&id=' + e.currentTarget.dataset.visitor,
     })
   },
-  getVisitorList() {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
+  async mineTwosInfo() {
+    const res = await queryMineTwoDays({
+      eaterId: this.data.pageUser.id
+    }).catch(() => {})
+    if (!res) {
+      return false
+    }
+    const json = res.data
+    let todayData = {}
+    if (json.today) {
+      // 存在时 1预约/-1未预约
+      todayData = {
+        status1: json.today.morning,
+        status2: json.today.midday,
+        status3: json.today.evening,
+      }
+      // 判断今日三餐在今日的状态变化
+      if (this.data.todayAll) {
+        const totalDate = this.data.todayAll.today
+        const dateNow = new Date()
+        const between1 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.morningStart}:00`, `${totalDate.eatDate} ${totalDate.morningEnd}:00`)
+        const between2 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.middayStart}:00`, `${totalDate.eatDate} ${totalDate.middayEnd}:00`)
+        const between3 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.eveningStart}:00`, `${totalDate.eatDate} ${totalDate.eveningEnd}:00`)
+        const betweenArr = [between1, between2, between3]
+        betweenArr.forEach((ele, index) => {
+          if (todayData['status' + index] !== -1) {
+            if (ele === 'right') {
+              todayData['status' + index] = 3
+            } else if (ele === 'left') {
+              todayData['status' + index] = 1
+            } else {
+              todayData['status' + index] = 2
+            }
+          }
+        })
+      }
+    } else {
+      todayData = { status1: -1, status2: -1, status3: -1 }
+    }
+    let tomorrowData = {}
+    if (json.tomorrow) {
+      tomorrowData = {
+        bookingId: json.tomorrow.id || 'system',
+        status1: json.tomorrow.morning,
+        status2: json.tomorrow.midday,
+        status3: json.tomorrow.evening
+      }
+    } else {
+      tomorrowData = { bookingId: '', status1: -1, status2: -1, status3: -1 }
+    }
+    this.setData({
+      tomorrowData,
+      todayData,
+      timer: setTimeout(() => {
+        this.countdownFuc()
+      }, 1000)
     })
-    queryVisitorList({
+  },
+  async bookingInfo() {
+    // 查询今日三餐、明日三餐、来客预约时间等数据
+    // 三餐可预约时间 默认当天12:00-00:00
+    // 来客就餐可预约时间 默认当天12:00-第二天10:30
+    const res = await queryTomorrowBooking().catch(() => {})
+    if (!res) {
+      return false
+    }
+    const json = res.data
+    if (json.today) {
+      // 转换成今日三餐需要的日期格式
+      const eatDateArr = json.today.eatDate.split('-')
+      json.today.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
+    }
+    let calcMorrowTime = {
+      formatTime: '',
+      restTime: -1
+    }
+    if (json.meal) {
+      // 转换成明日三餐需要的日期格式
+      const eatDateArr = json.meal.eatDate.split('-')
+      json.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
+      // 明日三餐预约的开启时间/结束时间格式化
+      const betweens = timeIsBetween(new Date(), json.meal.bookingStart, json.meal.bookingEnd)
+      if (betweens === 'left') {
+        calcMorrowTime = {
+          formatTime: formatDate(new Date(json.meal.bookingStart)),
+          restTime: -1
+        }
+      } else {
+        calcMorrowTime = formatDate4(new Date(), json.meal.bookingEnd)
+      }
+    }
+    let calcVisitTime = {
+      formatTime: '',
+      restTime: 0
+    }
+    if (json.visit) {
+      // 来客就餐预约的开启时间/结束时间格式化
+      const betweens = timeIsBetween(new Date(), json.visit.bookingStart, json.visit.bookingEnd)
+      if (betweens === 'left') {
+        calcVisitTime = {
+          formatTime: formatDate(new Date(json.visit.bookingStart)),
+          restTime: -1
+        }
+      } else {
+        calcVisitTime = formatDate4(new Date(), json.visit.bookingEnd)
+      }
+    }
+    this.setData({
+      todayAll: json.today,
+      visitAll: json.visit,
+      tomorrowAll: json.meal,
+      visitCountdown: calcVisitTime,
+      tomorrowCountdown: calcMorrowTime
+    })
+  },
+  async getStatsInfo() {
+    const res = await queryDinerStats({
+      id: this.data.pageUser.id
+    }).catch(() => {})
+    if (!res) {
+      return false
+    }
+    const json = res.data
+    let threeArr = []
+    let fourArr = []
+    if (this.data.pageUser.role === 3) {
+      threeArr = [
+        { num: json.morning, unit: '次', type: '早餐', urlQuery: 'today' },
+        { num: json.midday, unit: '次', type: '中餐', urlQuery: 'today' },
+        { num: json.evening, unit: '次', type: '晚餐', urlQuery: 'today'}
+      ]
+    } else {
+      fourArr = [
+        { num: json.morning, unit: '人', type: '今日早餐', urlQuery: 'today' },
+        { num: json.midday, unit: '人', type: '今日中餐', urlQuery: 'today' },
+        { num: json.evening, unit: '人', type: '今日晚餐', urlQuery: 'today'},
+        { num: json.visit, unit: '人', type: '来客就餐', urlQuery: 'visit'}
+      ]
+    }
+    this.setData({
+      adminArr: fourArr,
+      commonArr: threeArr
+    })
+    wx.setStorageSync('dinerStats', JSON.stringify({ fourArr, threeArr }))
+  },
+  async getVisitorList() {
+    const res = await queryVisitorList({
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
-    })
-      .then((res) => {
-        wx.hideLoading()
-        const mealsTomorrow = this.data.visitAll
-        let betweens = ''
-        const json = res.data
-        const curUserId = this.data.pageUser.id
-        json.list.forEach(ele => {
-          betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
-          ele.canEdit = betweens === 'center' ? true : false
-          ele.dinerDate = ele.dinerDate.slice(0, 16)
-          ele.curUserId = curUserId
-        });
-        if (json.list.length < this.data.pageSize) {
-          // 显示到底 禁止触底加载了
-          this.setData({
-            list: this.data.list.concat(json.list),
-            noMore: true
-          })
-        } else {
-          this.setData({
-            list: this.data.list.concat(json.list),
-            currentPage: this.data.currentPage + 1,
-            noMore: false
-          })
-        }
+    }).catch(() => {})
+    if (!res) {
+      return false
+    }
+    if (myApp.globalData.refreshPage) {
+      this.setData({
+        noMore: false,
+        list: []
       })
+      myApp.globalData.refreshPage = false
+    }
+    const mealsTomorrow = this.data.visitAll
+    let betweens = ''
+    const json = res.data
+    const curUserId = this.data.pageUser.id
+    json.list.forEach(ele => {
+      betweens = timeIsBetween(new Date(ele.created), mealsTomorrow.bookingStart, mealsTomorrow.bookingEnd)
+      ele.canEdit = betweens === 'center' ? true : false
+      ele.dinerDate = ele.dinerDate.slice(0, 16)
+      ele.curUserId = curUserId
+    });
+    if (json.list.length < this.data.pageSize) {
+      // 显示到底 禁止触底加载了
+      this.setData({
+        list: this.data.list.concat(json.list),
+        noMore: true
+      })
+    } else {
+      this.setData({
+        list: this.data.list.concat(json.list),
+        currentPage: this.data.currentPage + 1,
+        noMore: false
+      })
+    }
   },
   bookingMeal(e) {
     // 判断是否到预约时间
@@ -541,11 +486,25 @@ Page({
       }, 1000)
     })
   },
-  onReachBottom() {
+  async onPullDownRefresh() {
+    this.setData({
+      currentPage: 1,
+      pageSize: 10
+    })
+    myApp.globalData.refreshPage = true
+    await this.initPage()
+    wx.stopPullDownRefresh()
+  },
+  async onReachBottom() {
     if (this.data.noMore) {
       return false
     } else {
-      this.getVisitorList()
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      await this.getVisitorList()
+      wx.hideLoading()
     }
   },
   onHide() {

@@ -73,9 +73,7 @@ Page({
       mask: true
     })
     this.initData()
-    // 获取出行列表
     await this.getCommuteList()
-    // 获取出行统计信息
     await this.getStatsInfo()
     wx.hideLoading()
   },
