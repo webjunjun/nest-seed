@@ -20,10 +20,7 @@ Page({
   },
   onShow() {
     if (myApp.globalData.refreshPage) {
-      myApp.globalData.refreshPage = false
       this.setData({
-        noMore: false,
-        list: [],
         currentPage: 1,
         pageSize: 10
       })
@@ -48,6 +45,13 @@ Page({
     })
       .then((res) => {
         wx.hideLoading()
+        if (myApp.globalData.refreshPage) {
+          this.setData({
+            noMore: false,
+            list: []
+          })
+          myApp.globalData.refreshPage = false
+        }
         const json = res.data
         if (json.list.length < this.data.pageSize) {
           // 显示到底 禁止触底加载了

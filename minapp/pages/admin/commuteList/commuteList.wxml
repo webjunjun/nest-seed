@@ -10,8 +10,8 @@
     <view data-id="{{item.id}}" bindtap="viewDetail">
       <view class="weui-form-preview__hd">
         <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">出行序号</view>
-          <view class="weui-form-preview__value_in-hd">{{item.id}}</view>
+          <view class="weui-form-preview__label">出行时间</view>
+          <view class="weui-form-preview__value_in-hd">{{item.commuteDate}}</view>
         </view>
       </view>
       <view class="weui-form-preview__bd">
@@ -22,10 +22,6 @@
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">车牌号</view>
           <view class="weui-form-preview__value">{{item.licensePlate}}</view>
-        </view>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">出行时间</view>
-          <view class="weui-form-preview__value">{{item.commuteDate}}</view>
         </view>
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">出发地</view>

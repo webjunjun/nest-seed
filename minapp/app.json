@@ -46,6 +46,7 @@
     }]
   },
   "window": {
+    "backgroundColor": "#3275fd",
     "backgroundTextStyle": "light",
     "navigationBarTitleText": "政务预约小程序",
     "navigationBarTextStyle": "white",
