@@ -80,7 +80,7 @@
 .mci-desciption .mci-cell-addr {
   display: inline-block;
   text-align: justify;
-  width: calc(100% - 86rpx);
+  width: calc(100% - 100rpx);
   vertical-align: top;
 }
 .mci-item .mci-btn {

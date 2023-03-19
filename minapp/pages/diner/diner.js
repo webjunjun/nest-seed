@@ -516,5 +516,11 @@ Page({
   },
   onUnload() {
     clearTimeout(this.data.timer);
+  },
+  onShareAppMessage() {
+    return {
+      title: '就餐-王屋家',
+      path: '/pages/diner/diner'
+    }
   }
 })

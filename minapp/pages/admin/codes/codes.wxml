@@ -10,7 +10,9 @@
     <view class="weui-form-preview__hd">
       <view class="weui-form-preview__item">
         <view class="weui-form-preview__label">注册码</view>
-        <view class="weui-form-preview__value_in-hd">{{item.code}}</view>
+        <view class="weui-form-preview__value_in-hd">
+          <text user-select="{{true}}">{{item.code}}</text>
+        </view>
       </view>
     </view>
     <view class="weui-form-preview__bd">

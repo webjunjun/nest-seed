@@ -316,5 +316,11 @@ Page({
       await this.getCommuteList()
       wx.hideLoading()
     }
+  },
+  onShareAppMessage() {
+    return {
+      title: '出行-王屋家',
+      path: '/pages/commute/commute'
+    }
   }
 })
