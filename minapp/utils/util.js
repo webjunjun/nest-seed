@@ -169,6 +169,26 @@ const getCurrentPageUrl = () => {
   return currentPage.route // 获取URL
 }
 
+const getWeekDate = () => {
+  const now = new Date()
+  const nowTime = now.getTime()
+  // getDay()返回0-6，其中0表示周日，需特殊处理
+  const day = now.getDay() > 0 ? now.getDay() : 7 // 表示当前是周几
+  const oneDayTime = 24 * 60 * 60 * 1000 // 一天的总ms
+
+  // 本周一时间戳
+  const MondayTime = nowTime - (day - 1) * oneDayTime
+
+  // 本周五时间戳
+  const FridayTime = nowTime + (5 - day) * oneDayTime
+
+  // 格式化时间
+  const monday = new Date(MondayTime)
+  const friday = new Date(FridayTime)
+
+  return {monday, friday}
+}
+
 module.exports = {
   formatTime,
   formatDate,
@@ -182,5 +202,6 @@ module.exports = {
   isVehicleNumber,
   getDateStr,
   timeIsBetween,
-  getCurrentPageUrl
+  getCurrentPageUrl,
+  getWeekDate
 }

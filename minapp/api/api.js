@@ -356,3 +356,48 @@ export const queryAllCommuteList = (data) => {
     data
   })
 }
+
+// 查询是否预约
+export const queryHairBooking = (data) => {
+  return request({
+    url: '/haircut/resultBooking',
+    method: 'POST',
+    data
+  })
+}
+
+// 取消预约
+export const deleteHairBooking = (data) => {
+  return request({
+    url: '/haircut/cancel',
+    method: 'POST',
+    data
+  })
+}
+
+// 新增预约
+export const hairBooking = (data) => {
+  return request({
+    url: '/haircut/booking',
+    method: 'POST',
+    data
+  })
+}
+
+// 获取预约理发人列表
+export const queryHairList = (data) => {
+  return request({
+    url: '/haircut/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 获取本周/全部预约理发人数
+export const getHairCount = (data) => {
+  return request({
+    url: '/haircut/count',
+    method: 'POST',
+    data
+  })
+}

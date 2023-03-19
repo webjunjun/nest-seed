@@ -8,6 +8,9 @@
   <mp-cell link url="/pages/admin/visitorList/visitorList">
     <view>来客就餐预约管理</view>
   </mp-cell>
+  <mp-cell link url="/pages/admin/haircutList/haircutList">
+    <view>理发预约管理</view>
+  </mp-cell>
   <mp-cell link url="/pages/admin/setBookingList/setBookingList">
     <view>预约时间段管理</view>
   </mp-cell>

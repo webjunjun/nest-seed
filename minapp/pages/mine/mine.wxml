@@ -46,6 +46,15 @@
         </view>
         <view class="list-right"></view>
       </view>
+      <view class="list-item" data-url="haircut" bindtap="bindSwitchUrl">
+        <view class="list-info">
+          <view class="list-icon">
+            <image mode="aspectFit" src="{{mineIcon2}}"></image>
+          </view>
+          <view class="list-txt">本周理发预约</view>
+        </view>
+        <view class="list-right"></view>
+      </view>
       <view class="list-item" data-url="/pages/singlePage/singlePage?type=recipe&typeId=0" bindtap="bindSwitchUrl">
         <view class="list-info">
           <view class="list-icon">

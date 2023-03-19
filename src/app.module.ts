@@ -15,6 +15,7 @@ import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
 import { DinerModule } from './modules/diner/diner.module';
 import { DinerItemModule } from './modules/dinerItem/diner-item.module';
 import { SingleModule } from './modules/single/single.module';
+import { HaircutModule } from './modules/haircut/haircut.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -53,7 +54,8 @@ import { SingleModule } from './modules/single/single.module';
     DinerModule,
     DinerItemModule,
     SingleModule,
-    CodesModule
+    CodesModule,
+    HaircutModule
   ]
 })
 export class AppModule {}

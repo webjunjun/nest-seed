@@ -20,6 +20,7 @@
     "pages/admin/setBookingList/setBookingList",
     "pages/admin/setBookingForm/setBookingForm",
     "pages/admin/commuteList/commuteList",
+    "pages/admin/haircutList/haircutList",
     "pages/admin/editor/editor"
   ],
   "tabBar": {
