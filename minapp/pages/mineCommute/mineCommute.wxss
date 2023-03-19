@@ -47,7 +47,7 @@
   overflow: hidden;
 }
 .mci-left .mci-name {
-  font-size: 18rpx;
+  font-size: 28rpx;
   color: #333;
   margin-top: 10rpx;
   max-width: 110rpx;
@@ -61,7 +61,7 @@
 }
 .mci-date text {
   display: inline-block;
-  font-size: 18rpx;
+  font-size: 28rpx;
   color: #fff;
   background: linear-gradient(to right, #1d22cb, #272491);
   padding: 0 8rpx;
@@ -74,7 +74,7 @@
   margin-top: -8rpx;
 }
 .mci-right .mci-desciption {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333;
 }
 .mci-desciption .mci-cell-addr {

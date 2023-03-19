@@ -34,6 +34,7 @@ export class UserService {
     }
     // 更新注册码使用状况
     codeUsed.isUsed = -1;
+    codeUsed.useName = wechatInfo.realName;
     codeUsed.useDate = new Date();
     await this.registerCodeRepository.save(codeUsed);
     // 创建用户

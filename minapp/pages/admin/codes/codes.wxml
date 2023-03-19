@@ -1,0 +1,39 @@
+<view wx:if="{{list.length <= 0}}" class="weui-loadmore weui-loadmore_line">
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+</view>
+<view class="preview-wrap">
+  <view
+    wx:for="{{list}}"
+    wx:key="index"
+    class="weui-form-preview"
+  >
+    <view class="weui-form-preview__hd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">注册码</view>
+        <view class="weui-form-preview__value_in-hd">{{item.code}}</view>
+      </view>
+    </view>
+    <view class="weui-form-preview__bd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">是否使用</view>
+        <view class="weui-form-preview__value" wx:if="{{item.isUsed === 1}}">未使用</view>
+        <view class="weui-form-preview__value" wx:if="{{item.isUsed === -1}}">已使用</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">使用人</view>
+        <view class="weui-form-preview__value">{{item.useName || ''}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">使用时间</view>
+        <view class="weui-form-preview__value">{{item.useDate || ''}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">生成时间</view>
+        <view class="weui-form-preview__value">{{item.created || ''}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="fixed-bottom">
+  <button class="weui-btn" type="primary" bindtap="addItem">生成注册码</button>
+</view>

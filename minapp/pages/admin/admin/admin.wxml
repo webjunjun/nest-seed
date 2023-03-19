@@ -17,4 +17,7 @@
   <mp-cell link url="/pages/admin/singleList/singleList">
     <view>单页面管理</view>
   </mp-cell>
+  <mp-cell link url="/pages/admin/codes/codes">
+    <view>注册码管理</view>
+  </mp-cell>
 </mp-cells>

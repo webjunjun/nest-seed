@@ -1,7 +1,9 @@
 import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { RegisterCodeEntity } from 'src/entity/register-code.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CodesService } from './codes.service';
+import { CodesQueryDto } from './dto/codes-query.dto';
 
 @ApiTags('内部注册码')
 @Controller('code')
@@ -25,5 +27,23 @@ export class CodesController {
       throw new HttpException('数据格式不对', HttpStatus.BAD_REQUEST);
     }
     return '插入成功';
+  }
+
+  @ApiOperation({summary: '查询注册码列表'})
+  @UseGuards(JwtAuthGuard)
+  @Post('list')
+  async queryCodeList(@Body() codesObj: CodesQueryDto): Promise<{
+    pageSize: number,
+    currentPage: number
+    list: Array<RegisterCodeEntity>
+  }> {
+    const pageData = await this.codesService.queryList(codesObj).catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
+    return {
+      pageSize: Number(codesObj.pageSize) || 10,
+      currentPage: Number(codesObj.currentPage) || 1,
+      list: pageData
+    }
   }
 }

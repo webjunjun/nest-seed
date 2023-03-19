@@ -401,3 +401,21 @@ export const getHairCount = (data) => {
     data
   })
 }
+
+// 查询注册码列表
+export const queryCodesList = (data) => {
+  return request({
+    url: '/code/list',
+    method: 'POST',
+    data
+  })
+}
+
+// 生成注册码
+export const createCodes = (data) => {
+  return request({
+    url: '/code/generate',
+    method: 'POST',
+    data
+  })
+}
