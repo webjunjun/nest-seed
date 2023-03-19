@@ -203,13 +203,13 @@ Page({
         const between3 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.eveningStart}:00`, `${totalDate.eatDate} ${totalDate.eveningEnd}:00`)
         const betweenArr = [between1, between2, between3]
         betweenArr.forEach((ele, index) => {
-          if (todayData['status' + index] !== -1) {
+          if (todayData['status' + (index + 1)] !== -1) {
             if (ele === 'right') {
-              todayData['status' + index] = 3
+              todayData['status' + (index + 1)] = 3
             } else if (ele === 'left') {
-              todayData['status' + index] = 1
+              todayData['status' + (index + 1)] = 1
             } else {
-              todayData['status' + index] = 2
+              todayData['status' + (index + 1)] = 2
             }
           }
         })
