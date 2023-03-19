@@ -8,3 +8,19 @@ export const getDateStr = (AddDayCount: number) => {
   const _d = (d.toString())[1] ? d : `0${d}`;
   return y + '-' + _m + '-' + _d;
 }
+
+export const formatNumber = n => {
+  n = n.toString()
+  return n[1] ? n : `0${n}`
+}
+
+export const formatTime = date => {
+  const curDate = new Date(date)
+  const year = curDate.getFullYear()
+  const month = curDate.getMonth() + 1
+  const day = curDate.getDate()
+  const hour = curDate.getHours()
+  const minute = curDate.getMinutes()
+  const second = '00'
+  return `${[year, month, day].map(formatNumber).join('-')} ${[hour, minute, second].map(formatNumber).join(':')}`
+}

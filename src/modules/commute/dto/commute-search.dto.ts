@@ -20,6 +20,9 @@ export class CommuteSearchDto {
   @ApiProperty({description: '出行人名字'})
   readonly createdName: string;
 
+  @ApiProperty({description: '是否出行'})
+  readonly commuteType: string;
+
   @ApiProperty({description: '每页查询个数'})
   readonly pageSize: number;
 

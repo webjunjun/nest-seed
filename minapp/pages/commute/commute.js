@@ -31,7 +31,8 @@ Page({
     pageSize: 10,
     currentPage: 1,
     list: [],
-    noMore: false
+    noMore: false,
+    commuteType: '未出行'
   },
   onLoad() {
     if (myApp.globalData.hasLogin) {
@@ -86,6 +87,42 @@ Page({
       cellphone: curUser.phone.replace(/(?=(\d{4})+$)/g, '-'),
       avatarUrl: publicUrl + curUser.avatar
     })
+  },
+  async bindUncommute() {
+    if (this.data.commuteType === '未出行') {
+      return false
+    }
+    this.setData({
+      commuteType: '未出行',
+      pageSize: 10,
+      currentPage: 1,
+      list: [],
+      noMore: false
+    })
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    await this.getCommuteList()
+    wx.hideLoading()
+  },
+  async bindcommuted() {
+    if (this.data.commuteType === '已出行') {
+      return false
+    }
+    this.setData({
+      commuteType: '已出行',
+      pageSize: 10,
+      currentPage: 1,
+      list: [],
+      noMore: false
+    })
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    await this.getCommuteList()
+    wx.hideLoading()
   },
   goMinePage() {
     wx.navigateTo({
@@ -238,6 +275,7 @@ Page({
   },
   async getCommuteList() {
     const res = await postCommuteList({
+      commuteType: this.data.commuteType,
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     }).catch(() => {})

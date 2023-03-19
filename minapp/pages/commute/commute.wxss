@@ -31,6 +31,7 @@
   padding: 8rpx 16rpx;
   line-height: 30rpx;
   border-radius: 8rpx;
+  margin-left: 20rpx;
   background-color: #08c163;
 }
 .commute-tag .commute-success {

@@ -30,8 +30,8 @@
           <view class="commute-title-box">
             <view class="commute-title">拼车出行信息</view>
             <view class="commute-tag">
-              <view class="commute-fail">未出行</view>
-              <view class="commute-success">已出行</view>
+              <view class="{{commuteType === '未出行' ? 'commute-fail' : 'commute-success'}}" bindtap="bindUncommute">未出行</view>
+              <view class="{{commuteType === '已出行' ? 'commute-fail' : 'commute-success'}}" bindtap="bindcommuted">已出行</view>
             </view>
           </view>
           <view class="commute-list">

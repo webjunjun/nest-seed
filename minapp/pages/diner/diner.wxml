@@ -251,7 +251,7 @@
     <view class="recipe-body">
       <scroll-view class="scroll-recipe" scroll-y="true">
         <view class="sr-item">
-          <view class="sr-title">{{weekMenu.title}}</view>
+          <!-- <view class="sr-title">{{weekMenu.title}}</view> -->
           <view class="sr-desc">
             <rich-text nodes="{{weekMenu.content}}"></rich-text>
           </view>

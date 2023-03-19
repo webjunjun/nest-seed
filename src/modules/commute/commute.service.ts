@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CommuteItemEntity } from 'src/entity/commute-item.entity';
 import { CommuteEntity } from 'src/entity/commute.entity';
 import { UserEntity } from 'src/entity/user.entity';
+import { formatTime } from 'src/utils/utils';
 import { InsertResult, Repository } from 'typeorm';
 import { CommuteCreateDto } from './dto/commute-create.dto';
 import { CommuteItemCreateDto } from './dto/commute-item-create.dto';
@@ -24,6 +25,16 @@ export class CommuteService {
   async getCommuteList(pageObject: CommuteSearchDto): Promise<Array<CommuteEntity>> {
     const pageSize = pageObject.pageSize ? pageObject.pageSize : 10;
     const currentPage = pageObject.currentPage ? pageObject.currentPage : 1;
+    let preSql = '';
+    let sqlParams = {};
+    if (pageObject.commuteType === '未出行') {
+      preSql = 'commute_date > :todayDate';
+      sqlParams = {todayDate: `${formatTime(new Date())}`};
+    }
+    if (pageObject.commuteType === '已出行') {
+      preSql = 'commute_date <= :todayDate';
+      sqlParams = {todayDate: `${formatTime(new Date())}`};
+    }
     return await this.commuteRepository
       .createQueryBuilder('commute')
       .leftJoinAndSelect(UserEntity, 'user', 'user.id = commute.createdId')
@@ -45,14 +56,7 @@ export class CommuteService {
         user.avatar as avatar,
         user.phone as phone
       `)
-      .where({
-        ...(pageObject?.createdName && { createdName: pageObject.createdName }),
-        ...(pageObject?.startAddr && { startAddr: pageObject.startAddr }),
-        ...(pageObject?.endAddr && { endAddr: pageObject.endAddr }),
-        ...(pageObject?.passAddr && { passAddr: pageObject.passAddr }),
-        ...(pageObject?.commuteDate && { commuteDate: pageObject.commuteDate }),
-        ...(pageObject?.createdId && { createdId: pageObject.createdId })
-      })
+      .where(preSql, sqlParams)
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
       .orderBy('commute.commuteDate', 'DESC')
