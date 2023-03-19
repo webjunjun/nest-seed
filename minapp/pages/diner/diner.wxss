@@ -30,7 +30,7 @@
   align-items: baseline;
 }
 .diner-tab-box .dti-rest {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #ff6a03;
 }
 .booking-wrap {

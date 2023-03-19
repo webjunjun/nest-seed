@@ -148,7 +148,8 @@ Page({
       mask: true
     })
     queryVisitorList({
-      dinerDate: getDateStr(0),
+      dinerDateStart: getDateStr(0),
+      dinerDateEnd: getDateStr(0),
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     })

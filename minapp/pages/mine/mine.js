@@ -102,11 +102,13 @@ Page({
   },
   bindHaircut() {
     // 周六周日不让预约
-    const now = new Date()
-    const day = now.getDay()
-    if (day === 6 || day === 0) {
+    const weekObj = getWeekDate()
+    const mondayDate = `${formatDate2(weekObj.monday)} 06:00:00`
+    const fridayDate = `${formatDate2(weekObj.friday)} 18:00:00`
+    const betweens = timeIsBetween(new Date(), mondayDate, fridayDate)
+    if (betweens !== 'center') {
       wx.showToast({
-        title: '周末不支持本周理发预约',
+        title: '请在周一至周五预约',
         icon: 'none',
         duration: 2000,
         mask: true
@@ -117,11 +119,10 @@ Page({
       title: '加载中',
       mask: true
     })
-    const weekObj = getWeekDate()
     queryHairBooking({
       haircutId: this.data.pageUser.id,
-      haircutStart: `${formatDate2(weekObj.monday)} 00:00:00`,
-      haircutEnd: `${formatDate2(weekObj.friday)} 23:59:59`
+      haircutStart: mondayDate,
+      haircutEnd: fridayDate
     })
       .then((response) => {
         wx.hideLoading()
@@ -131,9 +132,9 @@ Page({
           })
           wx.showModal({
             title: '提示',
-            content: '已预约本周理发, 是否取消预约',
+            content: '您是否要取消本周理发预约',
             cancelText: '取消预约',
-            confirmText: '保持预约',
+            confirmText: '不取消',
             success: (res) => {
               if (!res.confirm) {
                 this.cancelBooking()
@@ -143,7 +144,7 @@ Page({
         } else {
           wx.showModal({
             title: '提示',
-            content: '确定预约本周理发嘛',
+            content: '您将预约本周理发, 请您在本周内完成理发预约',
             success: (res) => {
               if (res.confirm) {
                 this.confirmBooking()
@@ -162,8 +163,8 @@ Page({
     hairBooking({
       haircutId: this.data.pageUser.id,
       haircutName: this.data.pageUser.realName,
-      haircutStart: `${formatDate2(weekObj.monday)} 00:00:00`,
-      haircutEnd: `${formatDate2(weekObj.friday)} 23:59:59`
+      haircutStart: `${formatDate2(weekObj.monday)} 06:00:00`,
+      haircutEnd: `${formatDate2(weekObj.friday)} 18:00:00`
     })
       .then((res) => {
         wx.hideLoading()

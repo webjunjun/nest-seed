@@ -4,7 +4,7 @@ import {
   queryDinerStats
 } from '../../api/api'
 import { baseImageUrl, publicUrl } from '../../utils/config'
-import { formatDate4, timeIsBetween, formatDate } from '../../utils/util'
+import { formatDate4, timeIsBetween, formatDate, getDateStr } from '../../utils/util'
 
 Page({
   data: {
@@ -196,7 +196,7 @@ Page({
       }
       // 判断今日三餐在今日的状态变化
       if (this.data.todayAll) {
-        const totalDate = this.data.todayAll.today
+        const totalDate = this.data.todayAll
         const dateNow = new Date()
         const between1 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.morningStart}:00`, `${totalDate.eatDate} ${totalDate.morningEnd}:00`)
         const between2 = timeIsBetween(dateNow, `${totalDate.eatDate} ${totalDate.middayStart}:00`, `${totalDate.eatDate} ${totalDate.middayEnd}:00`)
@@ -325,6 +325,8 @@ Page({
   },
   async getVisitorList() {
     const res = await queryVisitorList({
+      dinerDateStart: getDateStr(0),
+      dinerDateEnd: getDateStr(6),
       pageSize: this.data.pageSize,
       currentPage: this.data.currentPage
     }).catch(() => {})

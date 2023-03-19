@@ -19,9 +19,9 @@ export class VisitorDinerService {
     const currentPage = pageObject.currentPage ? pageObject.currentPage : 1;
     let preSql = '';
     let sqlParams = {};
-    if (pageObject.dinerDate) {
+    if (pageObject.dinerDateStart && pageObject.dinerDateEnd) {
       preSql = 'diner_date >= :todayStart AND diner_date <= :todayEnd';
-      sqlParams = {todayStart: `${pageObject.dinerDate} 00:00:00`, todayEnd: `${pageObject.dinerDate} 23:59:59`};
+      sqlParams = {todayStart: `${pageObject.dinerDateStart} 00:00:00`, todayEnd: `${pageObject.dinerDateEnd} 23:59:59`};
     }
     return await this.visitorDinerRepository
       .createQueryBuilder('visitor_dinner')
@@ -44,7 +44,7 @@ export class VisitorDinerService {
       .where(preSql, sqlParams)
       .limit(pageSize)
       .offset(pageSize * (currentPage - 1))
-      .orderBy('visitor_dinner.created', 'DESC')
+      .orderBy('visitor_dinner.diner_date', 'DESC')
       .getRawMany();
   }
 

@@ -23,7 +23,7 @@
 }
 .commute-title-box .commute-tag {
   display: flex;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #fff;
 }
 .commute-tag .commute-fail {
@@ -72,7 +72,7 @@
   overflow: hidden;
 }
 .commute-left .commute-name {
-  font-size: 18rpx;
+  font-size: 28rpx;
   color: #333;
   margin-top: 10rpx;
   max-width: 110rpx;
@@ -86,7 +86,7 @@
 }
 .commute-date text {
   display: inline-block;
-  font-size: 18rpx;
+  font-size: 28rpx;
   color: #fff;
   background: linear-gradient(to right, #1d22cb, #272491);
   padding: 0 8rpx;
@@ -99,13 +99,14 @@
   margin-top: -8rpx;
 }
 .commute-right .commute-desciption {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333;
 }
 .commute-desciption .commute-cell-addr {
+  font-size: 24rpx;
   display: inline-block;
   text-align: justify;
-  width: calc(100% - 86rpx);
+  width: calc(100% - 100rpx);
   vertical-align: top;
 }
 .commute-cell-addr .commute-addr-atom {

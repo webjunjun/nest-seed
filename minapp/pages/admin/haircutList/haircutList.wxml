@@ -3,11 +3,11 @@
 </view>
 <view wx:if="{{list.length > 0}}" class="weui-flex haircut-flex">
   <view class="weui-flex__item">
-    <view>{{weekNum}}</view>
+    <view>{{weekNum}}人</view>
     <view>本周理发预约</view>
   </view>
   <view class="weui-flex__item">
-    <view>{{totalNum}}</view>
+    <view>{{totalNum}}人</view>
     <view>理发预约总数</view>
   </view>
 </view>
