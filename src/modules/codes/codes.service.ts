@@ -42,4 +42,34 @@ export class CodesService {
       .orderBy('codes.created', 'DESC')
       .getRawMany();
   }
+
+  async generateSixCode() {
+    const keys = await this.registerCodeRepository
+      .createQueryBuilder('codes')
+      .select(`
+        codes.code as code
+      `)
+      .getRawMany();
+    const ukeys = [];
+    keys.forEach(ele => {
+      ukeys.push(ele.code)
+    });
+    const arr = [];
+    let n = '';
+    for (let i = 0; i < 4; i++) {
+      n = Math.random().toString(36).substring(2, 8);
+      arr.push(n.toLocaleUpperCase());
+    }
+    // 去重
+    const arrKey = [];
+    for (let m = 0; m < arr.length; m++) {
+      if (ukeys.indexOf(arr[m]) == -1) {
+        ukeys.push(arr[m]);
+        arrKey.push({
+          code: arr[m]
+        })
+      }
+    }
+    this.generateCode(arrKey);
+  }
 }

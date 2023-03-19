@@ -414,7 +414,7 @@ export const queryCodesList = (data) => {
 // 生成注册码
 export const createCodes = (data) => {
   return request({
-    url: '/code/generate',
+    url: '/code/create',
     method: 'POST',
     data
   })

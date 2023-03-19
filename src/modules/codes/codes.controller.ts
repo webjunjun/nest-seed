@@ -46,4 +46,14 @@ export class CodesController {
       list: pageData
     }
   }
+
+  @ApiOperation({summary: '批量生成注册码'})
+  @UseGuards(JwtAuthGuard)
+  @Post('create')
+  async createCode(): Promise<string> {
+    await this.codesService.generateSixCode().catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
+    return '生成成功';
+  }
 }

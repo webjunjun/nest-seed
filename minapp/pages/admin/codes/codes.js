@@ -50,7 +50,25 @@ Page({
     }
   },
   addItem() {
-    // 
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    createCodes()
+      .then((res) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.data,
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }, 1500)
+      })
   },
   async onReachBottom() {
     if (this.data.noMore) {
