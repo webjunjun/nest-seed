@@ -66,7 +66,7 @@ export class HaircutService {
       return await this.haircutRepository
         .createQueryBuilder('haircut')
         .select()
-        .where('haircut_start = :haircutStart AND haircut_end = :haircutEnd', haircutObj)
+        .where('haircut_start >= :haircutStart AND haircut_end <= :haircutEnd', haircutObj)
         .getCount();
     } else {
       return await this.haircutRepository

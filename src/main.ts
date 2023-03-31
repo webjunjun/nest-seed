@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import rateLimit from 'express-rate-limit';
+// import rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { logger } from './middleware/logger.middleware';
@@ -14,12 +14,12 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // ip请求接口限流
-  app.use(
-    rateLimit({
-      windowMs: 60 * 1000,// 1分钟
-      max: 60, // 每个IP的windowMs(1分钟)内，最大请求值60次
-    })
-  );
+  // app.use(
+  //   rateLimit({
+  //     windowMs: 60 * 1000,// 1分钟
+  //     max: 60, // 每个IP的windowMs(1分钟)内，最大请求值60次
+  //   })
+  // );
 
   // 跨站点请求伪造CSRF保护
   // app.use(csurf());
