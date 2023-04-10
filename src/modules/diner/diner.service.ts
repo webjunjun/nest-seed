@@ -134,8 +134,8 @@ export class DinerService {
         eveningStart: '-',
         eveningEnd: '-',
         type: '来客',
-        bookingStart: getDateStr(0) + ' 12:00:00',
-        bookingEnd: getDateStr(1) + ' 10:30:00',
+        bookingStart: getDateStr(0) + ' 08:00:00',
+        bookingEnd: getDateStr(0) + ' 10:30:00',
         createdId: 'system',
         createdName: '系统',
       })
