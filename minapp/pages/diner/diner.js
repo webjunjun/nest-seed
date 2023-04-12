@@ -260,7 +260,7 @@ Page({
       json.meal.newEatDate = `${eatDateArr[1]}/${eatDateArr[2]}`
       // 明日三餐预约的开启时间/结束时间格式化
       const betweens = timeIsBetween(new Date(), json.meal.bookingStart, json.meal.bookingEnd)
-      if (betweens === 'left') {
+      if (betweens === 'left' || betweens === 'right') {
         calcMorrowTime = {
           formatTime: formatDate(new Date(json.meal.bookingStart)),
           restTime: -1
@@ -276,7 +276,7 @@ Page({
     if (json.visit) {
       // 来客就餐预约的开启时间/结束时间格式化
       const betweens = timeIsBetween(new Date(), json.visit.bookingStart, json.visit.bookingEnd)
-      if (betweens === 'left') {
+      if (betweens === 'left' || betweens === 'right') {
         calcVisitTime = {
           formatTime: formatDate(new Date(json.visit.bookingStart)),
           restTime: -1
@@ -459,7 +459,7 @@ Page({
     }
     if (mealsData) {
       const betweens = timeIsBetween(new Date(), mealsData.bookingStart, mealsData.bookingEnd)
-      if (betweens === 'left') {
+      if (betweens === 'left' || betweens === 'right') {
         calcTime = {
           formatTime: formatDate(new Date(mealsData.bookingStart)),
           restTime: -1
@@ -470,7 +470,7 @@ Page({
     }
     if (visitData) {
       const betweens = timeIsBetween(new Date(), visitData.bookingStart, visitData.bookingEnd)
-      if (betweens === 'left') {
+      if (betweens === 'left' || betweens === 'right') {
         calcTime2 = {
           formatTime: formatDate(new Date(visitData.bookingStart)),
           restTime: -1
