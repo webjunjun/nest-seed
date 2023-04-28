@@ -13,11 +13,6 @@ export class WechatRegisterDto {
   @Length(11, 11, {message: '手机号码是11位数字'})
   readonly phone: string;
 
-  @ApiProperty({description: '内部注册码'})
-  @Length(6, 6, {message: '内部注册码错误'})
-  @IsNotEmpty({message: '内部注册码不能为空'})
-  readonly registerCode: string;
-
   @ApiProperty({description: '头像'})
   @IsNotEmpty({message: '用户头像不能为空'})
   readonly avatar: string;

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "出行管理",
-  "usingComponents": {
-    "mp-dialog": "weui-miniprogram/dialog/dialog"
-  }
-}

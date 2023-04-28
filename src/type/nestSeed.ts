@@ -1,10 +1,5 @@
-enum codeNumber {
-  successCode = 1,
-  errorCode = -1
-}
-
 export interface ResponseData<T> {
-  code: codeNumber; // 1: 成功 -1: 失败
+  code: 1 | -1; // 1: 成功 -1: 失败
   statusCode: number; // 请求返回的状态码
   msg: string; // 状态描述
   data: T; // 返回json
@@ -31,11 +26,4 @@ export type WechatResponse = {
   unionid: string,
   errcode: number,
   errmsg: string
-}
-
-export type ModifyUserLicensePlate = {
-  userId: string,
-  licensePlate: string,
-  updateId: string,
-  updateName: string
 }

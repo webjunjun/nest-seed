@@ -4,18 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import envConfig from './config/env'
 import { CoreModule } from './core/core.module';
-import { HelloModule } from './modules/hello/hello.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RedisCacheModule } from './modules/redis/redis-cache.module';
 import { UploadModule } from './modules/upload/upload.module';
-import { CodesModule } from './modules/codes/codes.module';
-import { CommuteModule } from './modules/commute/commute.module';
-import { VisitorDinerModule } from './modules/visitorDiner/diner.module';
-import { DinerModule } from './modules/diner/diner.module';
-import { DinerItemModule } from './modules/dinerItem/diner-item.module';
-import { SingleModule } from './modules/single/single.module';
-import { HaircutModule } from './modules/haircut/haircut.module';
 
 @Module({
   // 所有模块导入在这里，才能生效
@@ -46,16 +38,8 @@ import { HaircutModule } from './modules/haircut/haircut.module';
     RedisCacheModule,
     CoreModule,
     UploadModule,
-    HelloModule,
     AuthModule,
-    UserModule,
-    CommuteModule,
-    VisitorDinerModule,
-    DinerModule,
-    DinerItemModule,
-    SingleModule,
-    CodesModule,
-    HaircutModule
+    UserModule
   ]
 })
 export class AppModule {}

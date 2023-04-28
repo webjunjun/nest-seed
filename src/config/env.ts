@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { envType } from 'src/type/env';
+import { envType } from './types/env';
 
 const currentEnv = process.env.NODE_ENV === 'production';
 

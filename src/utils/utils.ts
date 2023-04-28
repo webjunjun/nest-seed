@@ -9,12 +9,12 @@ export const getDateStr = (AddDayCount: number) => {
   return y + '-' + _m + '-' + _d;
 }
 
-export const formatNumber = n => {
+export const formatNumber = (n: string | number) => {
   n = n.toString()
   return n[1] ? n : `0${n}`
 }
 
-export const formatTime = date => {
+export const formatTime = (date: string) => {
   const curDate = new Date(date)
   const year = curDate.getFullYear()
   const month = curDate.getMonth() + 1
@@ -23,14 +23,4 @@ export const formatTime = date => {
   const minute = curDate.getMinutes()
   const second = '00'
   return `${[year, month, day].map(formatNumber).join('-')} ${[hour, minute, second].map(formatNumber).join(':')}`
-}
-
-export const generateMixed = (n) => {
-  const chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-  let res = "";
-  for(let i = 0; i < n ; i++) {
-    var id = Math.floor(Math.random()*36);
-    res += chars[id];
-  }
-  return res;
 }

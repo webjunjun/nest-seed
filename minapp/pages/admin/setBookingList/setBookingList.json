@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "预约时间段管理",
-  "usingComponents": {
-    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
-  }
-}

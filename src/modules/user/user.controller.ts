@@ -7,11 +7,6 @@ import { WechatLoginDto } from './dto/wechat-login.dto';
 import { WechatRegisterDto } from './dto/wechat-register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserUpdateDto } from './dto/user-update.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { UserQueryDto } from './dto/user-query.dto';
-import { UserDeleteDto } from './dto/user-delete.dto';
-import { UserRoleDto } from './dto/user-role.dto';
 
 @ApiTags('用户')
 @Controller('user')
@@ -62,50 +57,5 @@ export class UserController {
   async wechatRegister(@Body() user: WechatRegisterDto): Promise<string> {
     await this.userService.registerWechatUser(user);
     return '注册成功';
-  }
-
-  @ApiOperation({summary: '个人信息修改'})
-  @Post('update')
-  async updateUserInfo(@Body() user: UserUpdateDto): Promise<string> {
-    await this.userService.updateUserData(user);
-    return '修改个人信息成功';
-  }
-
-  @ApiOperation({summary: '查询用户列表'})
-  @UseGuards(JwtAuthGuard)
-  @Post('list')
-  async queryUserList(@Body() userObject: UserQueryDto): Promise<{
-    pageSize: number,
-    currentPage: number
-    list: Array<UserEntity>
-  }> {
-    const pageData = await this.userService.queryList(userObject).catch(() => {
-      throw new HttpException('查询用户列表失败', HttpStatus.BAD_REQUEST);
-    });
-    return {
-      pageSize: Number(userObject.pageSize) || 10,
-      currentPage: Number(userObject.currentPage) || 1,
-      list: pageData
-    }
-  }
-
-  @ApiOperation({summary: '删除用户'})
-  @UseGuards(JwtAuthGuard)
-  @Post('delete')
-  async deleteUser(@Body() userObject: UserDeleteDto): Promise<string> {
-    await this.userService.deleteOne(userObject).catch(() => {
-      throw new HttpException('删除用户失败', HttpStatus.BAD_REQUEST);
-    });
-    return '删除用户成功';
-  }
-
-  @ApiOperation({summary: '设置用户角色'})
-  @UseGuards(JwtAuthGuard)
-  @Post('role')
-  async setUserRole(@Body() userObject: UserRoleDto): Promise<string> {
-    await this.userService.setUserRole(userObject).catch(() => {
-      throw new HttpException('设置用户角色失败', HttpStatus.BAD_REQUEST);
-    });
-    return '设置用户角色成功';
   }
 }

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "就餐",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon",
-    "popup": "../../components/popup/index"
-  }
-}

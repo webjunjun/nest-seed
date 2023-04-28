@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "后台管理",
-  "usingComponents": {
-    "mp-cells": "weui-miniprogram/cells/cells",
-    "mp-cell": "weui-miniprogram/cell/cell"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "发布来客就餐",
-  "usingComponents": {
-    "date-time-picker": "../../components/date-time-picker/index"
-  }
-}
