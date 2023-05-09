@@ -14,7 +14,7 @@ import { RedisCacheService } from '../redis/redis-cache.service';
   controllers: [UserController],
   // 涉及其他模块的service层必须注入对应的模块
   providers: [UserService, AuthService, JwtService, RedisCacheService],
-  // 暴露本模块的service层
+  // 暴露本模块的service层 每个导入该模块将会访问同一实例
   exports: [UserService],
 })
 export class UserModule {}

@@ -11,8 +11,11 @@ import { ResponseData } from 'src/type/nestSeed';
 export class ResponseInterceptor<T> implements NestInterceptor<T, ResponseData<T>> {
   intercept(context: ExecutionContext, next: CallHandler): Observable<ResponseData<T>> {
     const ctx = context.switchToHttp();
-    const httpStatus = ctx.getResponse<Response>().statusCode;
+    const response = ctx.getResponse<Response>();
+    const httpStatus = response.statusCode;
     const ctxReq = context.getArgByIndex(1).req;
+
+    response.header('Content-Type', 'application/json; charset=utf-8');
 
     return next.handle().pipe(map(data => {
       const logFormat = ` <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

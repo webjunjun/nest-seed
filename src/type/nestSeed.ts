@@ -1,5 +1,13 @@
+enum CodeNumber {
+  successCode = 1,
+  errorCode = -1
+}
+
+type CodeNumberKeys = keyof typeof CodeNumber;
+type CodeNumberValues = typeof CodeNumber[CodeNumberKeys];
+
 export interface ResponseData<T> {
-  code: 1 | -1; // 1: 成功 -1: 失败
+  code: CodeNumberValues; // 1: 成功 -1: 失败
   statusCode: number; // 请求返回的状态码
   msg: string; // 状态描述
   data: T; // 返回json
