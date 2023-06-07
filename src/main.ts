@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -12,6 +12,11 @@ import * as express from'express';
 async function bootstrap() {
   // 创建应用
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // api多版本控制
+  app.enableVersioning({
+    type: VersioningType.URI
+  })
 
   // ip请求接口限流
   app.use(

@@ -2,7 +2,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 // 用户表
-@Entity('wwz_user', {
+@Entity('nestjs_user', {
   orderBy: {
     created: 'ASC'
   }
@@ -21,6 +21,7 @@ export class UserEntity {
   @Column({comment: '用户名', length: 16, nullable: true})
   username: string;
 
+  // 指定nanme属性为数据库列里的字段 在系统里就可以使用驼峰命名了
   @Column({name: 'real_name', comment: '真实姓名', length: 16, nullable: true})
   realName: string;
 
@@ -33,10 +34,12 @@ export class UserEntity {
   @Column({comment: '用户头像', length: 255, nullable: true})
   avatar: string;
 
+  @Column({name: 'account_status', comment: '账户状态 1: 未注销 -1: 已注销', nullable: false, default: 1})
+  accountStatus: number;
+
   @Column({comment: '创建时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})
   created: Date;
 
-  // 指定nanme属性为数据库列里的字段 在系统里就可以使用驼峰命名了
   @Column({name: 'last_login', comment: '最后登录时间', type: 'timestamp', nullable: true, default: () => 'CURRENT_TIMESTAMP'})
   lastLogin: Date;
 
