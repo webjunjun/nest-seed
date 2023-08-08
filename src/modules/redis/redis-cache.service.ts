@@ -12,7 +12,7 @@ export class RedisCacheService {
     // ttl设置为0，缓存永不过期 默认是5秒 单位是秒
     // 解决时间设置不生效
     // https://github.com/dabroek/node-cache-manager-redis-store/issues/40
-    this.cacheManager.set(key, value, {ttl} as any).catch((e) => {
+    this.cacheManager.set(key, value, { ttl } as any).catch((e) => {
       throw new HttpException('缓存设置失败', HttpStatus.BAD_REQUEST);
     });
   }

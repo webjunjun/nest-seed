@@ -35,7 +35,7 @@ export class UserService {
     if (!phone) {
       throw new HttpException('手机号不能为空', HttpStatus.BAD_REQUEST);
     }
-    return this.userRepository.findOneBy({phone: phone});
+    return this.userRepository.findOneBy({ phone: phone });
   }
 
   // 根据微信openid查询单个用户
@@ -43,7 +43,7 @@ export class UserService {
     if (!openid) {
       throw new HttpException('微信openid不能为空', HttpStatus.BAD_REQUEST);
     }
-    return this.userRepository.findOneBy({openid: openid});
+    return this.userRepository.findOneBy({ openid: openid });
   }
 
   async queryList(singleObject: UserQueryDto): Promise<Array<UserEntity>> {
@@ -68,7 +68,7 @@ export class UserService {
       .createQueryBuilder()
       .delete()
       .from(UserEntity)
-      .where('id = :id', {id: singleObject.id})
+      .where('id = :id', { id: singleObject.id })
       .execute();
     return true;
   }

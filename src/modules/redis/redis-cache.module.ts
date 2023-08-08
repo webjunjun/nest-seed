@@ -16,7 +16,7 @@ const redisStore = require('cache-manager-redis-store').redisStore;
           host: configService.get<string>('REDIS_HOST'), // 地址
           port: configService.get<number>('REDIS_PORT'), // 端口号
           db: configService.get<number>('REDIS_DB'), // 目标库,
-          auth_pass:  configService.get<string>('REDIS_PASSPORT') // 密码,没有可以不写
+          auth_pass: configService.get<string>('REDIS_PASSPORT') // 密码,没有可以不写
         };
       }
     })

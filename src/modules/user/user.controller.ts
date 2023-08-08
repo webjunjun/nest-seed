@@ -52,14 +52,14 @@ export class UserController {
     };
   }
 
-  @ApiOperation({summary: '微信小程序注册'})
+  @ApiOperation({ summary: '微信小程序注册' })
   @Post('registerWechat')
   async wechatRegister(@Body() user: WechatRegisterDto): Promise<string> {
     await this.userService.registerWechatUser(user);
     return '注册成功';
   }
 
-  @ApiOperation({summary: '微信小程序注册'})
+  @ApiOperation({ summary: '微信小程序注册' })
   @Post('registerWechat')
   @Version('1')
   async wechatRegister1(@Body() user: WechatRegisterDto): Promise<string> {

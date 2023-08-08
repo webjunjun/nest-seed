@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 @Controller('file')
 export class UploadController {
 
-  @ApiOperation({summary: '上传头像'})
+  @ApiOperation({ summary: '上传头像' })
   // @UseGuards(JwtAuthGuard)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))

@@ -20,7 +20,7 @@ export class AuthService {
     phone: string
   }): Promise<string> {
     const payload = { id: user.id, phone: user.phone };
-    const token = await this.jwtService.signAsync(payload, {secret: NestSeedConstants.secret});
+    const token = await this.jwtService.signAsync(payload, { secret: NestSeedConstants.secret });
     // token保存到redis里
     this.redisCacheService.cacheSet(
       `WWZBOOKING:${user.phone}&${user.id}`,
